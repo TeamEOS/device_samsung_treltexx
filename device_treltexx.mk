@@ -156,6 +156,9 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     audio.primary.universal5433
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    af.fast_track_multiplier=1
+
 ###########################################################
 ### OMX/MEDIA
 ###########################################################
