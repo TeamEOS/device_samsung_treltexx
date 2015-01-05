@@ -50,10 +50,10 @@
 #define PCM_CARD_SPDIF 1
 #define PCM_TOTAL 2
 
-#define PCM_DEVICE 0
-#define PCM_DEVICE_VOICE 1
-#define PCM_DEVICE_SCO 2
-#define PCM_DEVICE_DEEP 3
+#define PCM_DEVICE 0       /* Playback link */
+#define PCM_DEVICE_VOICE 1 /* Baseband link */
+#define PCM_DEVICE_SCO 2   /* Bluetooth link */
+#define PCM_DEVICE_DEEP 3  /* Deep buffer */
 
 #define MIXER_CARD 0
 
@@ -87,7 +87,7 @@ struct pcm_config pcm_config_deep = {
 struct pcm_config pcm_config_in = {
     .channels = 2,
     .rate = 48000,
-    .period_size = 256,
+    .period_size = 1024,
     .period_count = 2,
     .format = PCM_FORMAT_S16_LE,
 };
@@ -385,8 +385,11 @@ static void select_devices(struct audio_device *adev)
     enable_hdmi_audio(adev, adev->out_device & AUDIO_DEVICE_OUT_AUX_DIGITAL);
 
     new_route_id = (1 << (input_source_id + OUT_DEVICE_CNT)) + (1 << output_device_id);
-    if ((new_route_id == adev->cur_route_id) && (adev->es325_mode == adev->es325_new_mode))
+    if ((new_route_id == adev->cur_route_id) &&
+        (adev->es325_mode == adev->es325_new_mode)) {
         return;
+    }
+
     adev->cur_route_id = new_route_id;
     adev->es325_mode = adev->es325_new_mode;
 
@@ -410,23 +413,26 @@ static void select_devices(struct audio_device *adev)
                 output_device_id = OUT_DEVICE_SPEAKER;
                 break;
             }
+
             input_route =
-                    route_configs[input_source_id][output_device_id]->input_route;
+                (route_configs[input_source_id][output_device_id])->input_route;
             new_es325_preset =
-                route_configs[input_source_id][output_device_id]->es325_preset[adev->es325_mode];
+                (route_configs[input_source_id][output_device_id])->es325_preset[adev->es325_mode];
         }
         // disable noise suppression when capturing front and back mic for voice recognition
         if ((adev->input_source == AUDIO_SOURCE_VOICE_RECOGNITION) &&
-                (adev->in_channel_mask == AUDIO_CHANNEL_IN_FRONT_BACK))
+            (adev->in_channel_mask == AUDIO_CHANNEL_IN_FRONT_BACK)) {
             new_es325_preset = -1;
+        }
     } else {
         if (output_device_id != OUT_DEVICE_NONE) {
             output_route =
-                    route_configs[IN_SOURCE_MIC][output_device_id]->output_route;
+                    (route_configs[IN_SOURCE_MIC][output_device_id])->output_route;
         }
     }
 
-    ALOGV("select_devices() devices %#x input src %d output route %s input route %s",
+    ALOGV("select_devices() devices: %#x, input src: %d, "
+          "output route: %s input route %s",
           adev->out_device, adev->input_source,
           output_route ? output_route : "none",
           input_route ? input_route : "none");
