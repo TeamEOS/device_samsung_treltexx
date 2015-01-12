@@ -382,7 +382,9 @@ static void select_devices(struct audio_device *adev)
 
     audio_route_reset(adev->ar);
 
+#ifndef HDMI_INCAPABLE
     enable_hdmi_audio(adev, adev->out_device & AUDIO_DEVICE_OUT_AUX_DIGITAL);
+#endif
 
     new_route_id = (1 << (input_source_id + OUT_DEVICE_CNT)) + (1 << output_device_id);
     if ((new_route_id == adev->cur_route_id) &&
