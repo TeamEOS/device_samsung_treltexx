@@ -1,0 +1,12 @@
+#
+# system.prop for trelte
+#
+ro.product.model=SM-N910C
+ro.product.brand=samsung
+ro.product.name=treltexx
+ro.product.device=trelte
+
+ro.sf.lcd_density=640
+
+rild.libargs=-d /dev/ttyS0
+rild.libpath=/system/lib/libsec-ril.so

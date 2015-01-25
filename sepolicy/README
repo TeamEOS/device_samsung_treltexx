@@ -1,0 +1,5 @@
+BOARD_SEPOLICY_DIRS defines the directory where the device-specific policy
+files exist. BOARD_SEPOLICY_UNION means the final policy configuration is the
+result of combining the general policy files and the device-specific policy
+files. During the Android building procedure, the build system will check the
+conflict between the different policies.

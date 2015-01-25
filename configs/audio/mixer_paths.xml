@@ -1,0 +1,58 @@
+<mixer>
+
+  <!-- Playback paths -->
+
+  <path name="media-speaker">
+  </path>
+
+  <path name="media-headphones">
+  </path>
+
+  <path name="speaker-and-headphones">
+  </path>
+
+  <path name="voice-rec-speaker">
+  </path>
+
+  <path name="voice-rec-headphones">
+  </path>
+
+  <path name="communication-speaker">
+  </path>
+
+  <path name="communication-headphones">
+  </path>
+
+  <path name="bt-sco-headset">
+  </path>
+
+  <!-- Capture paths -->
+
+  <path name="main-mic">
+  </path>
+
+  <path name="media-main-mic">
+  </path>
+
+  <path name="media-second-mic">
+  </path>
+
+  <path name="media-headset-mic">
+  </path>
+
+  <path name="voice-rec-main-mic">
+  </path>
+
+  <path name="voice-rec-headset-mic">
+  </path>
+
+  <path name="communication-main-mic">
+  </path>
+
+  <path name="communication-headset-mic">
+  </path>
+
+  <path name="bt-sco-mic">
+  </path>
+
+</mixer>
