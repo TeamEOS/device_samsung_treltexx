@@ -187,6 +187,14 @@ PRODUCT_PACKAGES += \
 	SamsungServiceMode \
 	Torch
 
+###########################################################
+### DEFAULT PROPS
+###########################################################
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.hardware=universal5433
+    ro.boot.hardware=universal5433
+
 $(call inherit-product-if-exists, hardware/samsung_slsi/exynos5-insignal/exynos5.mk)
 $(call inherit-product-if-exists, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 $(call inherit-product-if-exists, build/target/product/full.mk)
