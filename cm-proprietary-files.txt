@@ -113,10 +113,6 @@ vendor/lib/libWVStreamControlAPI_L1.so
 vendor/lib/libwvdrm_L1.so
 vendor/lib/libwvm.so
 
-### LPM
-bin/lpm
-lib/libQmageDecoder.so
-
 ### RNDG
 bin/exyrngd
 
