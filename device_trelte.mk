@@ -14,15 +14,11 @@ LOCAL_PATH := device/samsung/trelte
 ###########################################################
 
 PRODUCT_PACKAGES += \
-    fstab.universal5430 \
-    init.universal5430.rc \
-    init.universal5430.usb.rc \
-    init.universal5430.wifi.rc \
-    ueventd.universal5430.rc
-
-# This file gets automatically copied to the recovery root by CM.
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/recovery/init.recovery.universal5430.rc:root/init.recovery.universal5430.rc
+    fstab.universal5433 \
+    init.universal5433.rc \
+    init.universal5433.usb.rc \
+    init.universal5433.wifi.rc \
+    ueventd.universal5433.rc
 
 ###########################################################
 ### PERMISSONS
