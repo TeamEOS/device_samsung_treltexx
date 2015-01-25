@@ -1,0 +1,152 @@
+### Bluetooth
+vendor/firmware/BT_FW_BCM4358A1_001.002.005.0032.0066.hcd
+vendor/firmware/bcm43569.hcd
+vendor/firmware/bcm43569A0_murata.hcd
+vendor/firmware/bcm43569A0_semco.hcd
+vendor/firmware/bcm43569A1_murata.hcd
+vendor/firmware/bcm43569A1_semco.hcd
+
+### Wifi
+etc/wifi/bcmdhd_apsta.bin
+etc/wifi/bcmdhd_apsta.bin_a0
+etc/wifi/bcmdhd_ibss.bin
+etc/wifi/bcmdhd_mfg.bin
+etc/wifi/bcmdhd_mfg.bin_a0
+etc/wifi/bcmdhd_sta.bin
+etc/wifi/bcmdhd_sta.bin_a0
+etc/wifi/cred.conf
+etc/wifi/nvram_mfg.txt
+etc/wifi/nvram_mfg.txt_a0
+etc/wifi/nvram_mfg.txt_murata
+etc/wifi/nvram_net.txt
+etc/wifi/nvram_net.txt_a0
+etc/wifi/nvram_net.txt_murata
+
+### NFC
+vendor/firmware/sec_s3fwrn5_firmware.bin
+
+### Media
+# hevc for v4l2
+vendor/firmware/hevc_fw.bin
+# S5P Multi Format Codec
+vendor/firmware/mfc_fw.bin
+# Image subsystem
+vendor/firmware/fimc_is_fw2_imx240.bin
+vendor/firmware/fimc_is_ois_63A.bin
+vendor/firmware/fimc_is_ois_63B.bin
+
+### Audio
+etc/firmware/florida-dsp1-edac.bin
+etc/firmware/florida-dsp1-edac.wmfw
+etc/firmware/florida-dsp2-tx-fb-meeting.bin
+etc/firmware/florida-dsp2-tx-fb-meeting.wmfw
+etc/firmware/florida-dsp2-tx-nb.wmfw
+etc/firmware/florida-dsp2-tx-swb.wmfw
+etc/firmware/florida-dsp2-tx-wb.wmfw
+etc/firmware/florida-dsp3-ez2-control.wmfw
+etc/firmware/florida-dsp3-lpsd-control.bin
+etc/firmware/florida-dsp3-tx-nb.bin
+etc/firmware/florida-dsp3-tx-nb.wmfw
+etc/firmware/florida-dsp3-tx-swb-conversation.bin
+etc/firmware/florida-dsp3-tx-swb-interview.bin
+etc/firmware/florida-dsp3-tx-swb.wmfw
+etc/firmware/florida-dsp3-tx-wb-meeting.bin
+etc/firmware/florida-dsp3-tx-wb-meeting.wmfw
+etc/firmware/florida-dsp3-tx-wb.bin
+etc/firmware/florida-dsp3-tx-wb.wmfw
+etc/firmware/florida-dsp4-dsm.wmfw
+etc/firmware/florida-dsp4-rx-anc-nb.bin
+etc/firmware/florida-dsp4-rx-anc-nb.wmfw
+etc/firmware/florida-dsp4-rx-anc-wb.bin
+etc/firmware/florida-dsp4-rx-anc-wb.wmfw
+lib/libmysound.so
+lib/libaudiosa.so
+lib/soundfx/libaudiosa_sec.so
+vendor/lib/liblvverx_3.25.00.so
+vendor/lib/liblvvetx_3.25.00.so
+# audio decoder
+vendor/firmware/seiren_fw_dram.bin
+vendor/firmware/seiren_fw_sram.bin
+
+### Camera
+lib/hw/camera.universal5433.so
+lib/libarccamera.so
+lib/libarcplatform.so
+lib/libarcsoft_magicshot_bestface_T.so
+lib/libarcsoft_magicshot_bestphoto_T.so
+lib/libarcsoft_magicshot_common_T.so
+lib/libarcsoft_magicshot_drama_T.so
+lib/libarcsoft_magicshot_eraser_T.so
+lib/libarcsoft_magicshot_picmotion_T.so
+lib/libarcsoft_night_shot_ex.so
+lib/libarcsoft_nighthawk.so
+lib/libarcsoft_nightportrait.so
+lib/libarcsoft_panorama_burstcapture.so
+lib/libarcsoft_picaction.so
+lib/libarcsoft_picmotion_T.so
+lib/libarcsoft_preprocessor_T.so
+lib/libarcsoft_readengine_T.so
+lib/libarcsoft_selfie_camera_lite.so
+lib/libarcsoft_sensorndk.so
+lib/libarcsoft_vdoinvideo.so
+lib/libarcsoft_wideselfie.so
+vendor/firmware/setfile_6d1.bin
+vendor/firmware/setfile_imx240.bin
+
+### GPS
+bin/gpsd
+bin/gps.cer
+lib/hw/gps.default.so
+
+### HWC
+vendor/lib/libmalicore.bc
+vendor/lib/egl/libGLES_mali.so
+vendor/lib/libRSDriverArm.so
+
+### Sensors
+lib/hw/sensors.universal5433.so
+
+### Widevine
+vendor/lib/drm/libdrmwvmplugin.so
+vendor/lib/mediadrm/libwvdrmengine.so
+vendor/lib/libWVStreamControlAPI_L1.so
+vendor/lib/libwvdrm_L1.so
+vendor/lib/libwvm.so
+
+### LPM
+bin/lpm
+lib/libQmageDecoder.so
+
+### RNDG
+bin/exyrngd
+
+### RIL
+lib/libsecnativefeature.so
+lib/libsec-ril.so
+
+### Mobicore
+app/FFFFFFFF000000000000000000000001.drbin
+app/mcRegistry/00060308060501020000000000000000.tlbin
+app/mcRegistry/02010000080300030000000000000000.tlbin
+app/mcRegistry/07010000000000000000000000000000.tlbin
+app/mcRegistry/07060000000000000000000000000000.tlbin
+app/mcRegistry/ffffffff000000000000000000000004.tlbin
+app/mcRegistry/ffffffff000000000000000000000005.tlbin
+app/mcRegistry/ffffffff00000000000000000000000a.tlbin
+app/mcRegistry/ffffffff00000000000000000000000b.tlbin
+app/mcRegistry/ffffffff00000000000000000000000c.tlbin
+app/mcRegistry/ffffffff00000000000000000000000d.tlbin
+app/mcRegistry/ffffffff00000000000000000000000e.tlbin
+app/mcRegistry/ffffffff00000000000000000000000f.tlbin
+app/mcRegistry/ffffffff000000000000000000000011.tlbin
+app/mcRegistry/ffffffff000000000000000000000012.tlbin
+app/mcRegistry/ffffffff000000000000000000000013.tlbin
+app/mcRegistry/ffffffff000000000000000000000016.tlbin
+app/mcRegistry/ffffffff000000000000000000000017.tlbin
+app/mcRegistry/ffffffff000000000000000000000018.tlbin
+app/mcRegistry/ffffffff000000000000000000000019.tlbin
+app/mcRegistry/ffffffffd00000000000000000000004.tlbin
+app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
+app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
+app/mcRegistry/ffffffffd00000000000000000000014.tlbin
+app/mcRegistry/ffffffffd00000000000000000000016.tlbin
