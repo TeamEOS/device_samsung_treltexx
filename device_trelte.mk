@@ -10,6 +10,13 @@ DEVICE_PACKAGE_OVERLAYS += device/samsung/trelte/overlay
 LOCAL_PATH := device/samsung/trelte
 
 ###########################################################
+### FLAT DEVICE TREE
+###########################################################
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/dtb.img:dt.img
+
+###########################################################
 ### RAMDISK
 ###########################################################
 
