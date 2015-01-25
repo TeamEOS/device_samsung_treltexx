@@ -195,6 +195,13 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.hardware=universal5433 \
     ro.boot.hardware=universal5433
 
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.selinux=permissive \
+    ro.secure=0 \
+    ro.debuggable=1 \
+    persist.service.adb.enable=1
+    
+
 $(call inherit-product-if-exists, hardware/samsung_slsi/exynos5-insignal/exynos5.mk)
 $(call inherit-product-if-exists, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 $(call inherit-product-if-exists, build/target/product/full.mk)
