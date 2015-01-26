@@ -292,7 +292,7 @@ static int get_output_device_id(audio_devices_t device)
     }
 }
 
-static int get_input_source_id(audio_source_t source)
+static int get_input_source_id(audio_source_t source, bool wb_amr)
 {
     switch (source) {
     case AUDIO_SOURCE_DEFAULT:
@@ -306,6 +306,9 @@ static int get_input_source_id(audio_source_t source)
     case AUDIO_SOURCE_VOICE_COMMUNICATION:
         return IN_SOURCE_VOICE_COMMUNICATION;
     case AUDIO_SOURCE_VOICE_CALL:
+        if (wb_amr) {
+            return IN_SOURCE_VOICE_CALL_WB;
+        }
         return IN_SOURCE_VOICE_CALL;
     default:
         return IN_SOURCE_NONE;
@@ -404,7 +407,7 @@ static int set_hdmi_channels(struct audio_device *adev, int channels) {
 static void select_devices(struct audio_device *adev)
 {
     int output_device_id = get_output_device_id(adev->out_device);
-    int input_source_id = get_input_source_id(adev->input_source);
+    int input_source_id = get_input_source_id(adev->input_source, adev->wb_amr);
     const char *output_route = NULL;
     const char *input_route = NULL;
     int new_route_id;
@@ -664,8 +667,6 @@ static void adev_set_wb_amr_callback(void *data, int enable)
 {
     struct audio_device *adev = (struct audio_device *)data;
 
-    ALOGV("%s: setting to: %d", __func__, enable);
-
     pthread_mutex_lock(&adev->lock);
 
     if (adev->wb_amr != enable) {
@@ -673,12 +674,13 @@ static void adev_set_wb_amr_callback(void *data, int enable)
 
         /* reopen the modem PCMs at the new rate */
         if (adev->in_call) {
-#if 0
-            /* TODO: set rate properly */
+            ALOGV("%s: %s Incall Wide Band support",
+                  __func__,
+                  enable ? "Turn on" : "Turn off");
+
             stop_voice_call(adev);
             select_devices(adev);
             start_voice_call(adev);
-#endif
         }
     }
 
