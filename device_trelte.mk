@@ -118,7 +118,7 @@ PRODUCT_PACKAGES += \
 	audio.a2dp.default \
 	audio.usb.default \
 	audio.r_submix.default \
-	audio.primary.universal5430
+	audio.primary.universal5433
 
 ###########################################################
 ### OMX/MEDIA
@@ -133,14 +133,14 @@ PRODUCT_COPY_FILES += \
 ###########################################################
 
 PRODUCT_PACKAGES += \
-	power.universal5430
+	power.universal5433
 
 ###########################################################
 ### LIGHTS
 ###########################################################
 
 PRODUCT_PACKAGES += \
-	lights.universal5430
+	lights.universal5433
 
 ###########################################################
 ### GPS
