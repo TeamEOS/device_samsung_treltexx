@@ -30,7 +30,7 @@ endif
 LOCAL_C_INCLUDES += \
 	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include \
 	external/tinyalsa/include \
-	device/samsung/slte/libs/voicefx \
+	device/samsung/trelte/libs/voicefx \
 	$(call include-path-for, audio-effects) \
 	$(call include-path-for, audio-utils) \
 	$(call include-path-for, audio-route)
