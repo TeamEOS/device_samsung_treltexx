@@ -152,6 +152,7 @@ BOARD_VENDOR := samsung
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5433
+TARGET_OTA_ASSERT_DEVICE := trelte,treltexx
 
 # SeLinux
 BOARD_SEPOLICY_DIRS := \
