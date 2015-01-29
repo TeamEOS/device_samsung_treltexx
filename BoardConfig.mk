@@ -150,6 +150,9 @@ BOARD_BATTERY_DEVICE_NAME := battery
 # RIL
 BOARD_VENDOR := samsung
 
+# Recovery
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5433
+
 # SeLinux
 BOARD_SEPOLICY_DIRS := \
 	device/samsung/slte/sepolicy
