@@ -1,1 +1,2 @@
+add_lunch_combo cm_trelte-eng
 add_lunch_combo cm_trelte-userdebug
