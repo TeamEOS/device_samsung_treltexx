@@ -13,11 +13,6 @@
 
 
 # VOLD
-/devices/platform/dw_mmc.2/mmc_host/mmc2,/devices/15560000.dwmmc2/mmc_host/mmc1					auto 					vfat	default		voldmanaged=extSdCard:auto,noemulatedsd
-/devices/platform/exynos-dwc3.0/exynos-xhci/usb*sda,/devices/15400000.usb/15400000.dwc3/xhci-hcd.4.auto/usb*sda            auto                    vfat    default     voldmanaged=UsbDriveA:auto
-/devices/platform/exynos-dwc3.0/exynos-xhci/usb*sdb,/devices/15400000.usb/15400000.dwc3/xhci-hcd.4.auto/usb*sdb            auto                    vfat    default     voldmanaged=UsbDriveB:auto
-/devices/platform/exynos-dwc3.0/exynos-xhci/usb*sdc,/devices/15400000.usb/15400000.dwc3/xhci-hcd.4.auto/usb*sdc            auto                    vfat    default     voldmanaged=UsbDriveC:auto
-/devices/platform/exynos-dwc3.0/exynos-xhci/usb*sdd,/devices/15400000.usb/15400000.dwc3/xhci-hcd.4.auto/usb*sdd            auto                    vfat    default     voldmanaged=UsbDriveD:auto
-/devices/platform/exynos-dwc3.0/exynos-xhci/usb*sde,/devices/15400000.usb/15400000.dwc3/xhci-hcd.4.auto/usb*sde            auto                    vfat    default     voldmanaged=UsbDriveE:auto
-/devices/platform/exynos-dwc3.0/exynos-xhci/usb*sdf,/devices/15400000.usb/15400000.dwc3/xhci-hcd.4.auto/usb*sdf           auto                    vfat    default     voldmanaged=UsbDriveF:auto
+/devices/platform/dw_mmc.2/mmc_host/mmc2		auto 			auto	default	    voldmanaged=sdcard1:auto
+/devices/platform/exynos-dwc3.0/exynos-xhci/            auto                    auto    default     voldmanaged=usbdisk:auto
 
