@@ -876,22 +876,6 @@
         <ctl name="LHPF2 Input 1" value="ISRC2INT2" />
     </path>
 
-    <path name="scenario-camcorder">
-        <ctl name="DSP3 Aux 1" value="None" />
-        <ctl name="ASRC RATE 1" value="SYNCCLK rate 3" />
-        <ctl name="AIF1TX1 Input 3" value="None" />
-        <ctl name="AIF1TX2 Input 3" value="None" />
-        <ctl name="HPOUT3L Input 2" value="None" />
-        <ctl name="HPOUT3R Input 2" value="None" /> <!-- STMR -->
-        <ctl name="EQ1 Input 1" value="None" />
-        <ctl name="LHPF2 Input 1" value="IN1R" />
-        <ctl name="ISRC2DEC1 Input" value="LHPF2" />
-        <ctl name="ASRC1L Input" value="ISRC2DEC1" />
-        <ctl name="ASRC1R Input" value="ISRC2DEC1" />
-        <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
-        <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
-    </path>
-
     <!-- ### Volume ### -->
 
     <path name="volume-builtin-mic-default">
@@ -954,18 +938,6 @@
         <ctl name="EQ2 Input 1" value="IN3L" />
         <ctl name="ISRC2DEC2 Input" value="EQ2" />
         <ctl name="DSP3L Input 1" value="ISRC2DEC2" />
-    </path>
-
-    <path name="scenario-camcorder">
-        <ctl name="ASRC RATE 1" value="SYNCCLK rate 1" />
-        <ctl name="AIF1TX1 Input 3" value="None" />
-        <ctl name="AIF1TX2 Input 3" value="None" />
-        <ctl name="EQ2 Input 1" value="None" />
-        <ctl name="LHPF2 Input 1" value="IN3L" />
-        <ctl name="ASRC1L Input" value="LHPF1" />
-        <ctl name="ASRC1R Input" value="LHPF1" />
-        <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
-        <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
     </path>
 
     <!-- ### Volume ### -->
