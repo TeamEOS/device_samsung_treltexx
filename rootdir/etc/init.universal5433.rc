@@ -833,9 +833,9 @@ service battery_charger /charger
 
 # SecEDS
 service TvoutService_C /system/bin/bintvoutservice
-     class main
-     user system
-     group graphics
+    class main
+    user system
+    group graphics
 on property:ro.SecEDS.enable=false
     stop TvoutService_C
 
@@ -871,7 +871,7 @@ on property:sys.mobicoredaemon.enable=true
 
 # Reactivation lock
 service actlmand /system/bin/actlmand
-	class late_start
+    class late_start
 
 # RTC logging daemon
 service rtc_log /system/bin/sh /system/bin/rtc_log.sh
@@ -891,13 +891,13 @@ service swapon /sbin/sswap -s
 # Bluetooth dhcpcd config
 service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
     class main
-	disabled
-	oneshot
+    disabled
+    oneshot
 
 service iprenew_bt-pan /system/bin/dhcpcd -n
     class late_start
-	disabled
-	oneshot
+    disabled
+    oneshot
 
 # ITP mode enter/exit
     setprop ril.cbd.modechan 1
