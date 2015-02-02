@@ -1,6 +1,5 @@
 import init.universal5433.usb.rc
 import init.universal5433.wifi.rc
-import init.fac.rc
 
 on init
     # See storage config details at http://source.android.com/tech/storage/
