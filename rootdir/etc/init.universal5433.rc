@@ -937,13 +937,14 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
 	oneshot
 
 # ITP mode enter/exit
-setprop ril.cbd.modechan 1
+    setprop ril.cbd.modechan 1
 
 on property:ril.cbd.modechan=0
     restart ril-daemon
 
 on property:ril.cbd.modechan=2
     restart ril-daemon
+
 #STE mmd
 service mmd /system/bin/mmd
     class main
