@@ -975,7 +975,3 @@ on property:persist.sys.storage_preload=1
 
 on property:persist.sys.storage_preload=0
     start umount_service
-
-# Reactivation lock
-	service actlmand /system/bin/actlmand
-	class late_start
