@@ -158,3 +158,6 @@
 
 #SysScope
 /dev/block/mmcblk0p8      0660   system     system
+
+# rfkill
+/dev/rfkill               0660   root       wifi
