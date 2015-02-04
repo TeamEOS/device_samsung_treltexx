@@ -161,3 +161,14 @@
 
 # rfkill
 /dev/rfkill               0660   root       wifi
+
+# from Samsung init.rc
+/dev/ovr*                 0664   root       system
+/dev/hidraw1              0664   root       system
+/dev/url                  0660   secnetfilter    secnetfilter
+
+# EFS
+/dev/block/mmcblk0p3	  0600	 system		system
+
+# RPMB
+/dev/block/mmcblk0rpmb	  0600	 system		system
