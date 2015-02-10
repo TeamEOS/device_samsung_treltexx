@@ -90,8 +90,53 @@ on post-fs-data
     chown system system /data/privatemode
     restorecon /data/privatemode
 
+# [ SEC_MM_DRM
+    # sdrm
+    mkdir /efs/drm 0774 drm system
+    mkdir /efs/drm/sdrm 0774 drm system
+    mkdir /efs/drm/sdrm/data_agent 0774 drm system
+    restorecon /efs/drm
+    restorecon /efs/drm/sdrm
+    restorecon /efs/drm/data_agent
+
+    # DRM directory creation
+    mkdir /system/etc/security/.drm 0775
+    chown root root /system/etc/security/.drm
+    chmod 0775 /system/etc/security/.drm
+
+    # Added for Playready DRM Support
+    mkdir /data/data/.drm 0775
+    chown drm system /data/data/.drm
+    chmod 0775 /data/data/.drm
+    mkdir /data/data/.drm/.playready 0775
+    chown drm system /data/data/.drm/.playready
+    chmod 0775 /data/data/.drm/.playready
+
+    # Added drm folder to copy drm plugins
+    mkdir /system/lib/drm 0775
+    chown root root /system/lib/drm
+    chmod 0775 /system/lib/drm
+
+    # DivX DRM
+    mkdir /efs/.files 0775
+    mkdir /efs/.files/.dx1 0775
+    mkdir /efs/.files/.dm33 0775
+    mkdir /efs/.files/.mp301 0775
+    chown media system /efs/.files/.dx1
+    chown media system /efs/.files/.dm33
+    chown media system /efs/.files/.mp301
+    chmod 0775 /efs/.files/.dx1
+    chmod 0775 /efs/.files/.dm33
+    chmod 0775 /efs/.files/.mp301
+
+    restorecon -R /efs
+#]
+
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
+
+    # /proc/cmdline for samsung devices
+    chown root radio /proc/cmdline
 
     # Reduce reserved lowmem from ~48MB to ~12MB
     write /proc/sys/vm/lowmem_reserve_ratio "128 128"
@@ -360,6 +405,29 @@ on boot
 # IPSec for VOLTE
     chown root system /dev/socket
     chmod 0775 /dev/socket
+
+    # Switch Device
+    chown system radio /sys/class/sec/switch/usb_sel
+    chown system radio /sys/class/sec/switch/uart_sel
+    chown system radio /sys/class/sec/switch/otg_test
+    chown system radio /sys/class/sec/switch/apo_factory
+
+    # NFC_BROADCOM
+    chmod 0600 /dev/bcm2079x
+    chown nfc nfc /dev/bcm2079x
+    mkdir /data/bcmnfc
+    mkdir /data/bcmnfc/param
+    chmod 0700 /data/bcmnfc
+    chmod 0700 /data/bcmnfc/param
+    chown nfc nfc /data/bcmnfc
+    chown nfc nfc /data/bcmnfc/param
+
+    #nfc
+    setprop ro.nfc.port "I2C"
+    mkdir /data/nfc 0700 nfc nfc
+    mkdir /data/nfc/param 0700 nfc nfc
+    chown nfc nfc /dev/pn547
+    chmod 0600 /dev/pn547
     
 #Private Mode
 service privatemode /system/bin/sdcard /data/privatemode /mnt/shell/privatemode 1000 1000
@@ -752,6 +820,27 @@ on property:ro.debuggable=1
     chmod 0666 /sys/class/mhl/test_case
     chmod 0666 /sys/class/mhl/test_v2
     chmod 0666 /sys/class/mhl/connection
+
+service epmd /system/bin/epmd
+    class main
+    socket epm stream 0660 system system
+    socket ppm stream 0660 system system
+    ioprio be 2
+
+service mobex-daemon /system/bin/npsmobex
+    class main
+    user system
+    group system radio inet sdcard_r sdcard_rw media_rw shell
+
+# SAMSUNG DRS Service
+service drsd /system/bin/drsd
+    class main
+    socket drsd stream 600 system system
+
+service sensorhubservice /system/bin/sensorhubservice
+    class main
+    user system
+    group input
 
 service cpboot-daemon /sbin/cbd -d -tstem7400 -bl -ml -p 13
     class main
