@@ -159,6 +159,7 @@ BOARD_SEPOLICY_DIRS := \
 	device/samsung/trelte/sepolicy
 
 BOARD_SEPOLICY_UNION := \
+	app.te \
 	file_contexts \
 	file.te \
 	ueventd.te
