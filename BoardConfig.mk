@@ -160,9 +160,12 @@ BOARD_SEPOLICY_DIRS := \
 
 BOARD_SEPOLICY_UNION := \
 	app.te \
+	device.te \
+	domain.te \
 	file_contexts \
 	file.te \
-	ueventd.te
+	vold.te \
+	uventd.te
 
 # inherit from the proprietary version
 -include vendor/samsung/trelte/BoardConfigVendor.mk

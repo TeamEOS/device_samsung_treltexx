@@ -1,0 +1,3 @@
+# Log fsck results
+allow vold fscklogs:dir rw_dir_perms;
+allow vold fscklogs:file create_file_perms;

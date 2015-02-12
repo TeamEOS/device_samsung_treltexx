@@ -11,6 +11,8 @@
 /dev/v4l-subdev[0-9]*   u:object_r:video_device:s0
 /dev/media[0-3]*        u:object_r:camera_device:s0
 
+/dev/fscklogs(/.*)?     u:object_r:fscklogs:s0
+
 ####################################
 # wifi files
 /data/\.cid\.info       u:object_r:wifi_data_file:s0
