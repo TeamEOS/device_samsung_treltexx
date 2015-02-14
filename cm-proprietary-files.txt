@@ -26,6 +26,13 @@ etc/wifi/nvram_net.txt_murata
 vendor/firmware/sec_s3fwrn5_firmware.bin
 
 ### Media
+# OMX blobs
+lib/omx/libOMX.Exynos.AVC.Decoder.so
+lib/omx/libOMX.Exynos.AVC.Encoder.so
+lib/omx/libOMX.Exynos.MPEG4.Decoder.so
+lib/omx/libOMX.Exynos.MPEG4.Encoder.so
+lib/omx/libOMX.Exynos.VP8.Decoder.so
+lib/omx/libOMX.Exynos.VP8.Encoder.so
 # hevc for v4l2
 vendor/firmware/hevc_fw.bin
 # S5P Multi Format Codec
@@ -90,6 +97,9 @@ lib/libarcsoft_selfie_camera_lite.so
 lib/libarcsoft_sensorndk.so
 lib/libarcsoft_vdoinvideo.so
 lib/libarcsoft_wideselfie.so
+lib/libexynoscamera.so
+lib/libliveframework.so
+lib/libvdis.so
 vendor/firmware/setfile_6d1.bin
 vendor/firmware/setfile_imx240.bin
 
@@ -104,6 +114,12 @@ vendor/lib/egl/libGLES_mali.so
 vendor/lib/libRSDriverArm.so
 
 ### Sensors
+# sensorhub
+bin/lhd
+etc/lhd.conf
+bin/sensorhubservice
+# fingerprint reader
+bin/vcsFPService
 lib/hw/sensors.universal5433.so
 
 ### Widevine
@@ -117,6 +133,20 @@ vendor/lib/libwvm.so
 bin/exyrngd
 
 ### RIL
+# network throughput
+bin/argosd
+# STE debug
+bin/debug_interface_proxy
+# VoLTE support
+bin/IPSecService
+# STE modem daemon
+bin/mmd
+# Android radio daemon
+bin/rild
+lib/libaudio-ril.so
+lib/libreference-ril.so
+lib/libril.so
+lib/librilutils.so
 lib/libsecnativefeature.so
 lib/libsec-ril.so
 
@@ -146,3 +176,7 @@ app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
 app/mcRegistry/ffffffffd00000000000000000000014.tlbin
 app/mcRegistry/ffffffffd00000000000000000000016.tlbin
+
+## ???
+bin/drsd
+bin/npsmobex
