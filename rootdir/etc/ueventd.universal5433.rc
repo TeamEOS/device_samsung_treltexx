@@ -64,12 +64,6 @@
 /dev/video8               0660   media      media
 /dev/video9               0660   media      media
 
-# mfc 1
-/dev/video66              0660   media      media
-/dev/video67              0660   media      media
-/dev/video68              0660   media      media
-/dev/video69              0660   media      media
-
 # camera
 /dev/video100             0660   media      media
 /dev/video101             0660   media      media
@@ -91,6 +85,9 @@
 /dev/video149             0660   media      media
 /dev/media2               0660   media      media
 
+# fingerprint sensor
+/dev/vfsspi        0660   system     system
+
 # hevc
 /dev/video10              0660   media      media
 /dev/video11              0660   media      media
@@ -101,10 +98,6 @@
 
 # audio
 /dev/seiren               0660   system     audio
-
-# MobiCore
-/dev/mobicore             0600   drmrpc     drmrpc
-/dev/mobicore-user        0660   drm        drmrpc
 
 # Secure MEM driver
 /dev/s5p-smem             0660   drm        drmrpc
@@ -130,22 +123,11 @@
 /dev/block/mmcblk0p14     0660   system     radio
 /dev/umts*                0660   system     radio
 
-# USB Device
-/dev/usb/lp*              0660   system     usb
-/dev/ttyUSB*              0660   system     usb
-
 # MIF
 /dev/block/mmcblk0p13     0660   system     radio
 /dev/umts*                0660   system     radio
 # DNT
 /dev/block/mmcblk0p15     0660   system     system
-
-# MobiCore
-/dev/mobicore             0700   system     system
-/dev/mobicore-user        0666   radio     	system
-
-# Secure MEM driver
-/dev/s5p-smem             0660   system     system
 
 # Broadcom Sensorhub Bridge Driver
 /dev/bbd_sensor           0660   system     system
@@ -156,19 +138,6 @@
 /dev/bbd_patch            0660   system     system
 /dev/ttyBCM*              0660   system     system
 
-#SysScope
-/dev/block/mmcblk0p8      0660   system     system
-
-# rfkill
-/dev/rfkill               0660   root       wifi
-
-# from Samsung init.rc
-/dev/ovr*                 0664   root       system
-/dev/hidraw1              0664   root       system
-/dev/url                  0660   secnetfilter    secnetfilter
-
-# EFS
-/dev/block/mmcblk0p3	  0600	 system		system
-
-# RPMB
-/dev/block/mmcblk0rpmb	  0600	 system		system
+# MobiCore
+/dev/mobicore             0700   system     system
+/dev/mobicore-user        0666   radio     system
