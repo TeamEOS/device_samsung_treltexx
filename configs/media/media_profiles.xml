@@ -111,7 +111,7 @@
              frameRate="30" />
 
       <Audio codec="aac"
-             bitRate="128000"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
@@ -150,7 +150,7 @@
              frameRate="30" />
 
       <Audio codec="aac"
-             bitRate="128000"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
@@ -162,8 +162,8 @@
              height="720"
              frameRate="30" />
 
-            <Audio codec="aac"
-             bitRate="128000"
+      <Audio codec="aac"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
@@ -176,7 +176,7 @@
              frameRate="30" />
 
       <Audio codec="aac"
-             bitRate="128000"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
@@ -210,7 +210,7 @@
             does not capture audio
       -->
       <Audio codec="aac"
-             bitRate="128000"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
@@ -260,8 +260,8 @@
             The Audio part of the profile will not be used since time lapse mode
             does not capture audio
       -->
-            <Audio codec="aac"
-             bitRate="128000"
+      <Audio codec="aac"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
@@ -278,9 +278,9 @@
             does not capture audio
       -->
      <Audio codec="aac"
-             bitRate="128000"
-             sampleRate="48000"
-             channels="2" />
+            bitRate="256000"
+            sampleRate="48000"
+            channels="2" />
     </EncoderProfile>
 
     <EncoderProfile quality="timelapse1080p" fileFormat="mp4" duration="30">
@@ -295,7 +295,7 @@
             does not capture audio
       -->
       <Audio codec="aac"
-             bitRate="128000"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
@@ -307,7 +307,7 @@
 
     </CamcorderProfiles>
 
-       <CamcorderProfiles cameraId="1" startOffsetMs="700">
+    <CamcorderProfiles cameraId="1" startOffsetMs="700">
 
     <EncoderProfile quality="low" fileFormat="mp4" duration="30">
       <Video codec="h264"
@@ -330,7 +330,7 @@
              frameRate="30" />
 
       <Audio codec="aac"
-             bitRate="128000"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
@@ -369,7 +369,7 @@
              frameRate="30" />
 
       <Audio codec="aac"
-             bitRate="128000"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
@@ -382,7 +382,7 @@
              frameRate="30" />
 
       <Audio codec="aac"
-             bitRate="128000"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
@@ -395,7 +395,7 @@
              frameRate="30" />
 
       <Audio codec="aac"
-             bitRate="128000"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
@@ -429,26 +429,26 @@
              does not capture audio
        -->
       <Audio codec="aac"
-             bitRate="128000"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
 
     <EncoderProfile quality="timelapseqcif" fileFormat="mp4" duration="30">
       <Video codec="h264"
-			       bitRate="384000"
-			       width="176"
-			       height="144"
-			       frameRate="30" />
+             bitRate="384000"
+             width="176"
+             height="144"
+             frameRate="30" />
 
- <!--
-       The Audio part of the profile will not be used since time lapse mode
-       does not capture audio
- -->
+      <!--
+             The Audio part of the profile will not be used since time lapse mode
+             does not capture audio
+      -->
       <Audio codec="aac"
-			       bitRate="128000"
-			       sampleRate="48000"
-			       channels="2" />
+             bitRate="128000"
+             sampleRate="48000"
+             channels="2" />
     </EncoderProfile>
 
     <EncoderProfile quality="timelapseqvga" fileFormat="mp4" duration="30">
@@ -479,8 +479,8 @@
             The Audio part of the profile will not be used since time lapse mode
             does not capture audio
       -->
-            <Audio codec="aac"
-             bitRate="128000"
+      <Audio codec="aac"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
@@ -497,7 +497,7 @@
              does not capture audio
        -->
       <Audio codec="aac"
-             bitRate="128000"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
@@ -514,15 +514,15 @@
              does not capture audio
        -->
       <Audio codec="aac"
-             bitRate="128000"
+             bitRate="256000"
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
 
-        <ImageEncoding quality="95" />
-        <ImageEncoding quality="80" />
-        <ImageEncoding quality="70" />
-        <ImageDecoding memCap="20000000" />
+    <ImageEncoding quality="95" />
+    <ImageEncoding quality="80" />
+    <ImageEncoding quality="70" />
+    <ImageDecoding memCap="20000000" />
 
     </CamcorderProfiles>
 
