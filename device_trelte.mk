@@ -22,9 +22,11 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     fstab.universal5433 \
+    init.carrier.rc \
     init.universal5433.rc \
     init.universal5433.usb.rc \
     init.universal5433.wifi.rc \
+    init.wifi.rc \
     ueventd.universal5433.rc
 
 ###########################################################
