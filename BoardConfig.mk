@@ -165,7 +165,7 @@ BOARD_SEPOLICY_UNION := \
 	file_contexts \
 	file.te \
 	vold.te \
-	uventd.te
+	ueventd.te
 
 # inherit from the proprietary version
 -include vendor/samsung/trelte/BoardConfigVendor.mk
