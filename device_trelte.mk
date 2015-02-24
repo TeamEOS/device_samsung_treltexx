@@ -201,10 +201,6 @@ PRODUCT_PACKAGES += \
 ###########################################################
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.hardware=universal5433 \
-    ro.boot.hardware=universal5433
-
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.selinux=permissive \
     ro.secure=0 \
     ro.debuggable=1 \
