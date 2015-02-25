@@ -15,12 +15,7 @@
  */
 
 #define CAMERA_PARAMETERS_EXTRA_C \
-    const char CameraParameters::EFFECT_POINT_RED_YELLOW[] = "point-red-yellow"; \
-    const char CameraParameters::EFFECT_POINT_GREEN[] = "point-green"; \
-    const char CameraParameters::EFFECT_POINT_BLUE[] = "point-blue";
+    const char CameraParameters::PIXEL_FORMAT_YUV420SP_NV21[] = "yuv420sp";
 
 #define CAMERA_PARAMETERS_EXTRA_H \
-    static const char EFFECT_CARTOONIZE[]; \
-    static const char EFFECT_POINT_RED_YELLOW[]; \
-    static const char EFFECT_POINT_GREEN[]; \
-    static const char EFFECT_POINT_BLUE[];
+    static const char PIXEL_FORMAT_YUV420SP_NV21[]; // NV21
