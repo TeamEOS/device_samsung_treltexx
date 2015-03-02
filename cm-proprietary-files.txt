@@ -95,7 +95,7 @@ vendor/firmware/setfile_imx240.bin
 ### GPS
 bin/gpsd
 bin/gps.cer
-lib/hw/gps.default.so
+lib/hw/gps.default.so:lib/hw/gps.universal5433.so
 
 ### HWC
 vendor/lib/egl/libGLES_mali.so
