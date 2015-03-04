@@ -138,8 +138,8 @@ PRODUCT_COPY_FILES += \
 ### POWER
 ###########################################################
 
-#PRODUCT_PACKAGES += \
-#	power.universal5433
+PRODUCT_PACKAGES += \
+	power.universal5433
 
 ###########################################################
 ### LIGHTS
