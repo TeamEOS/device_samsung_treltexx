@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2014 The Android Open Source Project
- * Copyright (c) 2014 Andreas Schneider <asn@cryptomilk.org>
+ * Copyright (c) 2014 Christopher N. Hesse <raymanfx@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@
 #include <hardware/power.h>
 
 #define BOOSTPULSE_PATH "/sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse"
-#define TOUCHSCREEN_PATH "/sys/class/input/input1"
+#define TOUCHSCREEN_PATH "/sys/class/input/input2"
 
 struct exynos5433_power_module {
     struct power_module base;
@@ -120,7 +120,7 @@ static void exynos5433_power_init(struct power_module *module)
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate", "20000");
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack", "20000");
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time", "40000");
-    sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq", "1000000");
+    sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq", "900000");
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load", "84");
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads", "75");
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay", "19000");
@@ -158,9 +158,9 @@ static void exynos5433_power_init(struct power_module *module)
     sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq", "1000000");
 
     sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load", "89");
-    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads", "80 1000000:82 1200000:85 1500000:90");
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads", "80 1000000:81 1400000:87 1700000:90");
 
-    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay", "79000 1200000:119000 1700000:19000");
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay", "59000 1200000:119000 1700000:19000");
 
     sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration", "59000");
 
@@ -186,11 +186,12 @@ static void exynos5433_power_set_interactive(struct power_module *module, int on
     /*
      * Lower maximum frequency when screen is off.  CPU 0 and 1 share a
      * cpufreq policy.
-     */
+     * NOT FOUND IN STOCK POWER HAL. DISABLING.
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
                 on ? "1700000" : "800000");
     sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq",
                 on ? "1700000" : "800000");
+     */
 
     sysfs_write(exynos5433_pwr->touchscreen_power_path, on ? "1" : "0");
 
