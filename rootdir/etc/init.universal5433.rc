@@ -1055,6 +1055,9 @@ service at_distributor /system/bin/at_distributor
 
 # MobiCore startup
 service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF000000000000000000000001.drbin -r /system/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin -r /system/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
+    class core
+    user system
+    group system
 
 service ss_kb_service /system/bin/ss_kbservice_daemon
     class main
