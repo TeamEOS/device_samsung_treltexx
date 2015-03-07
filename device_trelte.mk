@@ -79,11 +79,11 @@ PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.opengles.version=196608
+    ro.opengles.version=196608
 
 PRODUCT_PACKAGES += \
-	libion_exynos \
-	gralloc.exynos5
+    libion_exynos \
+    gralloc.exynos5
 
 ###########################################################
 ### RADIO
@@ -102,88 +102,88 @@ PRODUCT_PACKAGES += \
 ###########################################################
 
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-	$(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+    $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	wifi.interface=wlan0
+    wifi.interface=wlan0
 
 PRODUCT_PACKAGES += \
-	libnetcmdiface \
-	macloader
+    libnetcmdiface \
+    macloader
 
 ###########################################################
 ### AUDIO
 ###########################################################
 
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
-	$(LOCAL_PATH)/configs/audio/mixer_paths.xml:system/etc/mixer_paths.xml
+    $(LOCAL_PATH)/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/configs/audio/mixer_paths.xml:system/etc/mixer_paths.xml
 
 PRODUCT_PACKAGES += \
-	audio.a2dp.default \
-	audio.usb.default \
-	audio.r_submix.default \
-	audio.primary.universal5433
+    audio.a2dp.default \
+    audio.usb.default \
+    audio.r_submix.default \
+    audio.primary.universal5433
 
 ###########################################################
 ### OMX/MEDIA
 ###########################################################
 
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
-	$(LOCAL_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml
+    $(LOCAL_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml
 
 ###########################################################
 ### POWER
 ###########################################################
 
 PRODUCT_PACKAGES += \
-	power.universal5433
+    power.universal5433
 
 ###########################################################
 ### LIGHTS
 ###########################################################
 
 PRODUCT_PACKAGES += \
-	lights.universal5433
+    lights.universal5433
 
 ###########################################################
 ### GPS
 ###########################################################
 
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/gps/gps.conf:system/etc/gps.conf \
-	$(LOCAL_PATH)/configs/gps/gps.xml:system/etc/gps.xml
+    $(LOCAL_PATH)/configs/gps/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/configs/gps/gps.xml:system/etc/gps.xml
 
 ###########################################################
 ### CAMERA
 ###########################################################
 
 PRODUCT_PACKAGES += \
-	libhwjpeg
+    libhwjpeg
 
 ###########################################################
 ### TOUCHSCREEN
 ###########################################################
 
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/idc/Synaptics_HID_TouchPad.idc:/system/usr/idc/Synaptics_HID_TouchPad.idc
+    $(LOCAL_PATH)/configs/idc/Synaptics_HID_TouchPad.idc:/system/usr/idc/Synaptics_HID_TouchPad.idc
 
 ###########################################################
 ### STYLUS
 ###########################################################
 
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/idc/ft5x06_ts.idc:/system/usr/idc/ft5x06_ts.idc
+    $(LOCAL_PATH)/configs/idc/ft5x06_ts.idc:/system/usr/idc/ft5x06_ts.idc
 
 ###########################################################
 ### CHARGER
 ###########################################################
 
 PRODUCT_PACKAGES += \
-	charger_res_images \
-	charger
+    charger_res_images \
+    charger
 
 ###########################################################
 ### MTP
@@ -197,8 +197,8 @@ PRODUCT_PACKAGES += \
 ###########################################################
 
 PRODUCT_PACKAGES += \
-	SamsungServiceMode \
-	Torch
+    SamsungServiceMode \
+    Torch
 
 ###########################################################
 ### DEFAULT PROPS
