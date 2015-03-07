@@ -83,6 +83,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PACKAGES += \
     libion_exynos \
+    hwcomposer.exynos5 \
     gralloc.exynos5
 
 ###########################################################
@@ -223,6 +224,16 @@ PRODUCT_PACKAGES += \
     libPaApi \
     libgdmcprov \
     mcDriverDaemon
+
+###########################################################
+### EXYNOS 5 OMX
+###########################################################
+
+PRODUCT_PACKAGES += \
+    libcsc \
+    libExynosOMX_Core \
+    libOMX.Exynos.MP3.Decoder \
+    libstagefrighthw \
 
 ###########################################################
 ### PACKAGES
