@@ -164,6 +164,7 @@ BOARD_SEPOLICY_DIRS := \
 BOARD_SEPOLICY_UNION := \
 	app.te \
 	domain.te \
+	exyrngd.te \
 	file_contexts \
 	file.te \
 	recovery.te \
