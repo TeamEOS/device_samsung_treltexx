@@ -78,7 +78,9 @@ TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 # Graphics
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl/egl.cfg
 USE_OPENGL_RENDERER := true
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+
+# frameworks/native/services/surfaceflinger
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
 
 # HWCServices
 #BOARD_USES_HWC_SERVICES := true
