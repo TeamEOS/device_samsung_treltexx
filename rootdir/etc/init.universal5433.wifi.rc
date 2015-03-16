@@ -105,6 +105,7 @@ service wlandutservice /system/bin/wlandutservice
 
 service macloader /system/bin/macloader
     class main
+    seclabel u:r:macloader:s0
     oneshot
 
 on property:init.svc.macloader=stopped

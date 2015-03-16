@@ -670,6 +670,7 @@ service exyrngd /system/bin/exyrngd -b
     user root
     group root
     class main
+    seclabel u:r:exyrngd:s0
     oneshot
 
 # virtual sdcard daemon running as media_rw (1023)
@@ -734,6 +735,7 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     user gps
     group system inet net_raw
     ioprio be 0
+    seclabel u:r:gpsd:s0
 
 # SENSOR FRAMEWORK : starts fingerprintService
 service vcsFPService /system/bin/vcsFPService
