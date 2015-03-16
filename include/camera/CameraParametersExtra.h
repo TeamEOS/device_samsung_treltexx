@@ -15,7 +15,21 @@
  */
 
 #define CAMERA_PARAMETERS_EXTRA_C \
-    const char CameraParameters::PIXEL_FORMAT_YUV420SP_NV21[] = "yuv420sp";
+    const char CameraParameters::PIXEL_FORMAT_YUV420SP_NV21[] = "yuv420sp"; \
+    const char CameraParameters::EFFECT_CARTOONIZE[] = "cartoonize"; \
+    const char CameraParameters::EFFECT_POINT_RED_YELLOW[] = "point-red-yellow"; \
+    const char CameraParameters::EFFECT_POINT_GREEN[] = "point-green"; \
+    const char CameraParameters::EFFECT_POINT_BLUE[] = "point-blue"; \
+    const char CameraParameters::EFFECT_VINTAGE_COLD[] = "vintage-cold"; \
+    const char CameraParameters::EFFECT_VINTAGE_WARM[] = "vintage-warm"; \
+    const char CameraParameters::EFFECT_WASHED[] = "washed";
 
 #define CAMERA_PARAMETERS_EXTRA_H \
-    static const char PIXEL_FORMAT_YUV420SP_NV21[]; // NV21
+    static const char PIXEL_FORMAT_YUV420SP_NV21[]; \
+    static const char EFFECT_CARTOONIZE[]; \
+    static const char EFFECT_POINT_RED_YELLOW[]; \
+    static const char EFFECT_POINT_GREEN[]; \
+    static const char EFFECT_POINT_BLUE[]; \
+    static const char EFFECT_VINTAGE_COLD[]; \
+    static const char EFFECT_VINTAGE_WARM[]; \
+    static const char EFFECT_WASHED[];
