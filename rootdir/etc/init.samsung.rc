@@ -107,13 +107,13 @@ on boot
     chmod 0660 /dev/knox_kap
 
     # mobicore
-    mkdir /data/app/mcRegistry 0775 system system
+    mkdir /data/app/mcRegistry 0775 drmrpc drmrpc
     chmod 0700 /dev/mobicore
     chmod 0666 /dev/mobicore-user
     chmod 0660 /dev/s5p-smem
-    chown system system /dev/mobicore
-    chown radio system /dev/mobicore-user
-    chown system system /dev/s5p-smem
+    chown drmrpc drmrpc /dev/mobicore
+    chown drm drmrpc /dev/mobicore-user
+    chown drmrpc drmrpc /dev/s5p-smem
 
     # Switch Device
     chown system radio /sys/class/sec/switch/usb_sel
@@ -167,9 +167,9 @@ on boot
 
 # MobiCore startup
 service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF000000000000000000000001.drbin -r /system/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin -r /system/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
-    class core
-    user system
-    group system
+    class main
+    user drmrpc
+    group drmrpc
 
 # deferred initcall
 service sec-sh /system/bin/sh /system/etc/init.sec.boot.sh
