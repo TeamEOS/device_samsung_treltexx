@@ -112,7 +112,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PACKAGES += \
     libnetcmdiface \
-    macloader
+    macloader \
+    hostapd \
+    libwpa_client \
+    wpa_supplicant
+
+# hardware/broadcom/wlan/bcmdhd/config/Android.mk
+PRODUCT_PACKAGES += \
+    dhcpcd.conf
+
+# external/wpa_supplicant_8/wpa_supplicant/wpa_supplicant_conf.mk
+PRODUCT_PACKAGES += \
+    wpa_supplicant.conf
 
 ###########################################################
 ### AUDIO
