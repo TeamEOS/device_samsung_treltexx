@@ -254,8 +254,12 @@ const struct string_to_enum out_channels_name_to_enum_table[] = {
 
 static int get_output_device_id(audio_devices_t device)
 {
-    if (device == AUDIO_DEVICE_NONE)
+    if (device == AUDIO_DEVICE_NONE) {
+        ALOGV("%s: AUDIO_DEVICE_NONE\n", __func__);
         return OUT_DEVICE_NONE;
+    }
+
+    ALOGV("%s: popcount: %d\n", __func__, popcount(device));
 
     if (popcount(device) == 2) {
         if ((device == (AUDIO_DEVICE_OUT_SPEAKER |
@@ -306,6 +310,7 @@ static int get_input_source_id(audio_source_t source, bool wb_amr)
     case AUDIO_SOURCE_VOICE_COMMUNICATION:
         return IN_SOURCE_VOICE_COMMUNICATION;
     case AUDIO_SOURCE_VOICE_CALL:
+        ALOGV("%s: AUDIO_SOURCE_VOICE_CALL\n", __func__);
         if (wb_amr) {
             return IN_SOURCE_VOICE_CALL_WB;
         }
@@ -691,6 +696,8 @@ static void adev_set_call_audio_path(struct audio_device *adev)
 {
     enum ril_audio_path device_type;
 
+    ALOGV("%s: out_device=0x%08x", __func__, adev->out_device);
+
     switch(adev->out_device) {
         case AUDIO_DEVICE_OUT_SPEAKER:
             device_type = SOUND_AUDIO_PATH_SPEAKER;
@@ -787,7 +794,7 @@ static int start_output_stream(struct stream_out *out)
         set_hdmi_channels(adev, out->config.channels);
     }
 
-    ALOGV("%s: stream out device: %d, actual: %d",
+    ALOGV("%s: stream out device: 0x%08x, actual: 0x%08x",
           __func__, out->device, adev->out_device);
 
     return 0;
