@@ -215,11 +215,4 @@
          that can be set by the user. -->
     <integer name="config_screenBrightnessDim">15</integer>
 
-    <!-- ############################################################## -->
-    <!-- ### LEDS                                                       -->
-    <!-- ############################################################## -->
-
-    <!-- Default color for notification LED is white. -->
-    <color name="config_defaultNotificationColor">#ffffffff</color>
-
 </resources>
