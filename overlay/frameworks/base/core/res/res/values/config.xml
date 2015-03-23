@@ -180,8 +180,7 @@
     <integer-array name="config_autoBrightnessLcdBacklightValues">
         <item>10</item>
         <item>80</item>
-        <item>90</item>
-        <item>162</item>
+        <item>130</item>
         <item>190</item>
         <item>255</item>
     </integer-array>
