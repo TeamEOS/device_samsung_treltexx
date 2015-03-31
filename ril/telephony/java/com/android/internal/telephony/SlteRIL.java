@@ -20,11 +20,14 @@ import static com.android.internal.telephony.RILConstants.*;
 
 import android.content.Context;
 import android.telephony.Rlog;
+import android.os.AsyncResult;
 import android.os.Message;
 import android.os.Parcel;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SignalStrength;
 import android.telephony.SmsManager;
+import com.android.internal.telephony.cdma.CdmaSmsBroadcastConfigInfo;
+import com.android.internal.telephony.gsm.SmsBroadcastConfigInfo;
 import com.android.internal.telephony.uicc.IccCardApplicationStatus;
 import com.android.internal.telephony.uicc.IccCardStatus;
 import com.android.internal.telephony.uicc.IccRefreshResponse;
@@ -341,4 +344,111 @@ public class SlteRIL extends RIL {
                 tdScdmaRscp, isGsm);
     }
 
+    @Override
+    public void getGsmBroadcastConfig(Message response) {
+        Rlog.v(RILJ_LOG_TAG, "XMM7260: getGsmBroadcastConfig");
+
+        if (response != null) {
+            CommandException e = new CommandException(CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(response, null, e);
+            response.sendToTarget();
+        }
+    }
+
+    @Override
+    public void setGsmBroadcastConfig(SmsBroadcastConfigInfo[] config, Message response) {
+        Rlog.v(RILJ_LOG_TAG, "XMM7260: setGsmBroadcastConfig");
+
+        if (response != null) {
+            CommandException e = new CommandException(CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(response, null, e);
+            response.sendToTarget();
+        }
+    }
+
+    @Override
+    public void setGsmBroadcastActivation(boolean activate, Message response) {
+        Rlog.v(RILJ_LOG_TAG, "XMM7260: setGsmBroadcastActivation");
+
+        if (response != null) {
+            CommandException e = new CommandException(CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(response, null, e);
+            response.sendToTarget();
+        }
+    }
+
+    @Override
+    public void getCdmaBroadcastConfig(Message response) {
+        Rlog.v(RILJ_LOG_TAG, "XMM7260: getCdmaBroadcastConfig");
+
+        if (response != null) {
+            CommandException e = new CommandException(CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(response, null, e);
+            response.sendToTarget();
+        }
+    }
+
+    @Override
+    public void setCdmaBroadcastConfig(CdmaSmsBroadcastConfigInfo[] configs, Message response) {
+        Rlog.v(RILJ_LOG_TAG, "XMM7260: setCdmaBroadcastConfig");
+
+        if (response != null) {
+            CommandException e = new CommandException(CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(response, null, e);
+            response.sendToTarget();
+        }
+    }
+
+    @Override
+    public void setCdmaBroadcastActivation(boolean activate, Message response) {
+        Rlog.v(RILJ_LOG_TAG, "XMM7260: setCdmaBroadcastActivation");
+
+        if (response != null) {
+            CommandException e = new CommandException(CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(response, null, e);
+            response.sendToTarget();
+        }
+    }
+
+    @Override
+    public void getCellInfoList(Message result) {
+        Rlog.v(RILJ_LOG_TAG, "XMM7260: getCellInfoList");
+
+        if (result != null) {
+            CommandException e = new CommandException(CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(result, null, e);
+            result.sendToTarget();
+        }
+    }
+
+    private void constructGsmSendSmsRilRequest(RILRequest rr, String smscPDU, String pdu) {
+        rr.mParcel.writeInt(2);
+        rr.mParcel.writeString(smscPDU);
+        rr.mParcel.writeString(pdu);
+    }
+
+    @Override
+    public void setDataAllowed(boolean allowed, Message result) {
+        Rlog.v(RILJ_LOG_TAG, "XMM7260: setDataAllowed");
+
+        if (result != null) {
+            AsyncResult.forMessage(result, 0, null);
+            result.sendToTarget();
+        }
+    }
+    /**
+     * The RIL can't handle the RIL_REQUEST_SEND_SMS_EXPECT_MORE
+     * request properly, so we use RIL_REQUEST_SEND_SMS instead.
+     */
+    @Override
+    public void sendSMSExpectMore(String smscPDU, String pdu, Message result) {
+        Rlog.v(RILJ_LOG_TAG, "XMM7260: sendSMSExpectMore");
+
+        RILRequest rr = RILRequest.obtain(RIL_REQUEST_SEND_SMS, result);
+        constructGsmSendSmsRilRequest(rr, smscPDU, pdu);
+
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
+
+        send(rr);
+    }
 }
