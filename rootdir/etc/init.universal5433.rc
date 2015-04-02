@@ -331,6 +331,9 @@ on boot
 # MIF
     write /sys/module/modem_modemctl_device_m74xx/parameters/cp_watchdog_enable 1
 
+    # Radio
+    chmod 0644 /proc/cmdline
+
 on charger
 
 # Set cpu governor to powersave while in charging mode
