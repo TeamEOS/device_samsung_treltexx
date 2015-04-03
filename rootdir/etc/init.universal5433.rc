@@ -666,12 +666,6 @@ service privatemode /system/bin/sdcard -r /data/privatemode /mnt/shell/privatemo
     class late_start
     oneshot
 
-# ARGOSD
-service argos-daemon /system/bin/argosd
-    class main
-    user system
-    group system radio
-
 # ExyRng startup
 service exyrngd /system/bin/exyrngd -b
     user root
@@ -693,14 +687,6 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw
     class late_start
     disabled
     oneshot
-
-# SecEDS
-service TvoutService_C /system/bin/bintvoutservice
-    class main
-    user system
-    group graphics
-on property:ro.SecEDS.enable=false
-    stop TvoutService_C
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
 service watchdogd /sbin/watchdogd 10 20
@@ -731,25 +717,6 @@ on property:ril.cbd.modechan=0
 on property:ril.cbd.modechan=2
     restart ril-daemon
 
-#STE mmd
-service mmd /system/bin/mmd
-    class main
-    user system
-    group system radio net_admin inet sdcard_rw sdcard_r media_rw
-
-#STE dip
-service dip /system/bin/debug_interface_proxy -c /data/dipconfs
-    class main
-    user system
-    group system radio net_admin inet sdcard_rw sdcard_r media_rw
-
-# IPSec for VOLTE
-service ipsec-daemon /system/bin/IPSecService
-    class main
-    socket ipsec_socket stream 660 system system
-    user system
-    group system net_raw inet net_admin
-
 service battery_charger /charger
     class charger
     critical
@@ -775,23 +742,6 @@ service vcsFPService /system/bin/vcsFPService
     user system
     group system
 
-# DRK/CS service
-service cs_service /system/bin/cs
-    class main
-    user system
-    group system
-    disabled
-
-on property:sys.mobicoredaemon.enable=true
-    start cs_service
-
-# Secure Storage startup
-service secure_storage /system/bin/secure_storage_daemon
-    class core
-    user system
-    group system
-    disabled
-
 on property:ro.securestorage.support=true
     mkdir /dev/.secure_storage
     chmod 0711 /dev/.secure_storage
@@ -813,18 +763,6 @@ service swapon /sbin/sswap -s
     group root
     oneshot
 
-# Reactivation lock
-	service reactived /system/bin/reactived
-	class late_start
-
-# umount service
-service umount_service /system/bin/umount /preload
-    disabled
-    oneshot
-
 on property:persist.sys.storage_preload=1
     mount ext4 /dev/block/mmcblk0p20 /preload nosuid nodev noatime wait ro
     setprop storage.preload.complete 1
-
-on property:persist.sys.storage_preload=0
-    start umount_service

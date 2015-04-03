@@ -165,86 +165,9 @@ on boot
     write /sys/block/mmcblk0/queue/scheduler noop
     write /sys/block/sda/queue/scheduler noop
 
-service sysmon /system/bin/sysmon
-    class core
-    user root
-    oneshot
-
-# for RIL MFG (TestMode)
-service DR-daemon /system/bin/ddexe
-    class main
-    user root
-    group system radio inet net_raw
-
-service SMD-daemon /system/bin/smdexe
-    class main
-    user root
-    group system radio inet net_raw
-
-service BCS-daemon /system/bin/connfwexe
-    class main
-    user root
-    group system radio inet net_raw
-
-## WTL_EDM_START
-## EDM AuditLog
-service edmaudit /system/bin/edmaudit
-    class main
-    user root
-    
-## WTL_EDM_END
-
-service kap_enable /sbin/knox_changer -e
-    class main
-    seclabel u:r:kapd:s0
-    disabled
-    oneshot
-
-service kap_disable /sbin/knox_changer -d
-    class main
-    seclabel u:r:kapd:s0
-    disabled
-    oneshot
-
-on property:security.knox_kap_mode=true
-    start kap_enable
-on property:security.knox_kap_mode=false
-    start kap_disable
-
-service scs /system/bin/scs
-    class main
-    user system
-    group system
-    oneshot
-
-service epmd /system/bin/epmd
-    class main
-    socket epm stream 0660 system system
-    socket ppm stream 0660 system system
-    ioprio be 2
-    
-# icd
-service icd /system/bin/icd
-    class main
-    user system
-    group system log
-    onrestart check_icd
-    oneshot
-
-# AT Distributor for factory test
-service at_distributor /system/bin/at_distributor
-    class late_start
-    user root
-    group radio misc log
-
 # MobiCore startup
 service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF000000000000000000000001.drbin -r /system/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin -r /system/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
     class core
-    user system
-    group system
-
-service ss_kb_service /system/bin/ss_kbservice_daemon
-    class main
     user system
     group system
 
@@ -253,16 +176,6 @@ service sec-sh /system/bin/sh /system/etc/init.sec.boot.sh
     class main
     user root
     oneshot
-
-# SAMSUNG DRS Service
-service drsd /system/bin/drsd
-    class main
-    socket drsd stream 600 system system
-
-# icd
-on property:init.svc.media=restarting
-    check_icd
-    start icd
 
 # Sensorhub service
 service sensorhubservice /system/bin/sensorhubservice
