@@ -312,7 +312,9 @@ static int get_input_source_id(audio_source_t source, bool wb_amr)
     case AUDIO_SOURCE_VOICE_CALL:
         ALOGV("%s: AUDIO_SOURCE_VOICE_CALL\n", __func__);
         if (wb_amr) {
+#ifndef VOICE_CALL_WIDEBAND_DISABLED
             return IN_SOURCE_VOICE_CALL_WB;
+#endif
         }
         return IN_SOURCE_VOICE_CALL;
     default:
