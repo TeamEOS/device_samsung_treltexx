@@ -117,9 +117,6 @@ BOARD_USE_DUALDPB_MODE := true
 # Disable HDMI for now
 BOARD_HDMI_INCAPABLE := true
 
-# Samsung Gralloc
-#TARGET_SAMSUNG_GRALLOC_EXTERNAL_USECASES := true
-
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
