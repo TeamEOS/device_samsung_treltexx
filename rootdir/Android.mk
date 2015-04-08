@@ -36,7 +36,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE		:= init.universal5433.wifi.rc
 LOCAL_MODULE_TAGS	:= optional eng
 LOCAL_MODULE_CLASS	:= BOOT
-LOCAL_SRC_FILES		:= etc/init.wifi.rc
+LOCAL_SRC_FILES		:= etc/init.universal5433.wifi.rc
 LOCAL_MODULE_PATH	:= $(TARGET_ROOT_OUT)
 include $(BUILD_PREBUILT)
 
