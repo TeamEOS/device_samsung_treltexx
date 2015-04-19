@@ -256,6 +256,7 @@ PRODUCT_PACKAGES += \
 ###########################################################
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.debug_level=0x4948 \
     ro.selinux=permissive \
     ro.secure=0 \
     ro.debuggable=1 \
