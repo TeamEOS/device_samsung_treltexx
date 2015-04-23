@@ -13,12 +13,12 @@ Copyright (C) 2014 Christopher N. Hesse <raymanfx@gmail.com>
 
 * Description
 
-  This repository is for CM11 on Samsung Galaxy Note 4 Exynos (trelte)
+  This repository is for CM11 on Samsung Galaxy Note 4 Exynos (treltexx)
 
     THIS IS WORK IN PROGRESS.
 
 
-* How To Build CM11 for Samsung Galaxy Note 4 Exynos (trelte)
+* How To Build CM11 for Samsung Galaxy Note 4 Exynos (treltexx)
 
   - Make a workspace
 
@@ -28,7 +28,7 @@ Copyright (C) 2014 Christopher N. Hesse <raymanfx@gmail.com>
 
   - Do repo init & sync
 
-  $ repo init -u git://github.com/CyanogenMod/android.git -b cm-11.0
+  $ repo init -u git://github.com/CyanogenMod/android.git -b cm-12.1
 
 
   - Create .repo/local_manifests/roomservice.xml with the following content:
@@ -44,8 +44,8 @@ Copyright (C) 2014 Christopher N. Hesse <raymanfx@gmail.com>
       <project name="CyanogenMod/android_packages_apps_SamsungServiceMode" path="packages/apps/SamsungServiceMode" remote="github" />
       <project name="projects/android/android_hardware_samsung_slsi_exynos5433" path="hardware/samsung_slsi/exynos5433" remote="raymanfx" />
 
-      <project name="projects/android/android_kernel_samsung_trelte.git" path="kernel/samsung/trelte" remote="raymanfx" />
-      <project name="projects/android/android_device_samsung_trelte.git" path="device/samsung/trelte" remote="raymanfx" />
+      <project name="projects/android/android_kernel_samsung_treltexx.git" path="kernel/samsung/treltexx" remote="raymanfx" />
+      <project name="projects/android/android_device_samsung_treltexx.git" path="device/samsung/treltexx" remote="raymanfx" />
   </manifest>
 
   $ repo sync
@@ -68,7 +68,7 @@ Copyright (C) 2014 Christopher N. Hesse <raymanfx@gmail.com>
   - Setup environment
 
   $ source build/envsetup.sh
-  $ lunch cm_trelte-userdebug
+  $ lunch cm_treltexx-userdebug
 
 
   - Build CM

@@ -3,11 +3,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
-$(call inherit-product-if-exists, vendor/samsung/trelte/trelte-vendor.mk)
+$(call inherit-product-if-exists, vendor/samsung/treltexx/treltexx-vendor.mk)
 
-DEVICE_PACKAGE_OVERLAYS += device/samsung/trelte/overlay
+DEVICE_PACKAGE_OVERLAYS += device/samsung/treltexx/overlay
 
-LOCAL_PATH := device/samsung/trelte
+LOCAL_PATH := device/samsung/treltexx
 
 ###########################################################
 ### FLAT DEVICE TREE
@@ -268,5 +268,5 @@ $(call inherit-product-if-exists, frameworks/native/build/phone-xhdpi-1024-dalvi
 $(call inherit-product-if-exists, build/target/product/full.mk)
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-PRODUCT_NAME := full_trelte
-PRODUCT_DEVICE := trelte
+PRODUCT_NAME := full_treltexx
+PRODUCT_DEVICE := treltexx

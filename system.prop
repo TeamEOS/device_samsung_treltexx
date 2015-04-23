@@ -1,10 +1,8 @@
 #
-# system.prop for trelte
+# system.prop for treltexx
 #
 ro.product.model=SM-N910C
 ro.product.brand=samsung
-ro.product.name=treltexx
-ro.product.device=trelte
 
 ro.sf.lcd_density=640
 

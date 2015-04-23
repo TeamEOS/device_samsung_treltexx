@@ -1,6 +1,6 @@
 USE_CAMERA_STUB := true
 
-LOCAL_PATH := device/samsung/trelte
+LOCAL_PATH := device/samsung/treltexx
 
 TARGET_ARCH := arm
 TARGET_NO_BOOTLOADER := true
@@ -31,7 +31,7 @@ BOARD_KERNEL_PAGESIZE := 2048
 #BOARD_KERNEL_CMDLINE := The bootloader ignores the cmdline from the boot.img
 BOARD_KERNEL_SEPARATED_DT := true
 # Extracted with libbootimg
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/samsung/trelte/dtb.img
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/samsung/treltexx/dtb.img
 
 # /proc/partitions * BLOCK_SIZE (512)
 BOARD_BOOTIMAGE_PARTITION_SIZE := 7340032
@@ -45,9 +45,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 # PowerHAL
 TARGET_POWERHAL_VARIANT := universal5433
 
-# Bootloader
-TARGET_OTA_ASSERT_DEVICE := trelte
-
+# Kernel
 TARGET_KERNEL_CONFIG := cm_exynos5433-trelte_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/trelte
 
@@ -159,7 +157,7 @@ TARGET_OTA_ASSERT_DEVICE := trelte,treltexx
 
 # SeLinux
 BOARD_SEPOLICY_DIRS := \
-	device/samsung/trelte/sepolicy
+	device/samsung/treltexx/sepolicy
 
 BOARD_SEPOLICY_UNION := \
 	app.te \
@@ -173,4 +171,4 @@ BOARD_SEPOLICY_UNION := \
 	ueventd.te
 
 # inherit from the proprietary version
--include vendor/samsung/trelte/BoardConfigVendor.mk
+-include vendor/samsung/treltexx/BoardConfigVendor.mk

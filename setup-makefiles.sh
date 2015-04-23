@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VENDOR=samsung
-DEVICE=trelte
+DEVICE=treltexx
 OUTDIR=vendor/$VENDOR/$DEVICE
 MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
 
