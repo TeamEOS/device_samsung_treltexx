@@ -102,6 +102,9 @@
 # Secure MEM driver
 /dev/s5p-smem             0660   drm        drmrpc
 
+# NFC
+/dev/sec-nfc              0660   nfc        nfc
+
 # sensor sysfs properties
 /sys/devices/virtual/input/input*	poll_delay	0660	system	radio
 /sys/devices/virtual/input/input*	enable		0660	system	radio
