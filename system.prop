@@ -3,6 +3,8 @@
 #
 ro.product.model=SM-N910C
 ro.product.brand=samsung
+ro.product.name=treltexx
+ro.product.device=treltexx
 
 ro.sf.lcd_density=640
 

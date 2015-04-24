@@ -11,7 +11,7 @@ $(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
 $(call inherit-product, device/samsung/treltexx/device_treltexx.mk)
 
 ## Device identifier. This must come after all inclusions
-PRODUCT_NAME := treltexx
+PRODUCT_NAME := cm_treltexx
 PRODUCT_DEVICE := treltexx
 PRODUCT_BRAND := samsung
 PRODUCT_MODEL := SM-N910C
