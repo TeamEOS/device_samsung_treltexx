@@ -4,3 +4,4 @@ type exyrngd_exec, exec_type, file_type;
 tmpfs_domain(exyrngd)
 
 allow exyrngd tmpfs:chr_file rw_file_perms;
+allow exyrngd system_file:file entrypoint;

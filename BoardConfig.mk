@@ -166,6 +166,9 @@ BOARD_SEPOLICY_UNION := \
 	exyrngd.te \
 	file_contexts \
 	file.te \
+	gpsd.te \
+	init.te \
+	lmkd.te \
 	macloader.te \
 	recovery.te \
 	ueventd.te

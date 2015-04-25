@@ -1,0 +1,2 @@
+allow init cpboot-daemon:process { siginh transition rlimitinh };
+allow init exyrngd:process transition;
