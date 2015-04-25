@@ -1,10 +1,2 @@
 type cpboot-daemon, domain;
 type cpboot-daemon_exec, exec_type, file_type;
-
-allow cpboot-daemon device:chr_file { read write open };
-allow cpboot-daemon kernel:system syslog_read;
-allow cpboot-daemon kmsg_device:chr_file { read write open };
-allow cpboot-daemon radio_prop:property_service set;
-allow cpboot-daemon rootfs:file entrypoint;
-allow cpboot-daemon self:capability setuid;
-allow cpboot-daemon sysfs_wake_lock:file { open append };
