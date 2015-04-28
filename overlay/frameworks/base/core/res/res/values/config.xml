@@ -236,4 +236,7 @@
          that can be set by the user. -->
     <integer name="config_screenBrightnessDim">15</integer>
 
+    <!-- Does the notification LED support multiple colors?
+         Used to decide if the user can change the colors -->
+    <bool name="config_multiColorNotificationLed">true</bool>
 </resources>
