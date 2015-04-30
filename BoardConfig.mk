@@ -151,9 +151,6 @@ BOARD_VENDOR := samsung
 # RIL.java overwrite
 BOARD_RIL_CLASS := ../../../$(LOCAL_PATH)/ril
 
-# Modem
-TARGET_VENDOR_PRODUCT_NAME := treltexx
-
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5433
 TARGET_OTA_ASSERT_DEVICE := trelte,treltexx
