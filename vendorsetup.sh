@@ -1,5 +1,5 @@
-add_lunch_combo cm_treltexx-eng
-add_lunch_combo cm_treltexx-userdebug
+add_lunch_combo eos_treltexx-eng
+add_lunch_combo eos_treltexx-userdebug
 
 mkdir -p out/target/product/treltexx/obj/KERNEL_OBJ/drivers/net/wireless/bcmdhd4358
 mkdir -p out/target/product/treltexx/obj/KERNEL_OBJ/drivers/sensorhub/brcm/factory
