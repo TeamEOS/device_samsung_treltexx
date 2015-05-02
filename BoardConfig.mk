@@ -155,6 +155,9 @@ BOARD_RIL_CLASS := ../../../$(LOCAL_PATH)/ril
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5433
 TARGET_OTA_ASSERT_DEVICE := trelte,treltexx
 
+# Force SeLinux into permissive mode
+COMMON_GLOBAL_CFLAGS += -DFORCE_SELINUX_PERMISSIVE
+
 # SeLinux
 BOARD_SEPOLICY_DIRS := \
 	device/samsung/treltexx/sepolicy
