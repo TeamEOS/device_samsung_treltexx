@@ -17,7 +17,7 @@ etc/wifi/nvram_net.txt_murata
 
 ### NFC
 etc/sec_s3fwrn5_rfreg.bin
-lib/hw/nfc_nci.universal5430.so
+lib/hw/nfc_nci.universal5433.so
 vendor/firmware/sec_s3fwrn5_firmware.bin
 
 ### Media
@@ -61,11 +61,6 @@ etc/firmware/florida-dsp4-rx-anc-nb.bin
 etc/firmware/florida-dsp4-rx-anc-nb.wmfw
 etc/firmware/florida-dsp4-rx-anc-wb.bin
 etc/firmware/florida-dsp4-rx-anc-wb.wmfw
-lib/libmysound.so
-lib/libaudiosa.so
-lib/soundfx/libaudiosa_sec.so
-vendor/lib/liblvverx_3.25.00.so
-vendor/lib/liblvvetx_3.25.00.so
 # audio decoder
 vendor/firmware/seiren_fw_dram.bin
 vendor/firmware/seiren_fw_sram.bin
@@ -97,6 +92,7 @@ vendor/firmware/setfile_imx240.bin
 ### GPS
 bin/gpsd
 bin/gps.cer
+lib/libwrappergps.so
 lib/hw/gps.default.so:lib/hw/gps.universal5433.so
 
 ### HWC
@@ -122,12 +118,6 @@ vendor/lib/libwvm.so
 bin/exyrngd
 
 ### RIL
-# network throughput
-bin/argosd
-# STE debug
-bin/debug_interface_proxy
-# STE modem daemon
-bin/mmd
 # Android radio daemon
 bin/rild
 lib/libaudio-ril.so
@@ -163,7 +153,3 @@ app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
 app/mcRegistry/ffffffffd00000000000000000000014.tlbin
 app/mcRegistry/ffffffffd00000000000000000000016.tlbin
-
-## ???
-bin/drsd
-bin/npsmobex
