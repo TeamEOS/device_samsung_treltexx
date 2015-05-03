@@ -12,3 +12,5 @@ rild.libargs=-d /dev/ttyS0
 rild.libpath=/system/lib/libsec-ril.so
 
 ro.telephony.ril_class=SlteRIL
+
+ro.nfc.sec_hal=true
