@@ -173,8 +173,7 @@ PRODUCT_PACKAGES += \
 	libOMX.Exynos.VP8.Encoder
 
 PRODUCT_PACKAGES += \
-	libOMX.Exynos.MP3.Decoder \
-	libOMX.Exynos.WMA.Decoder
+	libOMX.Exynos.MP3.Decoder
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
