@@ -157,6 +157,25 @@ PRODUCT_PACKAGES += \
 ### OMX/MEDIA
 ###########################################################
 
+PRODUCT_PACKAGES += \
+	libstagefrighthw \
+	libExynosOMX_Core
+
+PRODUCT_PACKAGES += \
+	libOMX.Exynos.AVC.Decoder \
+	libOMX.Exynos.MPEG4.Decoder \
+	libOMX.Exynos.VP8.Decoder \
+	libOMX.Exynos.WMV.Decoder
+
+PRODUCT_PACKAGES += \
+	libOMX.Exynos.AVC.Encoder \
+	libOMX.Exynos.MPEG4.Encoder \
+	libOMX.Exynos.VP8.Encoder
+
+PRODUCT_PACKAGES += \
+	libOMX.Exynos.MP3.Decoder \
+	libOMX.Exynos.WMA.Decoder
+
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
@@ -274,6 +293,14 @@ PRODUCT_PACKAGES += \
     libstagefrighthw \
 
 ###########################################################
+### MOBICORE
+###########################################################
+
+PRODUCT_PACKAGES += \
+	mcDriverDaemon \
+	keystore.exynos5
+
+###########################################################
 ### PACKAGES
 ###########################################################
 
@@ -293,7 +320,6 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     persist.service.adb.enable=1
     
 
-$(call inherit-product-if-exists, hardware/samsung_slsi/exynos5-insignal/exynos5.mk)
 $(call inherit-product-if-exists, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 $(call inherit-product-if-exists, build/target/product/full.mk)
 
