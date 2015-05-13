@@ -49,13 +49,3 @@ LOCAL_C_INCLUDES += \
 LOCAL_SHARED_LIBRARIES := liblog libutils
 
 include $(BUILD_SHARED_LIBRARY)
-
-
-# Mixer configurations
-include $(CLEAR_VARS)
-LOCAL_MODULE := mixer_paths.xml
-LOCAL_MODULE_TAGS := optional eng
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES := mixer_paths.xml
-LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)
-include $(BUILD_PREBUILT)
