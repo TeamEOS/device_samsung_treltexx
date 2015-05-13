@@ -537,7 +537,7 @@ static void adev_set_call_audio_path(struct audio_device *adev)
             device_type = SOUND_AUDIO_PATH_SPEAKER;
             break;
         case AUDIO_DEVICE_OUT_EARPIECE:
-            device_type = SOUND_AUDIO_PATH_HANDSET;
+            device_type = SOUND_AUDIO_PATH_EARPIECE;
             break;
         case AUDIO_DEVICE_OUT_WIRED_HEADSET:
             device_type = SOUND_AUDIO_PATH_HEADSET;
@@ -555,8 +555,8 @@ static void adev_set_call_audio_path(struct audio_device *adev)
             }
             break;
         default:
-            /* if output device isn't supported, use handset by default */
-            device_type = SOUND_AUDIO_PATH_HANDSET;
+            /* if output device isn't supported, use earpiece by default */
+            device_type = SOUND_AUDIO_PATH_EARPIECE;
             break;
     }
 
