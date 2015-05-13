@@ -59,28 +59,28 @@ struct route_config {
 /* TODO: Figure out whether voice routes need to set ES325 presets */
 const struct route_config voice_speaker = {
     "voice-speaker",
-    "voice-main-mic",
+    "voice-speaker-main-mic",
     { ES325_PRESET_OFF,
       ES325_PRESET_OFF }
 };
 
 const struct route_config voice_earpiece = {
     "voice-earpiece",
-    "voice-main-mic",
+    "voice-earpiece-main-mic",
     { ES325_PRESET_OFF,
       ES325_PRESET_OFF }
 };
 
 const struct route_config voice_headphones = {
     "voice-headphones",
-    "voice-main-mic",
+    "voice-earpiece-main-mic",
     { ES325_PRESET_OFF,
       ES325_PRESET_OFF }
 };
 
 const struct route_config voice_headset = {
     "voice-headphones",
-    "voice-headset-mic",
+    "voice-earpiece-headset-mic",
     { ES325_PRESET_OFF,
       ES325_PRESET_OFF }
 };
