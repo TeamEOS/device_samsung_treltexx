@@ -38,10 +38,6 @@ on init
 
     symlink /data/app /factory
 
-    #Private Mode
-    mkdir /mnt/shell/privatemode 0700 system system
-    mkdir /storage/Private 0000 system system
-
     mkdir /efs 0771 radio system
     symlink /dev/block/mmcblk0p13 /dev/mbin0
     restorecon /dev/mbin0
@@ -79,11 +75,6 @@ on post-fs-data
     chown system radio /sys/class/camera/ois/ois_rawdata
     chown system radio /sys/class/camera/ois/oisfw
     chown system radio /sys/class/camera/ois/ois_diff
-
-    #Private Mode
-    mkdir /data/privatemode 0770 system system
-    chown system system /data/privatemode
-    restorecon /data/privatemode
 
 on boot
     # Reduce reserved lowmem from ~48MB to ~12MB
@@ -660,12 +651,6 @@ on property:ro.debuggable=1
     chmod 0666 /sys/class/mhl/test_case
     chmod 0666 /sys/class/mhl/test_v2
     chmod 0666 /sys/class/mhl/connection
-
-
-#Private Mode
-service privatemode /system/bin/sdcard -r /data/privatemode /mnt/shell/privatemode 1000 1000
-    class late_start
-    oneshot
 
 # ExyRng startup
 service exyrngd /system/bin/exyrngd -b
