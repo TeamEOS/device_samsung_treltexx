@@ -31,7 +31,7 @@
 #include <hardware/power.h>
 
 #define BOOSTPULSE_PATH "/sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse"
-#define TOUCHSCREEN_PATH "/sys/class/input/input2"
+#define TOUCHSCREEN_PATH "/sys/devices/14ed0000.hsi2c/i2c-4/4-0049/input"
 
 struct exynos5433_power_module {
     struct power_module base;
