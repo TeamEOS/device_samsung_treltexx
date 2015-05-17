@@ -13,6 +13,6 @@
 
 
 # VOLD
-/devices/platform/dw_mmc.2/mmc_host/mmc2*		auto 			auto	default	    voldmanaged=sdcard1:auto,noemulatedsd
-/devices/platform/exynos-dwc3.0/exynos-xhci/            auto                    auto    default     voldmanaged=usbdisk:auto
+/devices/15560000.dwmmc2/mmc_host/mmc1*            auto    auto	   defaults    voldmanaged=sdcard1:auto,noemulatedsd
+/devices/15400000.usb/15400000.dwc3/xhci-hcd*      auto    auto    defaults    voldmanaged=usbdisk:auto
 
