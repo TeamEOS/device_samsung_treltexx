@@ -46,7 +46,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_POWERHAL_VARIANT := universal5433
 
 # Kernel
-TARGET_KERNEL_CONFIG := cm_exynos5433-trelte_defconfig
+TARGET_KERNEL_CONFIG := eos_exynos5433-trelte_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/trelte
 
 BOARD_HAS_NO_SELECT_BUTTON := true
