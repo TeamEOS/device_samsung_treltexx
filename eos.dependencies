@@ -2,7 +2,7 @@
     {
         "remote": "github",
         "repository": "raymanfx/kernel_samsung_trelte",
-        "revision": "cm-12.1",
+        "revision": "lp5.1",
         "target_path": "kernel/samsung/trelte"
     },
     {
