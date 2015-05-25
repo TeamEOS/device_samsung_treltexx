@@ -170,7 +170,6 @@ BOARD_SEPOLICY_UNION := \
 	file_contexts \
 	file.te \
 	macloader.te \
-	recovery.te \
 	ueventd.te
 
 # inherit from the proprietary version

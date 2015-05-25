@@ -1,7 +1,0 @@
-recovery_only(`
-  permissive recovery;
-
-  allow recovery system_radio_prop:property_service set;
-  allow recovery default_prop:property_service set;
-  allow recovery vold_prop:property_service set;
-')
