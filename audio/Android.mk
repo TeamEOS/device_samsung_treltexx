@@ -30,22 +30,6 @@ LOCAL_C_INCLUDES += \
 	$(call include-path-for, audio-route)
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils libtinyalsa libaudioutils libdl \
-	libaudience_voicefx libaudioroute
-
-include $(BUILD_SHARED_LIBRARY)
-
-
-# Audience voice preprocessing library
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := libaudience_voicefx
-LOCAL_MODULE_TAGS := optional
-
-LOCAL_SRC_FILES := eS325VoiceProcessing.cpp
-
-LOCAL_C_INCLUDES += \
-	$(call include-path-for, audio-effects)
-
-LOCAL_SHARED_LIBRARIES := liblog libutils
+	libaudioroute
 
 include $(BUILD_SHARED_LIBRARY)

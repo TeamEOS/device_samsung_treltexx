@@ -45,8 +45,6 @@
 
 #include "routing.h"
 
-#include "eS325VoiceProcessing.h"
-
 #include "ril_interface.h"
 
 #define PCM_CARD 0
@@ -139,11 +137,6 @@ struct audio_device {
     int cur_route_id;     /* current route ID: combination of input source
                            * and output device IDs */
     audio_mode_t mode;
-
-    /* ES325 */
-    int es325_preset;
-    int es325_new_mode;
-    int es325_mode;
 
     audio_channel_mask_t in_channel_mask;
 
@@ -305,15 +298,13 @@ static void select_devices(struct audio_device *adev)
     const char *output_route = NULL;
     const char *input_route = NULL;
     int new_route_id;
-    int new_es325_preset = -1;
 
     audio_route_reset(adev->ar);
 
     new_route_id = (1 << (input_source_id + OUT_DEVICE_CNT)) + (1 << output_device_id);
-    if ((new_route_id == adev->cur_route_id) && (adev->es325_mode == adev->es325_new_mode))
+    if (new_route_id == adev->cur_route_id)
         return;
     adev->cur_route_id = new_route_id;
-    adev->es325_mode = adev->es325_new_mode;
 
     if (input_source_id != IN_SOURCE_NONE) {
         if (output_device_id != OUT_DEVICE_NONE) {
@@ -321,8 +312,6 @@ static void select_devices(struct audio_device *adev)
                 route_configs[input_source_id][output_device_id]->input_route;
             output_route =
                 route_configs[input_source_id][output_device_id]->output_route;
-            new_es325_preset =
-                route_configs[input_source_id][output_device_id]->es325_preset[adev->es325_mode];
         } else {
             switch(adev->in_device) {
             case AUDIO_DEVICE_IN_WIRED_HEADSET & ~AUDIO_DEVICE_BIT_IN:
@@ -337,16 +326,6 @@ static void select_devices(struct audio_device *adev)
             }
             input_route =
                 route_configs[input_source_id][output_device_id]->input_route;
-            new_es325_preset =
-                route_configs[input_source_id][output_device_id]->es325_preset[adev->es325_mode];
-        }
-        /*
-         * Disable noise suppression when capturing front and back mic for
-         * voice recognition
-         */
-        if ((adev->input_source == AUDIO_SOURCE_VOICE_RECOGNITION) &&
-            (adev->in_channel_mask == AUDIO_CHANNEL_IN_FRONT_BACK)) {
-            new_es325_preset = -1;
         }
     } else {
         if (output_device_id != OUT_DEVICE_NONE) {
@@ -363,17 +342,6 @@ static void select_devices(struct audio_device *adev)
         audio_route_apply_path(adev->ar, output_route);
     if (input_route)
         audio_route_apply_path(adev->ar, input_route);
-
-    if ((new_es325_preset != ES325_PRESET_CURRENT) &&
-            (new_es325_preset != adev->es325_preset)) {
-        ALOGV("  select_devices() changing es325 preset from %d to %d",
-              adev->es325_preset, new_es325_preset);
-
-        if (eS325_UsePreset(new_es325_preset) == 0) {
-            adev->es325_preset = new_es325_preset;
-        }
-
-    }
 
     audio_route_update_mixer(adev->ar);
 
@@ -630,7 +598,6 @@ static int start_input_stream(struct stream_in *in)
         adev->in_device = in->device;
         adev->in_channel_mask = in->channel_mask;
 
-        eS325_SetActiveIoHandle(in->io_handle);
         select_devices(adev);
     }
 
@@ -1098,7 +1065,6 @@ static int do_in_standby(struct stream_in *in)
         in->standby = true;
     }
 
-    eS325_SetActiveIoHandle(ES325_IO_HANDLE_NONE);
     return 0;
 }
 
@@ -1269,44 +1235,6 @@ exit:
 
 static uint32_t in_get_input_frames_lost(struct audio_stream_in *stream)
 {
-    return 0;
-}
-
-static int in_add_audio_effect(const struct audio_stream *stream,
-                               effect_handle_t effect)
-{
-    struct stream_in *in = (struct stream_in *)stream;
-    effect_descriptor_t descr;
-    if ((*effect)->get_descriptor(effect, &descr) == 0) {
-
-        pthread_mutex_lock(&in->dev->lock);
-        pthread_mutex_lock(&in->lock);
-
-        eS325_AddEffect(&descr, in->io_handle);
-
-        pthread_mutex_unlock(&in->lock);
-        pthread_mutex_unlock(&in->dev->lock);
-    }
-
-    return 0;
-}
-
-static int in_remove_audio_effect(const struct audio_stream *stream,
-                                  effect_handle_t effect)
-{
-    struct stream_in *in = (struct stream_in *)stream;
-    effect_descriptor_t descr;
-    if ((*effect)->get_descriptor(effect, &descr) == 0) {
-
-        pthread_mutex_lock(&in->dev->lock);
-        pthread_mutex_lock(&in->lock);
-
-        eS325_RemoveEffect(&descr, in->io_handle);
-
-        pthread_mutex_unlock(&in->lock);
-        pthread_mutex_unlock(&in->dev->lock);
-    }
-
     return 0;
 }
 
@@ -1620,8 +1548,6 @@ static int adev_open_input_stream(struct audio_hw_device *dev,
     in->stream.common.dump = in_dump;
     in->stream.common.set_parameters = in_set_parameters;
     in->stream.common.get_parameters = in_get_parameters;
-    in->stream.common.add_audio_effect = in_add_audio_effect;
-    in->stream.common.remove_audio_effect = in_remove_audio_effect;
     in->stream.set_gain = in_set_gain;
     in->stream.read = in_read;
     in->stream.get_input_frames_lost = in_get_input_frames_lost;
@@ -1702,8 +1628,6 @@ static int adev_close(hw_device_t *device)
 
     audio_route_free(adev->ar);
 
-    eS325_Release();
-
     /* RIL */
     ril_close(&adev->ril);
 
@@ -1750,10 +1674,6 @@ static int adev_open(const hw_module_t* module, const char* name,
     adev->input_source = AUDIO_SOURCE_DEFAULT;
     /* adev->cur_route_id initial value is 0 and such that first device
      * selection is always applied by select_devices() */
-
-    adev->es325_preset = ES325_PRESET_INIT;
-    adev->es325_new_mode = ES325_MODE_LEVEL;
-    adev->es325_mode = ES325_MODE_LEVEL;
 
     adev->mode = AUDIO_MODE_NORMAL;
     adev->voice_volume = 1.0f;
