@@ -283,7 +283,7 @@ PRODUCT_PACKAGES += \
 ### DEFAULT PROPS
 ###########################################################
 
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.debug_level=0x4948 \
     ro.selinux=permissive \
     ro.secure=0 \
