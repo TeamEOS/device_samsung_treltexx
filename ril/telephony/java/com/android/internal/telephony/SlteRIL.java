@@ -344,17 +344,6 @@ public class SlteRIL extends RIL {
                 tdScdmaRscp, isGsm);
     }
 
-    @Override
-    public void getCellInfoList(Message result) {
-        Rlog.v(RILJ_LOG_TAG, "XMM7260: getCellInfoList");
-
-        if (result != null) {
-            CommandException e = new CommandException(CommandException.Error.REQUEST_NOT_SUPPORTED);
-            AsyncResult.forMessage(result, null, e);
-            result.sendToTarget();
-        }
-    }
-
     private void constructGsmSendSmsRilRequest(RILRequest rr, String smscPDU, String pdu) {
         rr.mParcel.writeInt(2);
         rr.mParcel.writeString(smscPDU);
