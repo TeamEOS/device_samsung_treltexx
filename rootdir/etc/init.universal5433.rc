@@ -407,6 +407,7 @@ on fs
     chown system radio /sys/class/sec/sec_touchkey/flip_mode
     chown system radio /sys/class/sec/sec_touchkey/boost_level
     chown system system /sys/class/sec/sec_touchkey/input/enabled
+    chown system system /sys/class/sec/sec_touchkey/keypad_enabled
 
 # Permissions for epen
     chown system radio /sys/class/sec/sec_epen/epen_firm_update
@@ -421,6 +422,9 @@ on fs
 # Permissions for gpio_keys
     chown radio system /sys/class/sec/sec_key/wakeup_keys
     write /sys/class/sec/sec_key/wakeup_keys 116,172
+    chown system system /sys/devices/gpio_keys.9/input/input7/enabled
+    chown system system /sys/devices/gpio_keys.10/input/input8/enabled
+    chown system system /sys/devices/gpio_keys.11/input/input9/enabled
 
 # GPS
     chown root system /sys/class/sec/gps/GPS_PWR_EN/value

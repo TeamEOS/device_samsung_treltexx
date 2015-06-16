@@ -31,14 +31,17 @@
 #include <hardware/power.h>
 
 #define BOOSTPULSE_PATH "/sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse"
-#define TOUCHSCREEN_PATH "/sys/devices/14ed0000.hsi2c/i2c-4/4-0049/input"
+#define TOUCHSCREEN_PATH "/sys/class/sec/tsp/input/enabled"
+#define TOUCHKEY_PATH "/sys/class/sec/sec_touchkey/input/enabled"
 
 struct exynos5433_power_module {
     struct power_module base;
     pthread_mutex_t lock;
     int boostpulse_fd;
     int boostpulse_warned;
+    const char *gpio_keys_power_path;
     const char *touchscreen_power_path;
+    const char *touchkey_power_path;
 };
 
 static void sysfs_write(const char *path, char *s)
@@ -65,31 +68,55 @@ static void sysfs_write(const char *path, char *s)
 
 static void init_touchscreen_power_path(struct exynos5433_power_module *exynos5433_pwr)
 {
-    const char dir[] = TOUCHSCREEN_PATH;
+    exynos5433_pwr->touchscreen_power_path = TOUCHSCREEN_PATH;
+}
+
+static void init_touchkey_power_path(struct exynos5433_power_module *exynos5433_pwr)
+{
+    exynos5433_pwr->touchkey_power_path = TOUCHKEY_PATH;
+}
+
+static void init_gpio_keys_power_path(struct exynos5433_power_module *exynos5433_pwr)
+{
     const char filename[] = "enabled";
+    char dir[1024] = { 0 };
     struct dirent *de;
     size_t pathsize;
     char errno_str[64];
     char *path;
-    DIR *d;
+    DIR *d = NULL;
+    uint32_t i;
 
-    d = opendir(dir);
+    for (i = 0; i < 20; i++) {
+
+        snprintf(dir, sizeof(dir), "/sys/devices/gpio_keys.%d/input", i);
+        d = opendir(dir);
+        if (d != NULL) {
+            break;
+        }
+    }
+
     if (d == NULL) {
         strerror_r(errno, errno_str, sizeof(errno_str));
-        ALOGE("Error opening directory %s: %s\n", dir, errno_str);
+        ALOGE("Error finding gpio_keys directory %s: %s\n", dir, errno_str);
         return;
     }
+
     while ((de = readdir(d)) != NULL) {
         if (strncmp("input", de->d_name, 5) == 0) {
             pathsize = strlen(dir) + strlen(de->d_name) + sizeof(filename) + 2;
+
             path = malloc(pathsize);
             if (path == NULL) {
                 strerror_r(errno, errno_str, sizeof(errno_str));
                 ALOGE("Out of memory: %s\n", errno_str);
                 return;
             }
+
             snprintf(path, pathsize, "%s/%s/%s", dir, de->d_name, filename);
-            exynos5433_pwr->touchscreen_power_path = path;
+
+            exynos5433_pwr->gpio_keys_power_path = path;
+
             goto done;
         }
     }
@@ -165,7 +192,9 @@ static void exynos5433_power_init(struct power_module *module)
     sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration", "59000");
 
 out:
+    init_gpio_keys_power_path(exynos5433_pwr);
     init_touchscreen_power_path(exynos5433_pwr);
+    init_touchkey_power_path(exynos5433_pwr);
 }
 
 /* This function performs power management actions upon the system entering
@@ -194,6 +223,7 @@ static void exynos5433_power_set_interactive(struct power_module *module, int on
      */
 
     sysfs_write(exynos5433_pwr->touchscreen_power_path, on ? "1" : "0");
+    sysfs_write(exynos5433_pwr->gpio_keys_power_path, on ? "1" : "0");
 
     ALOGV("power_set_interactive: %d done\n", on);
 }
