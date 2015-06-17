@@ -223,6 +223,7 @@ static void exynos5433_power_set_interactive(struct power_module *module, int on
      */
 
     sysfs_write(exynos5433_pwr->touchscreen_power_path, on ? "1" : "0");
+    sysfs_write(exynos5433_pwr->touchkey_power_path, on ? "1" : "0");
     sysfs_write(exynos5433_pwr->gpio_keys_power_path, on ? "1" : "0");
 
     ALOGV("power_set_interactive: %d done\n", on);
