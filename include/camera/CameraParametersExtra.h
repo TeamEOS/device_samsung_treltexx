@@ -22,7 +22,29 @@
     const char CameraParameters::EFFECT_POINT_BLUE[] = "point-blue"; \
     const char CameraParameters::EFFECT_VINTAGE_COLD[] = "vintage-cold"; \
     const char CameraParameters::EFFECT_VINTAGE_WARM[] = "vintage-warm"; \
-    const char CameraParameters::EFFECT_WASHED[] = "washed";
+    const char CameraParameters::EFFECT_WASHED[] = "washed"; \
+    const char CameraParameters::ISO_AUTO[] = "auto"; \
+    const char CameraParameters::ISO_NIGHT[] = "night"; \
+    const char CameraParameters::ISO_SPORTS[] = "sports"; \
+    const char CameraParameters::ISO_6400[] = "6400"; \
+    const char CameraParameters::ISO_3200[] = "3200"; \
+    const char CameraParameters::ISO_1600[] = "1600"; \
+    const char CameraParameters::ISO_800[] = "800"; \
+    const char CameraParameters::ISO_400[] = "400"; \
+    const char CameraParameters::ISO_200[] = "200"; \
+    const char CameraParameters::ISO_100[] = "100"; \
+    const char CameraParameters::ISO_80[] = "80"; \
+    const char CameraParameters::ISO_50[] = "50"; \
+    const char CameraParameters::KEY_SUPPORTED_METERING_MODE[] = "metering-values"; \
+    const char CameraParameters::METERING_CENTER[] = "center"; \
+    const char CameraParameters::METERING_MATRIX[] = "matrix"; \
+    const char CameraParameters::METERING_SPOT[] = "spot"; \
+    const char CameraParameters::METERING_OFF[] = "off"; \
+    const char CameraParameters::KEY_DYNAMIC_RANGE_CONTROL[] = "dynamic-range-control"; \
+    const char CameraParameters::KEY_SUPPORTED_PHASE_AF[] = "phase-af-values"; \
+    const char CameraParameters::KEY_PHASE_AF[] = "phase-af"; \
+    const char CameraParameters::KEY_SUPPORTED_RT_HDR[] = "rt-hdr-values"; \
+    const char CameraParameters::KEY_RT_HDR[] = "rt-hdr";
 
 #define CAMERA_PARAMETERS_EXTRA_H \
     static const char PIXEL_FORMAT_YUV420SP_NV21[]; \
@@ -32,4 +54,26 @@
     static const char EFFECT_POINT_BLUE[]; \
     static const char EFFECT_VINTAGE_COLD[]; \
     static const char EFFECT_VINTAGE_WARM[]; \
-    static const char EFFECT_WASHED[];
+    static const char EFFECT_WASHED[]; \
+    static const char ISO_AUTO[]; \
+    static const char ISO_NIGHT[]; \
+    static const char ISO_SPORTS[]; \
+    static const char ISO_6400[]; \
+    static const char ISO_3200[]; \
+    static const char ISO_1600[]; \
+    static const char ISO_800[]; \
+    static const char ISO_400[]; \
+    static const char ISO_200[]; \
+    static const char ISO_100[]; \
+    static const char ISO_80[]; \
+    static const char ISO_50[]; \
+    static const char KEY_SUPPORTED_METERING_MODE[]; \
+    static const char METERING_CENTER[]; \
+    static const char METERING_MATRIX[]; \
+    static const char METERING_SPOT[]; \
+    static const char METERING_OFF[]; \
+    static const char KEY_DYNAMIC_RANGE_CONTROL[]; \
+    static const char KEY_SUPPORTED_PHASE_AF[]; \
+    static const char KEY_PHASE_AF[]; \
+    static const char KEY_SUPPORTED_RT_HDR[]; \
+    static const char KEY_RT_HDR[];
