@@ -31,7 +31,7 @@
 #include <hardware/power.h>
 
 #define BOOSTPULSE_PATH "/sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse"
-#define TOUCHKEY_PATH "/sys/class/input/input1/enabled"
+#define TOUCHSCREEN_PATH "/sys/devices/14ed0000.hsi2c/i2c-4/4-0049/input"
 
 struct exynos5433_power_module {
     struct power_module base;
@@ -61,6 +61,41 @@ static void sysfs_write(const char *path, char *s)
     }
 
     close(fd);
+}
+
+static void init_touchscreen_power_path(struct exynos5433_power_module *exynos5433_pwr)
+{
+    const char dir[] = TOUCHSCREEN_PATH;
+    const char filename[] = "enabled";
+    struct dirent *de;
+    size_t pathsize;
+    char errno_str[64];
+    char *path;
+    DIR *d;
+
+    d = opendir(dir);
+    if (d == NULL) {
+        strerror_r(errno, errno_str, sizeof(errno_str));
+        ALOGE("Error opening directory %s: %s\n", dir, errno_str);
+        return;
+    }
+    while ((de = readdir(d)) != NULL) {
+        if (strncmp("input", de->d_name, 5) == 0) {
+            pathsize = strlen(dir) + strlen(de->d_name) + sizeof(filename) + 2;
+            path = malloc(pathsize);
+            if (path == NULL) {
+                strerror_r(errno, errno_str, sizeof(errno_str));
+                ALOGE("Out of memory: %s\n", errno_str);
+                return;
+            }
+            snprintf(path, pathsize, "%s/%s/%s", dir, de->d_name, filename);
+            exynos5433_pwr->touchscreen_power_path = path;
+            goto done;
+        }
+    }
+    ALOGE("Error failed to find input dir in %s\n", dir);
+done:
+    closedir(d);
 }
 
 /*
@@ -97,36 +132,40 @@ static void exynos5433_power_init(struct power_module *module)
     rc = stat("/sys/devices/system/cpu/cpu4/cpufreq/interactive", &sb);
     if (rc < 0) {
         ALOGE("CPU2 is offline, skip init\n");
-    } else {
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/multi_enter_load", "360");
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/multi_enter_time", "99000");
-
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/multi_exit_load", "240");
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/multi_exit_time", "299000");
-
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/single_enter_load", "95");
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/single_enter_time", "199000");
-
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/single_exit_load", "60");
-        /* was emtpy in hex so a value already defined. */
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/single_exit_time", "299000");
-
-        /* was emtpy in hex so a value already defined. */
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/param_index", "0");
-
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate", "20000");
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_slack", "20000");
-
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time", "40000");
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq", "1000000");
-
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load", "89");
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads", "80 1000000:81 1400000:87 1700000:90");
-
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay", "59000 1200000:119000 1700000:19000");
-
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration", "59000");
+        goto out;
     }
+
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/multi_enter_load", "360");
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/multi_enter_time", "99000");
+
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/multi_exit_load", "240");
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/multi_exit_time", "299000");
+
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/single_enter_load", "95");
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/single_enter_time", "199000");
+
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/single_exit_load", "60");
+    /* was emtpy in hex so a value already defined. */
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/single_exit_time", "299000");
+
+    /* was emtpy in hex so a value already defined. */
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/param_index", "0");
+
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate", "20000");
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_slack", "20000");
+
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time", "40000");
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq", "1000000");
+
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load", "89");
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads", "80 1000000:81 1400000:87 1700000:90");
+
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay", "59000 1200000:119000 1700000:19000");
+
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration", "59000");
+
+out:
+    init_touchscreen_power_path(exynos5433_pwr);
 }
 
 /* This function performs power management actions upon the system entering
@@ -154,7 +193,7 @@ static void exynos5433_power_set_interactive(struct power_module *module, int on
                 on ? "1700000" : "800000");
      */
 
-    sysfs_write(TOUCHKEY_PATH, on ? "1" : "0");
+    sysfs_write(exynos5433_pwr->touchscreen_power_path, on ? "1" : "0");
 
     ALOGV("power_set_interactive: %d done\n", on);
 }
