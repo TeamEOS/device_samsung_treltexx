@@ -340,6 +340,14 @@ static void select_devices(struct audio_device *adev)
             new_es325_preset =
                 route_configs[input_source_id][output_device_id]->es325_preset[adev->es325_mode];
         }
+        /*
+         * Disable noise suppression when capturing front and back mic for
+         * voice recognition
+         */
+        if ((adev->input_source == AUDIO_SOURCE_VOICE_RECOGNITION) &&
+            (adev->in_channel_mask == AUDIO_CHANNEL_IN_FRONT_BACK)) {
+            new_es325_preset = -1;
+        }
     } else {
         if (output_device_id != OUT_DEVICE_NONE) {
             output_route =
