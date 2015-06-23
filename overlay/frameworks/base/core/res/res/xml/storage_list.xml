@@ -5,7 +5,7 @@
       android:storageDescription="@string/storage_internal"
       android:primary="true"
       android:emulated="true"
-      android:mtpReserve="100" />
+      android:mtpReserve="128" />
 
   <storage android:mountPoint="/storage/Private"
       android:storageDescription="@string/storage_sd_card"
