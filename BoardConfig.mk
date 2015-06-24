@@ -166,6 +166,3 @@ BOARD_SEPOLICY_UNION := \
 	file.te \
 	macloader.te \
 	ueventd.te
-
-# inherit from the proprietary version
--include vendor/samsung/treltexx/BoardConfigVendor.mk
