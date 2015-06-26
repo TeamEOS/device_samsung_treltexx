@@ -142,6 +142,8 @@ BOARD_BATTERY_DEVICE_NAME := battery
 
 # RIL
 BOARD_VENDOR := samsung
+BOARD_PROVIDES_LIBRIL := true
+BOARD_MODEM_TYPE := m7450
 
 # RIL.java overwrite
 BOARD_RIL_CLASS := ../../../$(LOCAL_PATH)/ril
