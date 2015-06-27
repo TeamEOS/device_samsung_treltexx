@@ -18,8 +18,10 @@
         "target_path": "hardware/samsung_slsi/exynos5-insignal"
     },
     {
-        "repository": "hardware_samsung_slsi_exynos5433",
-        "target_path": "hardware/samsung_slsi/exynos5433"
+        "remote": "github",
+        "repository": "cyanogenmod/android_hardware_samsung",
+        "revision": "cm-12.1",
+        "target_path": "hardware/samsung"
     },
     {
         "remote": "github",
