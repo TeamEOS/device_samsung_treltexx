@@ -92,7 +92,7 @@ Only the three quirks included above are recognized at this point:
             <Quirk name="decoder-ignores-streamcorrupt-error" />
         </MediaCodec>
         <!-- Video Hardware  -->
-        <MediaCodec name="OMX.Exynos.avc.dec" type="video/avc" >
+        <MediaCodec name="OMX.Exynos.AVC.Decoder" type="video/avc" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="decoder-ignores-streamcorrupt-error" />
@@ -104,7 +104,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-80000000" />
             <Feature name="adaptive-playback" />
         </MediaCodec>
-        <MediaCodec name="OMX.Exynos.mpeg4.dec" type="video/mp4v-es" >
+        <MediaCodec name="OMX.Exynos.MPEG4.dec" type="video/mp4v-es" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="decoder-ignores-streamcorrupt-error" />
@@ -116,7 +116,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-80000000" />
             <Feature name="adaptive-playback" />
         </MediaCodec>
-        <MediaCodec name="OMX.Exynos.h263.dec" type="video/3gpp" >
+        <MediaCodec name="OMX.Exynos.H263.dec" type="video/3gpp" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="decoder-ignores-streamcorrupt-error" />
@@ -128,7 +128,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-80000000" />
             <Feature name="adaptive-playback" />
         </MediaCodec>
-        <MediaCodec name="OMX.Exynos.vp8.dec" type="video/x-vnd.on2.vp8" >
+        <MediaCodec name="OMX.Exynos.VP8.dec" type="video/x-vnd.on2.vp8" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="decoder-ignores-streamcorrupt-error" />
@@ -140,7 +140,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-60000000" />
             <Feature name="adaptive-playback" />
         </MediaCodec>
-        <MediaCodec name="OMX.Exynos.hevc.dec" type="video/hevc" >
+        <MediaCodec name="OMX.Exynos.HEVC.Decoder" type="video/hevc" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="decoder-ignores-streamcorrupt-error" />
