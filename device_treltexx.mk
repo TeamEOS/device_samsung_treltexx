@@ -319,7 +319,8 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     persist.service.adb.enable=1
     
 
-$(call inherit-product-if-exists, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 $(call inherit-product-if-exists, build/target/product/full.mk)
 
 # call the proprietary setup
