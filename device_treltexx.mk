@@ -322,6 +322,9 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 $(call inherit-product-if-exists, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 $(call inherit-product-if-exists, build/target/product/full.mk)
 
+# call the proprietary setup
+$(call inherit-product-if-exists, vendor/samsung/treltexx/treltexx-vendor.mk)
+
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_NAME := full_treltexx
 PRODUCT_DEVICE := treltexx
