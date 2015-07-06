@@ -199,6 +199,7 @@
     <ctl name="HP Switch" value="0" />
     <ctl name="DSP1 Aux 1" value="None" />
     <ctl name="DSP1 Aux 2" value="None" />
+    <ctl name="HPOUT1 DRE Switch" value="0" />
 
     <!-- Disable Analogue Dock Out -->
     <ctl name="VPS Switch" value="0" />
@@ -292,21 +293,18 @@
     <!-- ### Volume ### -->
 
     <path name="volume-earpiece-default">
-        <ctl name="HPOUT3 Digital Volume" value="108" />
+        <ctl name="HPOUT3 Digital Volume" value="128" />
         <ctl name="HPOUT3L Input 1 Volume" value="32" />
-        <ctl name="HPOUT3L Input 2 Volume" value="32" />
-        <ctl name="HPOUT3L Input 3 Volume" value="32" />
-        <ctl name="HPOUT3L Input 4 Volume" value="32" />
     </path>
 
     <path name="volume-earpiece-incall">
         <ctl name="HPOUT3 Digital Volume" value="128" />
         <ctl name="HPOUT3L Input 1 Volume" value="32" />
-        <ctl name="HPOUT3L Input 2 Volume" value="32" />
         <ctl name="HPOUT3L Input 3 Volume" value="32" />
         <ctl name="HPOUT3L Input 4 Volume" value="32" />
+        <ctl name="DSP4 XM f010:0" value="0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 0 0 6 0 0 0 6 0 0 0 9 0 0 0 9 0 0 0 9 0 0 0 5 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0" />
+        <ctl name="DSP4 XM f010:1" value="0 0 0 0 0 0 0 1 0 0 0 64 0 0 0 4 0 0 22 168 0 0 23 112 0 0 30 120 0 0 19 36 0 0 16 154 0 0 0 8 0 0 0 8 0 0 0 2 0 0 0 32 0 0 2 0 0 0 112 0 0 0 96 0 0 0 112 0 0 0 48 0 0 0 80 0" />
     </path>
-    <!-- TODO Check Param for DSP3 MX f010 -->
 
     <!--
     #######################################################
@@ -438,7 +436,6 @@
 
     <path name="device-headphones">
         <ctl name="HP Switch" value="1" />
-        <ctl name="VI SENSING Switch" value="0" />
     </path>
 
     <!-- ### Scenario ### -->
@@ -514,7 +511,6 @@
     <path name="device-sco">
         <ctl name="ASRC RATE 1" value="SYNCCLK rate 2" />
         <ctl name="ISRC2INT1 Input" value="None" />
-        <ctl name="VI SENSING Switch" value="0" />
     </path>
 
     <!-- ### Scenario ### -->
@@ -584,7 +580,6 @@
     <path name="device-sco-headset-out">
         <ctl name="ASRC RATE 1" value="SYNCCLK rate 2" />
         <ctl name="ISRC2INT1 Input" value="None" />
-        <ctl name="VI SENSING Switch" value="0" />
     </path>
 
     <!-- ### Scenario ### -->
@@ -647,7 +642,6 @@
     <path name="device-sco-carkit">
         <ctl name="ASRC RATE 1" value="SYNCCLK rate 2" />
         <ctl name="ISRC2INT1 Input" value="None" />
-        <ctl name="VI SENSING Switch" value="0" />
     </path>
 
     <!-- ### Scenario ### -->
@@ -1158,32 +1152,26 @@
     <path name="verb-default">
         <ctl name="AIF2 Mode" value="Master" />
 
-        <!-- CP->RCV -->
-        <ctl name="HPOUT3L Input 1" value="AIF1RX1" />
-        <ctl name="HPOUT3R Input 1" value="AIF1RX2" />
-
-        <!-- CP->SPK -->
-        <ctl name="HPOUT2L Input 1" value="AIF1RX1" />
-        <ctl name="HPOUT2R Input 1" value="AIF1RX2" />
-
         <!-- CP->HP -->
-        <ctl name="HPOUT1L Input 1" value="AIF1RX1" />
-        <ctl name="HPOUT1R Input 1" value="AIF1RX2" />
+        <ctl name="HPOUT1L Input 2" value="None" />
+        <ctl name="HPOUT1R Input 2" value="None" />
     </path>
 
     <path name="verb-incall">
         <ctl name="AIF2 Mode" value="Master" />
         <ctl name="DSP Virtual Output Mux" value="None" />
 
-        <!-- CP->RCV -->
-        <ctl name="HPOUT3L Input 1" value="ASRC2L" />
+        <!-- AP->SPK -->
+        <ctl name="HPOUT2L Input 1" value="AIF1RX1" />
+        <ctl name="HPOUT2L Input 2" value="AIF1RX2" />
 
-        <!-- CP->SPK -->
-        <ctl name="HPOUT2L Input 1" value="ASRC2L" />
+        <!-- AP->HP -->
+        <ctl name="HPOUT1L Input 1" value="AIF1RX1" />
+        <ctl name="HPOUT1R Input 1" value="AIF1RX2" />
 
         <!-- CP->HP -->
         <ctl name="HPOUT1L Input 2" value="ASRC2L" />
-        <ctl name="HPOUT1L Input 2" value="ASRC2R" />
+        <ctl name="HPOUT1R Input 2" value="ASRC2R" />
     </path>
 
     <!--
