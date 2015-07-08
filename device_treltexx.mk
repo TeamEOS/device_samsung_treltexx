@@ -81,9 +81,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196608
 
 PRODUCT_PACKAGES += \
-    libion_exynos \
-    hwcomposer.exynos5 \
     gralloc.exynos5
+
+PRODUCT_PACKAGES += \
+    libion \
+    libcec
 
 ###########################################################
 ### RADIO
@@ -156,24 +158,6 @@ PRODUCT_PACKAGES += \
 ###########################################################
 ### OMX/MEDIA
 ###########################################################
-
-PRODUCT_PACKAGES += \
-	libstagefrighthw \
-	libExynosOMX_Core
-
-PRODUCT_PACKAGES += \
-	libOMX.Exynos.AVC.Decoder \
-	libOMX.Exynos.MPEG4.Decoder \
-	libOMX.Exynos.VP8.Decoder \
-	libOMX.Exynos.WMV.Decoder
-
-PRODUCT_PACKAGES += \
-	libOMX.Exynos.AVC.Encoder \
-	libOMX.Exynos.MPEG4.Encoder \
-	libOMX.Exynos.VP8.Encoder
-
-PRODUCT_PACKAGES += \
-	libOMX.Exynos.MP3.Decoder
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
@@ -257,47 +241,14 @@ PRODUCT_PACKAGES += \
     setup_fs
 
 ###########################################################
-### KEY MANAGEMENT
-###########################################################
-
-PRODUCT_PACKAGES += \
-    keystore.exynos5
-
-###########################################################
-### MALI GPU STATS
-###########################################################
-
-PRODUCT_PACKAGES += \
-    memtrack.exynos5
-
-###########################################################
 ### MOBICORE
 ###########################################################
 
 PRODUCT_PACKAGES += \
     libMcClient \
     libMcRegistry \
-    libPaApi \
     libgdmcprov \
     mcDriverDaemon
-
-###########################################################
-### EXYNOS 5 OMX
-###########################################################
-
-PRODUCT_PACKAGES += \
-    libcsc \
-    libExynosOMX_Core \
-    libOMX.Exynos.MP3.Decoder \
-    libstagefrighthw \
-
-###########################################################
-### MOBICORE
-###########################################################
-
-PRODUCT_PACKAGES += \
-	mcDriverDaemon \
-	keystore.exynos5
 
 ###########################################################
 ### PACKAGES
@@ -325,6 +276,10 @@ $(call inherit-product-if-exists, build/target/product/full.mk)
 
 # call the proprietary setup
 $(call inherit-product-if-exists, vendor/samsung/treltexx/treltexx-vendor.mk)
+
+# call Samsung LSI board support package
+$(call inherit-product, hardware/samsung_slsi/exynos5-insignal/exynos5.mk)
+$(call inherit-product, hardware/samsung_slsi/exynos5433/exynos5433.mk)
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_NAME := full_treltexx
