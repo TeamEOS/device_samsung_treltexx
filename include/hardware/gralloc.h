@@ -105,8 +105,10 @@ enum {
     GRALLOC_USAGE_HW_CAMERA_ZSL         = 0x00060000,
     /* mask for the camera access values */
     GRALLOC_USAGE_HW_CAMERA_MASK        = 0x00060000,
+    /* buffer will be used by the HW IPs when sysmmu is off */
+    GRALLOC_USAGE_PHYSICALLY_LINEAR     = 0x01000000,
     /* mask for the software usage bit-mask */
-    GRALLOC_USAGE_HW_MASK               = 0x00071F00,
+    GRALLOC_USAGE_HW_MASK               = 0x00079F00,
 
     /* buffer will be used as a RenderScript Allocation */
     GRALLOC_USAGE_RENDERSCRIPT          = 0x00100000,
@@ -123,6 +125,7 @@ enum {
      * composition to the external sink.
      */
     GRALLOC_USAGE_PROTECTED             = 0x00004000,
+    GRALLOC_USAGE_GPU_BUFFER            = 0x00800000,
 
     /* buffer may be used as a cursor */
     GRALLOC_USAGE_CURSOR                = 0x00008000,
@@ -133,6 +136,13 @@ enum {
     GRALLOC_USAGE_PRIVATE_2             = 0x40000000,
     GRALLOC_USAGE_PRIVATE_3             = 0x80000000,
     GRALLOC_USAGE_PRIVATE_MASK          = 0xF0000000,
+
+    GRALLOC_USAGE_INTERNAL_ONLY         = 0x10000000,
+    GRALLOC_USAGE_EXTERNAL_FLEXIBLE     = 0x20000000,
+    GRALLOC_USAGE_EXTERNAL_BLOCK        = 0x40000000,
+    GRALLOC_USAGE_EXTERNAL_ONLY         = 0x80000000,
+    GRALLOC_USAGE_EXTERNAL_VIRTUALFB    = 0x00400000,
+    GRALLOC_USAGE_PRIVATE_NONSECURE     = 0x02000000,
 
 #ifdef EXYNOS4_ENHANCEMENTS
     /* SAMSUNG */
