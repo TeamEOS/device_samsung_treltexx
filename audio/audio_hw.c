@@ -263,7 +263,7 @@ static int get_output_device_id(audio_devices_t device)
     }
 }
 
-static int get_input_source_id(audio_source_t source)
+static int get_input_source_id(audio_source_t source, bool wb_amr)
 {
     switch (source) {
     case AUDIO_SOURCE_DEFAULT:
@@ -277,6 +277,9 @@ static int get_input_source_id(audio_source_t source)
     case AUDIO_SOURCE_VOICE_COMMUNICATION:
         return IN_SOURCE_VOICE_COMMUNICATION;
     case AUDIO_SOURCE_VOICE_CALL:
+        if (wb_amr) {
+            return IN_SOURCE_VOICE_CALL_WB;
+        }
         return IN_SOURCE_VOICE_CALL;
     default:
         return IN_SOURCE_NONE;
@@ -294,7 +297,7 @@ static void adev_set_call_audio_path(struct audio_device *adev);
 static void select_devices(struct audio_device *adev)
 {
     int output_device_id = get_output_device_id(adev->out_device);
-    int input_source_id = get_input_source_id(adev->input_source);
+    int input_source_id = get_input_source_id(adev->input_source, adev->wb_amr);
     const char *output_route = NULL;
     const char *input_route = NULL;
     int new_route_id;
@@ -464,7 +467,7 @@ err_voice_rx:
 }
 
 /* must be called with hw device mutex locked, OK to hold other mutexes */
-static void end_voice_call(struct audio_device *adev)
+static void stop_voice_call(struct audio_device *adev)
 {
     ALOGV("%s: Closing voice PCMs", __func__);
 
@@ -485,20 +488,19 @@ static void adev_set_wb_amr_callback(void *data, int enable)
 {
     struct audio_device *adev = (struct audio_device *)data;
 
-    ALOGV("%s: setting to: %d", __func__, enable);
-
     pthread_mutex_lock(&adev->lock);
     if (adev->wb_amr != enable) {
         adev->wb_amr = enable;
 
         /* reopen the modem PCMs at the new rate */
         if (adev->in_call) {
-#if 0
-            /* TODO: set rate properly */
-            end_voice_call(adev);
+            ALOGV("%s: %s Incall Wide Band support",
+                  __func__,
+                  enable ? "Turn on" : "Turn off");
+
+            stop_voice_call(adev);
             select_devices(adev);
             start_voice_call(adev);
-#endif
         }
     }
     pthread_mutex_unlock(&adev->lock);
@@ -1468,7 +1470,7 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
         ALOGV("%s: Leaving IN_CALL mode", __func__);
         if (adev->in_call) {
             adev->in_call = false;
-            end_voice_call(adev);
+            stop_voice_call(adev);
             ril_set_call_clock_sync(&adev->ril, SOUND_CLOCK_STOP);
             if (adev->out_device & AUDIO_DEVICE_OUT_ALL_SCO)
                 end_bt_sco(adev);
