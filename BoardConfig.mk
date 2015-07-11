@@ -136,7 +136,6 @@ WIFI_DRIVER_FW_PATH_AP           := "/etc/wifi/bcmdhd_apsta.bin"
 ENABLE_WEBGL := true
 
 # WFD
-BOARD_USES_WFD_SERVICE := true
 BOARD_USES_WFD := true
 
 # Wifi Macloader
