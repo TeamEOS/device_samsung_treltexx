@@ -231,6 +231,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=true
 
+# Default to MTP protocol
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config=mtp
+
 ###########################################################
 ### FILESYSTEM MANAGEMENT
 ###########################################################
