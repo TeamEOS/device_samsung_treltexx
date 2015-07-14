@@ -7,7 +7,7 @@
     },
     {
         "repository": "hardware_samsung_slsi_exynos5433",
-        "target_path": "hardware/samsung_slsi/exynos/exynos5433"
+        "target_path": "hardware/samsung_slsi/exynos5433"
     },
     {
         "repository": "hardware_samsung_slsi_exynos",
