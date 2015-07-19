@@ -79,7 +79,7 @@ const struct route_config voice_headphones_wb = {
 
 const struct route_config voice_headset = {
     "voice-headphones",
-    "voice-earpiece-headset-mic"
+    "voice-headset-mic"
 };
 
 const struct route_config voice_headset_wb = {
