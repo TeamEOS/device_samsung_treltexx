@@ -8,7 +8,7 @@ $(call inherit-product, vendor/eos/config/common_full_phone.mk)
 #$(call inherit-product, vendor/eos/config/nfc_enhanced.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/samsung/treltexx/device_treltexx.mk)
+$(call inherit-product, device/samsung/treltexx/device.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_NAME := eos_treltexx

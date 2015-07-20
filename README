@@ -1,6 +1,6 @@
 Device configuration for the Samsung Galaxy Note 4 Exynos (N910C variant)
 
-Copyright (C) 2014 Christopher N. Hesse <raymanfx@gmail.com>
+Copyright (C) 2015 Christopher N. Hesse <raymanfx@gmail.com>
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -10,75 +10,4 @@ Copyright (C) 2014 Christopher N. Hesse <raymanfx@gmail.com>
 
 ------------------------------------------------------------------
 
-* Description
-
-  This repository is for CM11 on Samsung Galaxy Note 4 Exynos (treltexx)
-
-    THIS IS WORK IN PROGRESS.
-
-
-* How To Build CM11 for Samsung Galaxy Note 4 Exynos (treltexx)
-
-  - Make a workspace
-
-  $ mkdir -p ~/cyanogenmod/system
-  $ cd ~/cyanogenmod/system
-
-
-  - Do repo init & sync
-
-  $ repo init -u git://github.com/CyanogenMod/android.git -b cm-12.1
-
-
-  - Create .repo/local_manifests/roomservice.xml with the following content:
-
-  <?xml version="1.0" encoding="UTF-8"?>
-  <manifest>
-      <remote  name="raymanfx" fetch="git@github.com:RaymanFX/" />
-
-      <project name="CyanogenMod/android_hardware_samsung_slsi_exynos" path="hardware/samsung_slsi/exynos" remote="github" />
-      <project name="CyanogenMod/android_hardware_samsung_slsi_exynos5-insignal" path="hardware/samsung_slsi/exynos5-insignal" remote="github" />
-      <project name="CyanogenMod/android_hardware_samsung_slsi_openmax" path="hardware/samsung_slsi/openmax" remote="github" />
-      <project name="CyanogenMod/android_hardware_samsung" path="hardware/samsung" remote="github" />
-      <project name="CyanogenMod/android_packages_apps_SamsungServiceMode" path="packages/apps/SamsungServiceMode" remote="github" />
-      <project name="projects/android/android_hardware_samsung_slsi_exynos5433" path="hardware/samsung_slsi/exynos5433" remote="raymanfx" />
-
-      <project name="projects/android/android_kernel_samsung_treltexx.git" path="kernel/samsung/treltexx" remote="raymanfx" />
-      <project name="projects/android/android_device_samsung_treltexx.git" path="device/samsung/treltexx" remote="raymanfx" />
-  </manifest>
-
-  $ repo sync
-
-  - Copy proprietary vendor files
-
-  There are two options to to that. Connect your device with adb enabled and run:
-
-    ./extract-files.sh
-
-  Or if you have the system image unpacked on your disk, then simply run:
-
-    STOCK_ROM_DIR=/path/to/system ./extract-files.sh
-
-  - Setup vendor
-
-  $ ./vendor/cm/get-prebuilts
-
-
-  - Setup environment
-
-  $ source build/envsetup.sh
-  $ lunch cm_treltexx-userdebug
-
-
-  - Build CM
-
-  $ export USE_CCACHE=1
-  $ make -j10 bacon
-
-
-* Thanks
-
-  CyanogenMod
-
-----
 EOF
