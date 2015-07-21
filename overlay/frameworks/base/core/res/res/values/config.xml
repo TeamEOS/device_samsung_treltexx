@@ -242,4 +242,11 @@
 
     <!-- Boolean to enable stk functionality on Samsung phones -->
     <bool name="config_samsung_stk">true</bool>
+    
+    <!-- Doze (Ambient display) -->
+    <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
+    <bool name="config_dozeAfterScreenOff">true</bool>
+
+    <!-- Screen brightness when dozing. -->
+    <integer name="config_screenBrightnessDoze">100</integer>
 </resources>
