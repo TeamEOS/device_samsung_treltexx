@@ -56,6 +56,8 @@
         <item>wifi_p2p,13,1,0,-1,true</item>
         <item>mobile_ia,14,0,2,-1,true</item>
         <item>mobile_bip,23,0,2,60000,true</item>
+        <item>mobile_ent1,28,0,2,-1,true</item>
+        <item>mobile_ent2,29,0,2,-1,true</item>
     </string-array>
 
     <!-- This string array should be overridden by the device to present a list of radio
@@ -66,7 +68,6 @@
     <string-array translatable="false" name="radioAttributes">
         <item>1,1</item>
         <item>0,1</item>
-        <item>7,1</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
@@ -98,8 +99,10 @@
     <integer-array translatable="false" name="config_tether_upstream_types">
         <item>0</item>
         <item>1</item>
+        <item>4</item>
         <item>5</item>
         <item>7</item>
+        <item>9</item>
     </integer-array>
 
     <!-- The default iface on which to monitor data use -->
@@ -183,13 +186,10 @@
 
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>10</item>
-        <item>30</item>
-        <item>60</item>
-        <item>100</item>
+        <item>15</item>
         <item>150</item>
-        <item>210</item>
-        <item>255</item>
+        <item>1000</item>
+        <item>5000</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -198,25 +198,10 @@
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
         <item>10</item>
-        <item>20</item>
-        <item>40</item>
-        <item>70</item>
-        <item>110</item>
-        <item>160</item>
-        <item>200</item>
+        <item>80</item>
+        <item>162</item>
+        <item>190</item>
         <item>255</item>
-    </integer-array>
-
-    <!-- Array of output values for button backlight corresponding to the LUX values
-         in the config_autoBrightnessLevels array.  This array should have size one greater
-         than the size of the config_autoBrightnessLevels array.
-         This must be overridden in platform specific overlays -->
-    <integer-array name="config_autoBrightnessButtonBacklightValues">
-        <item>1</item>
-        <item>1</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
     </integer-array>
 
     <!-- Minimum screen brightness setting allowed by the power manager.
@@ -248,5 +233,5 @@
     <bool name="config_dozeAfterScreenOff">true</bool>
 
     <!-- Screen brightness when dozing. -->
-    <integer name="config_screenBrightnessDoze">100</integer>
+    <integer name="config_screenBrightnessDoze">19</integer>
 </resources>
