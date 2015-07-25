@@ -272,9 +272,7 @@ PRODUCT_PACKAGES += \
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.debug_level=0x4948 \
-    ro.secure=0 \
-    ro.debuggable=1 \
-    persist.service.adb.enable=1
+    ro.secure=0
     
 
 $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
