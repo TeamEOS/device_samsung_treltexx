@@ -272,7 +272,6 @@ PRODUCT_PACKAGES += \
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.debug_level=0x4948 \
-    ro.selinux=permissive \
     ro.secure=0 \
     ro.debuggable=1 \
     persist.service.adb.enable=1
