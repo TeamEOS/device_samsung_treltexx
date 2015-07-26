@@ -148,12 +148,12 @@ static void exynos5433_power_init(struct power_module *module)
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack", "20000");
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time", "40000");
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq", "900000");
-    sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load", "84");
+    sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load", "85");
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads", "75");
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay", "19000");
 
     /* was emtpy in hex so a value already defined. */
-    sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration", "500000");
+    sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration", "40000");
 
     /* The CPU might not be turned on, then it doesn't make sense to configure it. */
     rc = stat("/sys/devices/system/cpu/cpu4/cpufreq/interactive", &sb);
@@ -173,7 +173,7 @@ static void exynos5433_power_init(struct power_module *module)
 
     sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/single_exit_load", "60");
     /* was emtpy in hex so a value already defined. */
-    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/single_exit_time", "299000");
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/single_exit_time", "99000");
 
     /* was emtpy in hex so a value already defined. */
     sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/param_index", "0");
@@ -189,7 +189,7 @@ static void exynos5433_power_init(struct power_module *module)
 
     sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay", "59000 1200000:119000 1700000:19000");
 
-    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration", "59000");
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration", "40000");
 
 out:
     init_gpio_keys_power_path(exynos5433_pwr);
@@ -215,12 +215,11 @@ static void exynos5433_power_set_interactive(struct power_module *module, int on
     /*
      * Lower maximum frequency when screen is off.  CPU 0 and 1 share a
      * cpufreq policy.
-     * NOT FOUND IN STOCK POWER HAL. DISABLING.
-    sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
-                on ? "1700000" : "800000");
-    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq",
-                on ? "1700000" : "800000");
      */
+    sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
+                on ? "1300000" : "400000");
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq",
+                on ? "1900000" : "700000");
 
     sysfs_write(exynos5433_pwr->touchscreen_power_path, on ? "1" : "0");
     sysfs_write(exynos5433_pwr->touchkey_power_path, on ? "1" : "0");
