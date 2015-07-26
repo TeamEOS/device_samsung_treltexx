@@ -17,7 +17,7 @@
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
 
-#define BTM_DEF_LOCAL_NAME "SM-G850F"
+#define BTM_DEF_LOCAL_NAME "Galaxy Note 4"
 
 // Networking, Capturing, Object Transfer
 // MAJOR CLASS: COMPUTER
