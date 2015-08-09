@@ -79,6 +79,18 @@ Only the three quirks included above are recognized at this point:
 
 <MediaCodecs>
     <Decoders>
+        <!-- Audio Hardware  -->		
+        <MediaCodec name="OMX.Exynos.MP3.Decoder">		
+            <Type name="audio/mpeg"/>		
+            <Type name="audio/mpeg-L1"/>		
+            <Type name="audio/mpeg-L2"/>		
+            <Quirk name="needs-flush-before-disable" />		
+            <Quirk name="decoder-ignores-streamcorrupt-error" />		
+        </MediaCodec>		
+        <MediaCodec name="OMX.Exynos.WMA.Decoder" type="audio/x-ms-wma" >		
+            <Quirk name="needs-flush-before-disable" />		
+            <Quirk name="decoder-ignores-streamcorrupt-error" />		
+        </MediaCodec>
         <!-- Video Hardware  -->
         <MediaCodec name="OMX.ffmpeg.h264.decoder"  type="video/avc"/>
         <MediaCodec name="OMX.Exynos.MPEG4.Decoder" type="video/mp4v-es" >
