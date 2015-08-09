@@ -48,8 +48,12 @@
 #include "ril_interface.h"
 
 #define PCM_CARD 0
+#if 1
+#define PCM_TOTAL 1
+#else
 #define PCM_CARD_SPDIF 1
 #define PCM_TOTAL 2
+#endif
 
 #define PCM_DEVICE 0
 #define PCM_DEVICE_VOICE 1
@@ -581,6 +585,7 @@ static int start_output_stream(struct stream_out *out)
         }
     }
 
+#if 0
     if (out->device & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET) {
         out->pcm[PCM_CARD_SPDIF] = pcm_open(PCM_CARD_SPDIF, out->pcm_device,
                                             PCM_OUT | PCM_MONOTONIC, &out->config);
@@ -593,6 +598,7 @@ static int start_output_stream(struct stream_out *out)
             return -ENOMEM;
         }
     }
+#endif
 
     /* in call routing must go through set_parameters */
     if (!adev->in_call) {
