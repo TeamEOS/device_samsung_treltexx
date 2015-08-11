@@ -399,8 +399,10 @@ static void start_bt_sco(struct audio_device *adev)
 
 err_sco_tx:
     pcm_close(adev->pcm_sco_tx);
+    adev->pcm_sco_tx = NULL;
 err_sco_rx:
     pcm_close(adev->pcm_sco_rx);
+    adev->pcm_sco_rx = NULL;
 }
 
 /* must be called with hw device mutex locked, OK to hold other mutexes */
@@ -457,6 +459,10 @@ static int start_voice_call(struct audio_device *adev)
     pcm_start(adev->pcm_voice_rx);
     pcm_start(adev->pcm_voice_tx);
 
+    /* start SCO stream if needed */
+    if (adev->out_device & AUDIO_DEVICE_OUT_ALL_SCO)
+        start_bt_sco(adev);
+
     return 0;
 
 err_voice_tx:
@@ -472,18 +478,38 @@ err_voice_rx:
 /* must be called with hw device mutex locked, OK to hold other mutexes */
 static void stop_voice_call(struct audio_device *adev)
 {
-    ALOGV("%s: Closing voice PCMs", __func__);
+    int status = 0;
+
+    ALOGV("%s: Closing active PCMs", __func__);
 
     if (adev->pcm_voice_rx) {
         pcm_stop(adev->pcm_voice_rx);
         pcm_close(adev->pcm_voice_rx);
         adev->pcm_voice_rx = NULL;
+        status++;
     }
 
     if (adev->pcm_voice_tx) {
         pcm_stop(adev->pcm_voice_tx);
         pcm_close(adev->pcm_voice_tx);
         adev->pcm_voice_tx = NULL;
+        status++;
+    }
+
+    if (adev->pcm_sco_rx) {
+        pcm_stop(adev->pcm_sco_rx);
+        pcm_close(adev->pcm_sco_rx);
+        adev->pcm_sco_rx = NULL;
+        status++;
+    }
+    
+    if (adev->pcm_sco_tx) {
+        pcm_stop(adev->pcm_sco_tx);
+        pcm_close(adev->pcm_sco_tx);
+        adev->pcm_sco_tx = NULL;
+        status++;
+
+        ALOGV("%s: Successfully closed %d active PCMs", __func__, status);
     }
 }
 
@@ -535,7 +561,8 @@ static int start_output_stream(struct stream_out *out)
     if (out->device & (AUDIO_DEVICE_OUT_SPEAKER |
                        AUDIO_DEVICE_OUT_WIRED_HEADSET |
                        AUDIO_DEVICE_OUT_WIRED_HEADPHONE |
-                       AUDIO_DEVICE_OUT_AUX_DIGITAL)) {
+                       AUDIO_DEVICE_OUT_AUX_DIGITAL |
+                       AUDIO_DEVICE_OUT_ALL_SCO)) {
         out->pcm[PCM_CARD] = pcm_open(PCM_CARD, out->pcm_device,
                                       PCM_OUT | PCM_MONOTONIC, &out->config);
 
@@ -897,16 +924,10 @@ static int out_set_parameters(struct audio_stream *stream, const char *kvpairs)
 
     ret = str_parms_get_str(parms, AUDIO_PARAMETER_STREAM_ROUTING,
                             value, sizeof(value));
+    lock_all_outputs(adev);
     if (ret >= 0) {
         val = atoi(value);
-        lock_all_outputs(adev);
-        if (((adev->out_device) != val) && (val != 0)) {
-            /* force output standby to stop SCO pcm stream if needed */
-            if ((val & AUDIO_DEVICE_OUT_ALL_SCO) ^
-                    (out->device & AUDIO_DEVICE_OUT_ALL_SCO)) {
-                do_out_standby(out);
-            }
-
+        if ((out->device != val) && (val != 0)) {
             /* Force standby if moving to/from SPDIF or if the output
              * device changes when in SPDIF mode */
             if (((val & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET) ^
@@ -915,16 +936,19 @@ static int out_set_parameters(struct audio_stream *stream, const char *kvpairs)
                 do_out_standby(out);
             }
 
+            /* force output standby to start or stop SCO pcm stream if needed */
+            if ((val & AUDIO_DEVICE_OUT_ALL_SCO) ^
+                (out->device & AUDIO_DEVICE_OUT_ALL_SCO)) {
+                do_out_standby(out);
+            }
+
             out->device = val;
-            adev->out_device = val;
+            adev->out_device = output_devices(out) | val;
             select_devices(adev);
 
-            /* start SCO stream if needed */
-            if (val & AUDIO_DEVICE_OUT_ALL_SCO)
-                start_bt_sco(adev);
         }
-        unlock_all_outputs(adev, NULL);
     }
+    unlock_all_outputs(adev, NULL);
 
     str_parms_destroy(parms);
     return ret;
