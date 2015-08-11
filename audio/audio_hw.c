@@ -66,7 +66,7 @@
 
 #define MAX_SUPPORTED_CHANNEL_MASKS 1
 
-#define ARRAY_SIZE(a) (sizeof((a)) / sizeof((a[0])))
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a[0])))
 
 struct pcm_config pcm_config = {
     .channels = 2,
@@ -141,7 +141,7 @@ enum output_type {
 struct audio_device {
     struct audio_hw_device hw_device;
 
-    pthread_mutex_t lock;       /* see note below on mutex acquisition order */
+    pthread_mutex_t lock; /* see note below on mutex acquisition order */
     audio_devices_t out_device;
     audio_devices_t in_device;
     bool mic_mute;
@@ -177,16 +177,12 @@ struct audio_device {
 struct stream_out {
     struct audio_stream_out stream;
 
-    pthread_mutex_t lock;       /* see note below on mutex acquisition order */
+    pthread_mutex_t lock; /* see note below on mutex acquisition order */
     struct pcm *pcm[PCM_TOTAL];
     struct pcm_config config;
     unsigned int pcm_device;
     bool standby; /* true if all PCMs are inactive */
     audio_devices_t device;
-
-    struct resampler_itfe *resampler;
-    int16_t *buffer;
-    size_t buffer_frames;
 
     audio_channel_mask_t channel_mask;
     /* Array of supported channel mask configurations. +1 so that the last entry is always 0 */
@@ -216,7 +212,7 @@ struct stream_in {
 
     uint16_t ramp_vol;
     uint16_t ramp_step;
-    uint16_t ramp_frames;
+    size_t ramp_frames;
 
     audio_channel_mask_t channel_mask;
     audio_input_flags_t flags;
@@ -791,7 +787,7 @@ static size_t out_get_buffer_size(const struct audio_stream *stream)
     struct stream_out *out = (struct stream_out *)stream;
 
     return out->config.period_size *
-           audio_stream_out_frame_size((const struct audio_stream_out *)stream);
+            audio_stream_out_frame_size((const struct audio_stream_out *)stream);
 }
 
 static audio_channel_mask_t out_get_channels(const struct audio_stream *stream)
@@ -855,7 +851,7 @@ static void do_out_standby(struct stream_out *out)
 #if 0
         if (out == adev->outputs[OUTPUT_HDMI]) {
             /* force standby on low latency output stream so that it can reuse HDMI driver if
-            * necessary when restarted */
+             * necessary when restarted */
             force_non_hdmi_out_standby(adev);
         }
 #endif
@@ -996,7 +992,7 @@ static char * out_get_parameters(const struct audio_stream *stream, const char *
             i++;
         }
         str_parms_add_str(reply, AUDIO_PARAMETER_STREAM_SUP_CHANNELS, value);
-        str = strdup(str_parms_to_str(reply));
+        str = str_parms_to_str(reply);
     } else {
         str = strdup(keys);
     }
@@ -1465,31 +1461,6 @@ static int adev_set_parameters(struct audio_hw_device *dev, const char *kvpairs)
     int ret;
 
     parms = str_parms_create_str(kvpairs);
-#if 0
-    ret = str_parms_get_str(parms, AUDIO_PARAMETER_KEY_TTY_MODE, value, sizeof(value));
-    if (ret >= 0) {
-        int tty_mode;
-
-        if (strcmp(value, AUDIO_PARAMETER_VALUE_TTY_OFF) == 0)
-            tty_mode = TTY_MODE_OFF;
-        else if (strcmp(value, AUDIO_PARAMETER_VALUE_TTY_VCO) == 0)
-            tty_mode = TTY_MODE_VCO;
-        else if (strcmp(value, AUDIO_PARAMETER_VALUE_TTY_HCO) == 0)
-            tty_mode = TTY_MODE_HCO;
-        else if (strcmp(value, AUDIO_PARAMETER_VALUE_TTY_FULL) == 0)
-            tty_mode = TTY_MODE_FULL;
-        else
-            return -EINVAL;
-
-        pthread_mutex_lock(&adev->lock);
-        if (tty_mode != adev->tty_mode) {
-            adev->tty_mode = tty_mode;
-            if (adev->mode == AUDIO_MODE_IN_CALL)
-                select_output_device(adev);
-        }
-        pthread_mutex_unlock(&adev->lock);
-    }
-#endif
 
     ret = str_parms_get_str(parms, AUDIO_PARAMETER_KEY_BT_NREC, value, sizeof(value));
     if (ret >= 0) {
@@ -1640,7 +1611,7 @@ static int adev_open_input_stream(struct audio_hw_device *dev,
                                   audio_devices_t devices,
                                   struct audio_config *config,
                                   struct audio_stream_in **stream_in,
-                                  audio_input_flags_t flags __unused,
+                                  audio_input_flags_t flags,
                                   const char *address __unused,
                                   audio_source_t source __unused)
 {
@@ -1791,8 +1762,6 @@ static int adev_open(const hw_module_t* module, const char* name,
     adev->hw_device.open_input_stream = adev_open_input_stream;
     adev->hw_device.close_input_stream = adev_close_input_stream;
     adev->hw_device.dump = adev_dump;
-    adev->hw_device.set_master_mute = NULL;
-    adev->hw_device.get_master_mute = NULL;
 
     adev->ar = audio_route_init(MIXER_CARD, NULL);
     adev->input_source = AUDIO_SOURCE_DEFAULT;
@@ -1830,7 +1799,7 @@ struct audio_module HAL_MODULE_INFO_SYM = {
         .module_api_version = AUDIO_MODULE_API_VERSION_0_1,
         .hal_api_version = HARDWARE_HAL_API_VERSION,
         .id = AUDIO_HARDWARE_MODULE_ID,
-        .name = "JA audio HW HAL",
+        .name = "Samsung audio HW HAL",
         .author = "The CyanogenMod Project",
         .methods = &hal_module_methods,
     },
