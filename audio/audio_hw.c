@@ -165,7 +165,6 @@ struct audio_device {
     bool in_call;
     bool tty_mode;
     bool bluetooth_nrec;
-    bool wb_amr;
 
     /* RIL */
     struct ril_handle ril;
@@ -275,7 +274,7 @@ static int get_output_device_id(audio_devices_t device)
     }
 }
 
-static int get_input_source_id(audio_source_t source, bool wb_amr)
+static int get_input_source_id(audio_source_t source)
 {
     switch (source) {
     case AUDIO_SOURCE_DEFAULT:
@@ -289,9 +288,6 @@ static int get_input_source_id(audio_source_t source, bool wb_amr)
     case AUDIO_SOURCE_VOICE_COMMUNICATION:
         return IN_SOURCE_VOICE_COMMUNICATION;
     case AUDIO_SOURCE_VOICE_CALL:
-        if (wb_amr) {
-            return IN_SOURCE_VOICE_CALL_WB;
-        }
         return IN_SOURCE_VOICE_CALL;
     default:
         return IN_SOURCE_NONE;
@@ -310,7 +306,7 @@ static void adev_set_call_audio_path(struct audio_device *adev);
 static void select_devices(struct audio_device *adev)
 {
     int output_device_id = get_output_device_id(adev->out_device);
-    int input_source_id = get_input_source_id(adev->input_source, adev->wb_amr);
+    int input_source_id = get_input_source_id(adev->input_source);
     const char *output_route = NULL;
     const char *input_route = NULL;
     int new_route_id;
@@ -378,10 +374,7 @@ static void start_bt_sco(struct audio_device *adev)
 
     ALOGV("%s: Opening SCO PCMs", __func__);
 
-    if (adev->wb_amr)
-        sco_config = &pcm_config_sco_wide;
-    else
-        sco_config = &pcm_config_sco;
+    sco_config = &pcm_config_sco;
 
     adev->pcm_sco_rx = pcm_open(PCM_CARD, PCM_DEVICE_SCO, PCM_OUT,
             sco_config);
@@ -442,10 +435,7 @@ static int start_voice_call(struct audio_device *adev)
 
     ALOGV("%s: Opening voice PCMs", __func__);
 
-    if (adev->wb_amr)
-        voice_config = &pcm_config_voice_wide;
-    else
-        voice_config = &pcm_config_voice;
+    voice_config = &pcm_config_voice;
 
     /* Open modem PCM channels */
     adev->pcm_voice_rx = pcm_open(PCM_CARD, PCM_DEVICE_VOICE, PCM_OUT | PCM_MONOTONIC,
@@ -495,28 +485,6 @@ static void stop_voice_call(struct audio_device *adev)
         pcm_close(adev->pcm_voice_tx);
         adev->pcm_voice_tx = NULL;
     }
-}
-
-static void adev_set_wb_amr_callback(void *data, int enable)
-{
-    struct audio_device *adev = (struct audio_device *)data;
-
-    pthread_mutex_lock(&adev->lock);
-    if (adev->wb_amr != enable) {
-        adev->wb_amr = enable;
-
-        /* reopen the modem PCMs at the new rate */
-        if (adev->in_call) {
-            ALOGV("%s: %s Incall Wide Band support",
-                  __func__,
-                  enable ? "Turn on" : "Turn off");
-
-            stop_voice_call(adev);
-            select_devices(adev);
-            start_voice_call(adev);
-        }
-    }
-    pthread_mutex_unlock(&adev->lock);
 }
 
 static void adev_set_call_audio_path(struct audio_device *adev)
@@ -1773,8 +1741,6 @@ static int adev_open(const hw_module_t* module, const char* name,
 
     /* RIL */
     ril_open(&adev->ril);
-    /* register callback for wideband AMR setting */
-    ril_register_set_wb_amr_callback(adev_set_wb_amr_callback, (void *)adev);
 
     *device = &adev->hw_device.common;
 

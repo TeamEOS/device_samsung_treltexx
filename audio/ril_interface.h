@@ -29,8 +29,6 @@
 #define RIL_CLIENT_ERR_UNKNOWN      7
 
 #define RIL_OEM_UNSOL_RESPONSE_BASE 11000 // RIL response base index
-#define RIL_UNSOL_WB_AMR_STATE \
-    (RIL_OEM_UNSOL_RESPONSE_BASE + 17)    // RIL AMR state index
 
 struct ril_handle
 {
@@ -56,8 +54,6 @@ enum ril_audio_path {
     SOUND_AUDIO_PATH_BLUETOOTH_NO_NR,
     SOUND_AUDIO_PATH_MIC1,
     SOUND_AUDIO_PATH_MIC2,
-    SOUND_AUDIO_PATH_BLUETOOTH_WB,
-    SOUND_AUDIO_PATH_BLUETOOTH_WB_NO_NR
 };
 
 enum ril_extra_volume {
@@ -99,7 +95,6 @@ int ril_set_call_audio_path(struct ril_handle *ril,
                             enum ril_extra_volume mode);
 int ril_set_call_clock_sync(struct ril_handle *ril, enum ril_clock_state state);
 int ril_set_mute(struct ril_handle *ril, enum ril_mute_state state);
-void ril_register_set_wb_amr_callback(void *function, void *data);
 int ril_set_two_mic_control(struct ril_handle *ril, enum ril_two_mic_device device, enum ril_two_mic_state state);
 
 #endif
