@@ -65,6 +65,7 @@ COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_HARDWARE
 # Graphics
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl/egl.cfg
 USE_OPENGL_RENDERER := true
+OVERRIDE_RS_DRIVER := libRSDriverArm.so
 
 # frameworks/native/services/surfaceflinger
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
