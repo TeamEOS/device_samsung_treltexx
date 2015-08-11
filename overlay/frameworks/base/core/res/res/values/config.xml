@@ -234,4 +234,8 @@
 
     <!-- Screen brightness when dozing. -->
     <integer name="config_screenBrightnessDoze">19</integer>
+
+    <!-- Device will display option to wake only if proximity sensor is uncovered -->
+    <bool name="config_proximityCheckOnWake">true</bool>
+    <integer name="config_proximityCheckTimeout">400</integer>
 </resources>
