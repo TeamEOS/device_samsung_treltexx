@@ -83,7 +83,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.bq.gpu_to_cpu_unsupported=1
 
 PRODUCT_PACKAGES += \
-    gralloc.exynos5
+    gralloc.exynos5 \
+    hwcomposer.exynos5
 
 PRODUCT_PACKAGES += \
     libion \
@@ -192,6 +193,35 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml  \
     $(LOCAL_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml
+
+# Audio codecs
+PRODUCT_PACKAGES += \
+    libOMX.Exynos.AAC.Decoder \
+    libOMX.Exynos.FLAC.Decoder \
+    libOMX.Exynos.MP3.Decoder \
+    libOMX.Exynos.WMA.Encoder
+
+# Seiren hardware audio decoder
+PRODUCT_PACKAGES += \
+    libseirenhw
+
+# Stagefright and device specific modules
+PRODUCT_PACKAGES += \
+    libstagefrighthw \
+    libExynosOMX_Core
+
+# Video codecs
+PRODUCT_PACKAGES += \
+    libOMX.Exynos.AVC.Decoder \
+    libOMX.Exynos.HEVC.Decoder \
+    libOMX.Exynos.MPEG4.Decoder \
+    libOMX.Exynos.MPEG4.Encoder \
+    libOMX.Exynos.VP8.Decoder
+
+# H.264 encoder is broken
+#PRODUCT_PACKAGES += \
+#    libOMX.Exynos.AVC.Encoder
+
 
 ###########################################################
 ### POWER
@@ -316,7 +346,6 @@ $(call inherit-product-if-exists, build/target/product/full.mk)
 $(call inherit-product-if-exists, vendor/samsung/treltexx/treltexx-vendor.mk)
 
 # call Samsung LSI board support package
-$(call inherit-product, hardware/samsung_slsi/exynos5-insignal/exynos5.mk)
 $(call inherit-product, hardware/samsung_slsi/exynos5433/exynos5433.mk)
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
