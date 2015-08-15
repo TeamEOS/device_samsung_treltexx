@@ -68,7 +68,7 @@ USE_OPENGL_RENDERER := true
 OVERRIDE_RS_DRIVER := libRSDriverArm.so
 
 # frameworks/native/services/surfaceflinger
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 # HWCServices
 #BOARD_USES_HWC_SERVICES := true
