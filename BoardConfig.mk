@@ -123,6 +123,9 @@ BOARD_HDMI_INCAPABLE := true
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
+# Hardware
+BOARD_HARDWARE_CLASS += device/samsung/treltexx/cmhw
+
 # WIFI
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
