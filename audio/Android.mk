@@ -27,9 +27,10 @@ LOCAL_C_INCLUDES += \
 	external/tinyalsa/include \
 	$(call include-path-for, audio-effects) \
 	$(call include-path-for, audio-utils) \
-	$(call include-path-for, audio-route)
+	$(call include-path-for, audio-route) \
+	hardware/samsung/ril/libsecril-client
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils libtinyalsa libaudioutils libdl \
-	libaudioroute
+	libaudioroute libsecril-client
 
 include $(BUILD_SHARED_LIBRARY)
