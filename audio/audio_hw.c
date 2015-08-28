@@ -1147,10 +1147,12 @@ static void do_in_standby(struct stream_in *in)
         pcm_close(in->pcm);
         in->pcm = NULL;
 
-        in->dev->input_source = AUDIO_SOURCE_DEFAULT;
-        in->dev->in_device = AUDIO_DEVICE_NONE;
-        in->dev->in_channel_mask = 0;
-        select_devices(adev);
+        if (adev->mode != AUDIO_MODE_IN_CALL) {
+            in->dev->input_source = AUDIO_SOURCE_DEFAULT;
+            in->dev->in_device = AUDIO_DEVICE_NONE;
+            in->dev->in_channel_mask = 0;
+            select_devices(adev);
+        }
         in->standby = true;
     }
 }
