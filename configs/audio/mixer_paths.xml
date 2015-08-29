@@ -1307,7 +1307,6 @@
 
     <path name="bt-sco-headset">
         <path name="device-sco-headset-out" />
-        <ctl name="AIF2 Mode" value="Slave" />
 
         <path name="scenario-sco-headset-out-default" />
         <path name="volume-sco-headset-out-default" />
@@ -1315,7 +1314,6 @@
 
     <path name="bt-sco-headset-wb">
         <path name="device-sco-headset-out" />
-        <ctl name="AIF2 Mode" value="Slave" />
 
         <path name="scenario-sco-headset-out-incall-wb" />
         <path name="volume-sco-headset-out-default" />
