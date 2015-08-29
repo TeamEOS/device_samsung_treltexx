@@ -207,8 +207,9 @@ out:
 static void exynos5433_power_set_interactive(struct power_module *module, int on)
 {
     struct exynos5433_power_module *exynos5433_pwr = (struct exynos5433_power_module *) module;
+    struct stat sb;
     char buf[80];
-    int ret;
+    int rc;
 
     ALOGV("power_set_interactive: %d\n", on);
 
@@ -218,8 +219,12 @@ static void exynos5433_power_set_interactive(struct power_module *module, int on
      */
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
                 on ? "1300000" : "400000");
-    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq",
-                on ? "1900000" : "700000");
+
+    rc = stat("/sys/devices/system/cpu/cpu4/cpufreq", &sb);
+    if (rc == 0) {
+        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq",
+                    on ? "1900000" : "700000");
+    }
 
     sysfs_write(exynos5433_pwr->touchscreen_power_path, on ? "1" : "0");
     sysfs_write(exynos5433_pwr->touchkey_power_path, on ? "1" : "0");
