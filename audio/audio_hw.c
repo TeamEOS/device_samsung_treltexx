@@ -263,9 +263,11 @@ static int get_output_device_id(audio_devices_t device)
     case AUDIO_DEVICE_OUT_WIRED_HEADPHONE:
         return OUT_DEVICE_HEADPHONES;
     case AUDIO_DEVICE_OUT_BLUETOOTH_SCO:
-    case AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET:
-    case AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT:
         return OUT_DEVICE_BT_SCO;
+    case AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET:
+        return OUT_DEVICE_BT_SCO_HEADSET_OUT;
+    case AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT:
+        return OUT_DEVICE_BT_SCO_CARKIT;
     default:
         return OUT_DEVICE_NONE;
     }
@@ -330,7 +332,7 @@ static void select_devices(struct audio_device *adev)
                 output_device_id = OUT_DEVICE_HEADSET;
                 break;
             case AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET & ~AUDIO_DEVICE_BIT_IN:
-                output_device_id = OUT_DEVICE_BT_SCO;
+                output_device_id = OUT_DEVICE_BT_SCO_HEADSET_OUT;
                 break;
             default:
                 output_device_id = OUT_DEVICE_SPEAKER;
@@ -1511,6 +1513,8 @@ static int adev_set_voice_volume(struct audio_hw_device *dev, float volume)
                 sound_type = SOUND_TYPE_HEADSET;
                 break;
             case AUDIO_DEVICE_OUT_BLUETOOTH_SCO:
+            case AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET:
+            case AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT:
             case AUDIO_DEVICE_OUT_ALL_SCO:
                 sound_type = SOUND_TYPE_BTVOICE;
                 break;
