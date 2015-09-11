@@ -78,7 +78,7 @@ PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=196608 \
+    ro.opengles.version=196609 \
     ro.sf.lcd_density=560 \
     ro.bq.gpu_to_cpu_unsupported=1
 
