@@ -24,7 +24,7 @@ device.internal = 0
 
 # Basic Parameters
 touch.deviceType = pointer
-touch.orientationAware = 1
+touch.orientationAware = 0
 
 touch.gestureMode = pointer
 
