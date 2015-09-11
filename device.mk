@@ -343,8 +343,8 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.secure=0
     
 
-$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
-$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-3072-dalvik-heap.mk)
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk)
 $(call inherit-product-if-exists, build/target/product/full.mk)
 
 # call the proprietary setup
