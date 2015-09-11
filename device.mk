@@ -84,7 +84,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PACKAGES += \
     gralloc.exynos5 \
-    hwcomposer.exynos5
+    hwcomposer.exynos5 \
+    memtrack.exynos5
 
 PRODUCT_PACKAGES += \
     libion \
