@@ -102,9 +102,6 @@
 # Secure MEM driver
 /dev/s5p-smem             0660   drm        drmrpc
 
-# NFC
-/dev/sec-nfc              0660   nfc        nfc
-
 # sensor sysfs properties
 /sys/devices/virtual/input/input*	poll_delay	0660	system	radio
 /sys/devices/virtual/input/input*	enable		0660	system	radio
@@ -140,7 +137,3 @@
 /dev/bbd_sio              0660   system     system
 /dev/bbd_patch            0660   system     system
 /dev/ttyBCM*              0660   system     system
-
-# MobiCore
-/dev/mobicore             0700   system     system
-/dev/mobicore-user        0666   radio     system

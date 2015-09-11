@@ -11,7 +11,6 @@ on init
 
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage 0550 system sdcard_r
     mkdir /storage/emulated 0555 root root
 
     mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
@@ -20,7 +19,7 @@ on init
     mkdir /storage/usbdisk 0700 root root
 
     export EXTERNAL_STORAGE /storage/emulated/legacy
-    export SECONDARY_STORAGE /storage/sdcard1:/storage/usbdisk
+    export SECONDARY_STORAGE /storage/sdcard1
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
 
@@ -75,10 +74,6 @@ on post-fs-data
     chown system radio /sys/class/camera/ois/oisfw
     chown system radio /sys/class/camera/ois/ois_diff
 
-    # Audio
-    mkdir /data/firmware 0770 media system
-    chown media system /data/firmware
-
 on boot
     # Reduce reserved lowmem from ~48MB to ~12MB
     write /proc/sys/vm/lowmem_reserve_ratio "128 128"
@@ -93,9 +88,6 @@ on boot
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
-
-    # MSP FactoryApp
-    mkdir /efs/FactoryApp 0775 system system
 
     # SSWAP
     write /proc/sys/vm/swappiness 130
@@ -114,6 +106,9 @@ on boot
 
     #setprop ro.radio.noril yes
 
+    # Allow to access debugfs for system:system
+    chown system system /sys/kernel/debug
+
     # Set up kernel tracing, but disable it by default
     chmod 0222 /sys/kernel/debug/tracing/trace_marker
     write /sys/kernel/debug/tracing/tracing_on 0
@@ -128,7 +123,8 @@ on boot
 
 # DRK permission
     mkdir /efs/prov 0770 radio system
-    mkdir /efs/prov_data 0770 radio system
+    chown radio system /efs/prov_data
+    chmod 0770 /efs/prov_data
     chown radio system /efs/prov_data/dev_root
     chmod 0770 /efs/prov_data/dev_root
     chown radio system /efs/prov_data/knox
@@ -447,6 +443,8 @@ on fs
     chown system radio /sys/class/audio/earjack/key_state
     chown system radio /sys/class/audio/earjack/state
     chown system radio /sys/class/dsm/max98504/dsm_log
+    mkdir /data/firmware 0770 media system
+    chown media system /data/firmware
 
 # Permissions for System LSI NFC
 # NFC : Permissions for NFC
@@ -655,12 +653,17 @@ on property:ro.debuggable=1
     chmod 0666 /sys/class/mhl/test_v2
     chmod 0666 /sys/class/mhl/connection
 
+# ARGOSD
+service argos-daemon /system/bin/argosd
+    class main
+    user system
+    group system radio
+
 # ExyRng startup
 service exyrngd /system/bin/exyrngd -b
     user root
     group root
     class main
-    seclabel u:r:exyrngd:s0
     oneshot
 
 # virtual sdcard daemon running as media_rw (1023)
@@ -704,6 +707,25 @@ on property:ril.cbd.modechan=0
 on property:ril.cbd.modechan=2
     restart ril-daemon
 
+#STE mmd
+service mmd /system/bin/mmd
+    class main
+    user system
+    group system radio net_admin inet sdcard_rw sdcard_r media_rw
+
+#STE dip
+service dip /system/bin/debug_interface_proxy -c /data/dipconfs
+    class main
+    user system
+    group system radio net_admin inet sdcard_rw sdcard_r media_rw
+
+# IPSec for VOLTE
+service ipsec-daemon /system/bin/IPSecService
+    class main
+    socket ipsec_socket stream 660 system system
+    user system
+    group system net_raw inet net_admin
+
 service charger /charger
     class charger
 
@@ -720,13 +742,29 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     user gps
     group system inet net_raw
     ioprio be 0
-    seclabel u:r:gpsd:s0
 
 # SENSOR FRAMEWORK : starts fingerprintService
 service vcsFPService /system/bin/vcsFPService
     class late_start
     user system
     group system
+
+# DRK/CS service
+service cs_service /system/bin/cs
+    class main
+    user system
+    group system
+    disabled
+
+on property:sys.mobicoredaemon.enable=true
+    start cs_service
+
+# Secure Storage startup
+service secure_storage /system/bin/secure_storage_daemon
+    class core
+    user system
+    group system
+    disabled
 
 on property:ro.securestorage.support=true
     mkdir /dev/.secure_storage
@@ -747,9 +785,16 @@ service swapon /sbin/sswap -s
     class core
     user root
     group root
-    seclabel u:r:sswap:s0
+    oneshot
+
+# umount service
+service umount_service /system/bin/umount /preload
+    disabled
     oneshot
 
 on property:persist.sys.storage_preload=1
     mount ext4 /dev/block/mmcblk0p20 /preload nosuid nodev noatime wait ro
     setprop storage.preload.complete 1
+
+on property:persist.sys.storage_preload=0
+    start umount_service
