@@ -176,16 +176,14 @@
     <ctl name="EQ1 B3 Volume" value="12" />
     <ctl name="EQ1 B4 Volume" value="12" />
     <ctl name="EQ1 B5 Volume" value="12" />
-    <ctl name="EQ1 Mode Switch" value="1" />
-    <ctl name="EQ1 Coefficients" value="16 0 0 0 0 204 32 0 240 0 0 0 21 38 32 0 240 0 0 0 9 60 32 0 240 0 0 0 17 84 16 0 8 0 64 0 0 0" />
+    <ctl name="EQ1 Coefficients" value="0 1 16 0 0 0 0 204 32 0 240 0 0 0 21 38 32 0 240 0 0 0 9 60 32 0 240 0 0 0 17 84 16 0 8 0 64 0 0 0" />
 
     <ctl name="EQ3 B1 Volume" value="12" />
     <ctl name="EQ3 B2 Volume" value="12" />
     <ctl name="EQ3 B3 Volume" value="12" />
     <ctl name="EQ3 B4 Volume" value="12" />
     <ctl name="EQ3 B5 Volume" value="12" />
-    <ctl name="EQ3 Mode Switch" value="1" />
-    <ctl name="EQ3 Coefficients" value="16 0 0 0 0 204 32 0 240 0 0 0 21 38 32 0 240 0 0 0 9 60 32 0 240 0 0 0 17 84 16 0 8 0 64 0 0 0" />
+    <ctl name="EQ3 Coefficients" value="0 1 16 0 0 0 0 204 32 0 240 0 0 0 21 38 32 0 240 0 0 0 9 60 32 0 240 0 0 0 17 84 16 0 8 0 64 0 0 0" />
 
     <!-- Disable Earpiece -->
     <ctl name="RCV Switch" value="0" />
