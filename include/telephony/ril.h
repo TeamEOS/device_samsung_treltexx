@@ -5049,6 +5049,10 @@ typedef struct {
 #define RIL_UNSOL_UTS_GET_UNREAD_SMS_STATUS 11052
 #define RIL_UNSOL_MIP_CONNECT_STATUS 11053
 
+/* SNDMGR */
+
+#define RIL_UNSOL_SNDMGR_WB_AMR_REPORT 20017
+
 /***********************************************************************/
 
 #if defined(ANDROID_MULTI_SIM)

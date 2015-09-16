@@ -17,11 +17,8 @@
 #ifndef RIL_INTERFACE_H
 #define RIL_INTERFACE_H
 
+#include <telephony/ril.h>
 #include "secril-client.h"
-
-#define RIL_OEM_UNSOL_RESPONSE_BASE 11000 // RIL response base index
-#define RIL_UNSOL_WB_AMR_STATE \
-    (RIL_OEM_UNSOL_RESPONSE_BASE + 17)    // RIL AMR state index
 
 struct ril_handle
 {
