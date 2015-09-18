@@ -31,8 +31,8 @@
 #include <hardware/power.h>
 
 #define BOOSTPULSE_PATH "/sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse"
-#define TOUCHSCREEN_PATH "/sys/class/sec/tsp/input/enabled"
-#define TOUCHKEY_PATH "/sys/class/sec/sec_touchkey/input/enabled"
+#define TOUCHSCREEN_PATH "/sys/class/input/input2/enabled"
+#define TOUCHKEY_PATH "/sys/class/input/input1/enabled"
 
 struct exynos5433_power_module {
     struct power_module base;
