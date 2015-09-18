@@ -183,5 +183,3 @@ BOARD_SEPOLICY_UNION := \
 	file.te \
 	macloader.te \
 	ueventd.te
-
-MALLOC_IMPL := dlmalloc
