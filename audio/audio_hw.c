@@ -231,9 +231,9 @@ const struct string_to_enum out_channels_name_to_enum_table[] = {
 };
 
 /* Do we need to enforce wideband audio? */
-static bool force_wideband()
+static void force_wideband(struct audio_device *adev)
 {
-    return property_get_bool("audio_hal.force_wideband", false);
+    adev->wb_amr = 1;
 }
 
 /* Routing functions */
@@ -293,7 +293,7 @@ static int get_input_source_id(audio_source_t source, bool wb_amr)
     case AUDIO_SOURCE_VOICE_COMMUNICATION:
         return IN_SOURCE_VOICE_COMMUNICATION;
     case AUDIO_SOURCE_VOICE_CALL:
-        if (wb_amr || force_wideband()) {
+        if (wb_amr) {
             return IN_SOURCE_VOICE_CALL_WB;
         }
         return IN_SOURCE_VOICE_CALL;
@@ -382,7 +382,7 @@ static void start_bt_sco(struct audio_device *adev)
 
     ALOGV("%s: Opening SCO PCMs", __func__);
 
-    if (adev->wb_amr || force_wideband())
+    if (adev->wb_amr)
         sco_config = &pcm_config_sco_wide;
     else
         sco_config = &pcm_config_sco;
@@ -448,7 +448,7 @@ static int start_voice_call(struct audio_device *adev)
 
     ALOGV("%s: Opening voice PCMs", __func__);
 
-    if (adev->wb_amr || force_wideband())
+    if (adev->wb_amr)
         voice_config = &pcm_config_voice_wide;
     else
         voice_config = &pcm_config_voice;
@@ -1778,8 +1778,11 @@ static int adev_open(const hw_module_t* module, const char* name,
 
     /* RIL */
     ril_open(&adev->ril);
+
     /* register callback for wideband AMR setting */
-    if (!force_wideband())
+    if (property_get_bool("audio_hal.force_wideband", false))
+        force_wideband(adev);
+    else
         ril_register_set_wb_amr_callback(adev_set_wb_amr_callback, (void *)adev);
 
     *device = &adev->hw_device.common;
