@@ -44,6 +44,10 @@ public class SlteRIL extends RIL {
     static final boolean RILJ_LOGD = true;
     static final boolean RILJ_LOGV = true;
 
+    private static final int RIL_UNSOL_DEVICE_READY_NOTI = 11008;
+    private static final int RIL_UNSOL_AM = 11010;
+    private static final int RIL_UNSOL_SIM_PB_READY = 11021;
+
     private static final int RIL_REQUEST_DIAL_EMERGENCY_CALL = 10016;
 
     private static final int RIL_REQUEST_SIM_TRANSMIT_BASIC = 10026;
@@ -394,5 +398,65 @@ public class SlteRIL extends RIL {
         }
 
         return ret;
+    }
+
+    @Override
+    protected void
+    processUnsolicited(Parcel p) {
+        Object ret;
+
+        int dataPosition = p.dataPosition();
+        int origResponse = p.readInt();
+        int newResponse = origResponse;
+
+        /* Remap incorrect respones or ignore them */
+        switch (origResponse) {
+            case 1040:
+                newResponse = RIL_UNSOL_ON_SS;
+                break;
+            case 1041:
+                newResponse = RIL_UNSOL_STK_CC_ALPHA_NOTIFY;
+                break;
+            case 11031:
+                newResponse = RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED;
+                break;
+            case 1038: // RIL_UNSOL_TETHERED_MODE_STATE_CHANGED
+            case 1039: // RIL_UNSOL_DATA_NETWORK_STATE_CHANGED
+            case 1042: // RIL_UNSOL_QOS_STATE_CHANGED_IND
+            case RIL_UNSOL_DEVICE_READY_NOTI: /* Registrant notification */
+            case RIL_UNSOL_SIM_PB_READY: /* Registrant notification */
+                Rlog.v(RILJ_LOG_TAG,
+                       "XMM7260: ignoring unsolicited response " +
+                       origResponse);
+                return;
+        }
+
+        if (newResponse != origResponse) {
+            riljLog("SlteRIL: remap unsolicited response from " +
+                    origResponse + " to " + newResponse);
+            p.setDataPosition(dataPosition);
+            p.writeInt(newResponse);
+        }
+
+        switch (newResponse) {
+            case RIL_UNSOL_AM:
+                ret = responseString(p);
+                break;
+            default:
+                // Rewind the Parcel
+                p.setDataPosition(dataPosition);
+
+                // Forward responses that we are not overriding to the super class
+                super.processUnsolicited(p);
+                return;
+        }
+
+        switch (newResponse) {
+            case RIL_UNSOL_AM:
+                String strAm = (String)ret;
+                // Add debug to check if this wants to execute any useful am command
+                Rlog.v(RILJ_LOG_TAG, "XMM7260: am=" + strAm);
+                break;
+        }
     }
 }
