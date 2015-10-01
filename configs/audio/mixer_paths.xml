@@ -1232,6 +1232,7 @@
 
     <path name="voice-bt-sco">
         <path name="device-sco" />
+        <path name="verb-incall" />
 
         <path name="scenario-sco-incall-nb" />
         <path name="volume-sco-incall" />
@@ -1239,6 +1240,7 @@
 
     <path name="voice-bt-sco-wb">
         <path name="device-sco" />
+        <path name="verb-incall" />
 
         <path name="scenario-sco-incall-wb" />
         <path name="volume-sco-incall" />
@@ -1246,6 +1248,7 @@
 
     <path name="voice-bt-sco-headset-out">
         <path name="device-sco-headset-out" />
+        <path name="verb-incall" />
 
         <path name="scenario-sco-headset-out-incall-nb" />
         <path name="volume-sco-headset-out-default" />
@@ -1253,6 +1256,7 @@
 
     <path name="voice-bt-sco-headset-out-wb">
         <path name="device-sco-headset-out" />
+        <path name="verb-incall" />
 
         <path name="scenario-sco-headset-out-incall-wb" />
         <path name="volume-sco-headset-out-default" />
@@ -1284,6 +1288,7 @@
 
     <path name="media-bt-sco">
         <path name="device-sco" />
+        <path name="verb-default" />
 
         <path name="scenario-sco-default" />
         <path name="volume-sco-default" />
@@ -1291,6 +1296,7 @@
 
     <path name="media-bt-sco-headset-out">
         <path name="device-sco-headset-out" />
+        <path name="verb-default" />
 
         <path name="scenario-sco-headset-out-default" />
         <path name="volume-sco-headset-out-default" />
@@ -1298,6 +1304,7 @@
 
     <path name="voice-rec-speaker">
         <path name="device-speaker" />
+        <path name="verb-default" />
 
         <path name="scenario-speaker-default" />
         <path name="volume-speaker-default" />
@@ -1305,6 +1312,7 @@
 
     <path name="voice-rec-headphones">
         <path name="device-headphones" />
+        <path name="verb-default" />
 
         <path name="scenario-headphones-default" />
         <path name="volume-headphones-default" />
@@ -1347,6 +1355,7 @@
 
     <path name="bt-sco-carkit">
         <path name="device-sco-carkit" />
+        <path name="verb-default" />
 
         <path name="scenario-sco-carkit-default" />
         <path name="volume-sco-carkit-default" />
