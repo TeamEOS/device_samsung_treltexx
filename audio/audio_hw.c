@@ -366,6 +366,19 @@ static void select_devices(struct audio_device *adev)
 
     audio_route_update_mixer(adev->ar);
 
+    /* FIXME: Turn on two mic control for earpiece and speaker */
+    if (input_source_id != IN_SOURCE_NONE) {
+        switch (output_device_id) {
+        case OUT_DEVICE_EARPIECE:
+        case OUT_DEVICE_SPEAKER:
+            adev->two_mic_control = true;
+            break;
+        default:
+            adev->two_mic_control = false;
+            break;
+        }
+    }
+
     if (adev->two_mic_control) {
         ALOGV("%s: enabling two mic control", __func__);
         ril_set_two_mic_control(&adev->ril, AUDIENCE, TWO_MIC_SOLUTION_ON);
