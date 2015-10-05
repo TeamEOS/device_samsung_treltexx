@@ -1163,6 +1163,11 @@
     #######################################################
     -->
 
+    <!--
+    # Channels are always applied first. A scenario might overwrite
+    # the channel settings.
+    -->
+
     <path name="channel-left">
         <ctl name="AIF1TX1 Input 1" value="LHPF1" />
         <ctl name="AIF1TX2 Input 1" value="LHPF1" />
@@ -1372,144 +1377,128 @@
     <!-- ### Capture ### -->
 
     <path name="voice-earpiece-main-mic">
-        <path name="device-two-mic" />
+        <path name="channel-stereo" />
 
+        <path name="device-two-mic" />
         <path name="scenario-two-mic-earpiece-incall-nb" />
         <path name="volume-two-mic-incall" />
-
-        <path name="channel-stereo" />
     </path>
 
     <path name="voice-earpiece-main-mic-wb">
-        <path name="device-two-mic" />
+        <path name="channel-stereo" />
 
+        <path name="device-two-mic" />
         <path name="scenario-two-mic-earpiece-incall-wb" />
         <path name="volume-two-mic-incall" />
-
-        <path name="channel-stereo" />
     </path>
 
     <path name="voice-speaker-main-mic">
-        <path name="device-two-mic" />
+        <path name="channel-stereo" />
 
+        <path name="device-two-mic" />
         <path name="scenario-two-mic-speaker-incall-nb" />
         <path name="volume-two-mic-incall" />
-
-        <path name="channel-stereo" />
     </path>
 
     <path name="voice-speaker-main-mic-wb">
-        <path name="device-two-mic" />
+        <path name="channel-stereo" />
 
+        <path name="device-two-mic" />
         <path name="scenario-two-mic-speaker-incall-wb" />
         <path name="volume-two-mic-incall" />
-
-        <path name="channel-stereo" />
     </path>
 
     <path name="voice-rec-main-mic">
-        <path name="device-builtin-mic" />
+        <path name="channel-left" />
 
+        <path name="device-builtin-mic" />
         <path name="scenario-builtin-mic-default" />
         <path name="volume-builtin-mic-default" />
-
-        <path name="channel-left" />
     </path>
 
     <path name="voice-headset-mic">
-        <path name="device-headset-in" />
+        <path name="channel-right" />
 
+        <path name="device-headset-in" />
         <path name="scenario-headset-in-incall-nb" />
         <path name="volume-headset-in-incall" />
-
-        <path name="channel-right" />
     </path>
 
     <path name="voice-headset-mic-wb">
-        <path name="device-headset-in" />
+        <path name="channel-right" />
 
+        <path name="device-headset-in" />
         <path name="scenario-headset-in-incall-wb" />
         <path name="volume-headset-in-incall" />
-
-        <path name="channel-right" />
     </path>
 
     <path name="voice-rec-headset-mic">
-        <path name="device-headset-in" />
+        <path name="channel-right" />
 
+        <path name="device-headset-in" />
         <path name="scenario-headset-in-default" />
         <path name="volume-headset-in-default" />
-
-        <path name="channel-right" />
     </path>
 
     <path name="voice-bt-sco-headset-mic">
-        <path name="device-sco-headset-in" />
-
-        <path name="scenario-sco-headset-in-incall-nb" />
-
         <path name="channel-none" />
+
+        <path name="device-sco-headset-in" />
+        <path name="scenario-sco-headset-in-incall-nb" />
     </path>
 
     <path name="voice-bt-sco-headset-mic-wb">
-        <path name="device-sco-headset-in" />
-
-        <path name="scenario-sco-headset-in-incall-wb" />
-
         <path name="channel-none" />
+
+        <path name="device-sco-headset-in" />
+        <path name="scenario-sco-headset-in-incall-wb" />
     </path>
 
     <path name="media-main-mic">
-        <path name="device-builtin-mic" />
+        <path name="channel-left" />
 
+        <path name="device-builtin-mic" />
         <path name="scenario-builtin-mic-default" />
         <path name="volume-builtin-mic-default" />
-
-        <path name="channel-left" />
     </path>
 
     <path name="media-second-mic">
-        <path name="device-back-mic" />
+        <path name="channel-right" />
 
+        <path name="device-back-mic" />
         <path name="scenario-back-mic-default" />
         <path name="volume-back-mic-default" />
-
-        <path name="channel-right" />
     </path>
 
     <path name="media-headset-mic">
-        <path name="device-headset-in" />
+        <path name="channel-right" />
 
+        <path name="device-headset-in" />
         <path name="scenario-headset-in-default" />
         <path name="volume-headset-in-default" />
-
-        <path name="channel-right" />
     </path>
 
     <path name="media-bt-sco-headset-mic">
-        <path name="device-sco-headset-in" />
-
-        <path name="scenario-sco-headset-in-default" />
-
         <path name="channel-none" />
+
+        <path name="device-sco-headset-in" />
+        <path name="scenario-sco-headset-in-default" />
     </path>
 
     <path name="communication-main-mic">
-        <path name="device-builtin-mic" />
+        <path name="channel-left" />
 
+        <path name="device-builtin-mic" />
         <path name="scenario-builtin-mic-default" />
         <path name="volume-builtin-mic-default" />
-
-        <path name="channel-left" />
     </path>
 
     <path name="communication-headset-mic">
-        <path name="device-headset-in" />
+        <path name="channel-right" />
 
+        <path name="device-headset-in" />
         <path name="scenario-headset-in-default" />
         <path name="volume-headset-in-default" />
-
-        <path name="channel-right" />
     </path>
 
     <path name="none">
