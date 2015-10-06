@@ -1068,8 +1068,6 @@
     <!-- ### Device ### -->
     <path name="device-sco-headset-in">
         <ctl name="ASRC RATE 1" value="SYNCCLK rate 2" />
-        <ctl name="AIF2TX1 Input 1" value="None" />
-        <ctl name="AIF2TX2 Input 1" value="None" />
         <ctl name="DSP3 Virtual Input" value="None" />
     </path>
 
@@ -1132,8 +1130,11 @@
         <ctl name="AIF2 Mode" value="Master" />
 
         <!-- CP->HP -->
+        <!--
+             Duplicate definition with scenario-headphones-default
         <ctl name="HPOUT1L Input 2" value="None" />
         <ctl name="HPOUT1R Input 2" value="None" />
+        -->
     </path>
 
     <path name="verb-incall">
@@ -1145,16 +1146,25 @@
         <ctl name="HPOUT3R Input 1" value="AIF1RX2" />
 
         <!-- AP->SPK -->
+        <!--
+             Duplicate definition with scenario-speaker-incall
         <ctl name="HPOUT2L Input 1" value="AIF1RX1" />
         <ctl name="HPOUT2L Input 2" value="AIF1RX2" />
+        -->
 
         <!-- AP->HP -->
+        <!--
+             Duplicate definition with scenario-headphones-incall
         <ctl name="HPOUT1L Input 1" value="AIF1RX1" />
         <ctl name="HPOUT1R Input 1" value="AIF1RX2" />
+        -->
 
         <!-- CP->HP -->
+        <!--
+             Duplicate definition with scenario-headphones-incall
         <ctl name="HPOUT1L Input 2" value="ASRC2L" />
         <ctl name="HPOUT1R Input 2" value="ASRC2R" />
+        -->
     </path>
 
     <!--
