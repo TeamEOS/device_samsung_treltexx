@@ -1141,11 +1141,8 @@
         <ctl name="AIF2 Mode" value="Master" />
 
         <!-- CP->HP -->
-        <!--
-             Duplicate definition with scenario-headphones-normal
         <ctl name="HPOUT1L Input 2" value="None" />
         <ctl name="HPOUT1R Input 2" value="None" />
-        -->
     </path>
 
     <path name="verb-incall">
@@ -1313,7 +1310,9 @@
     </path>
 
     <path name="media-headphones">
+        <!--
         <path name="verb-default" />
+        -->
 
         <path name="device-headphones" />
         <path name="scenario-headphones-normal" />
@@ -1345,7 +1344,9 @@
     </path>
 
     <path name="voice-rec-headphones">
+        <!--
         <path name="verb-default" />
+        -->
 
         <path name="device-headphones" />
         <path name="scenario-headphones-normal" />
@@ -1369,7 +1370,9 @@
     </path>
 
     <path name="communication-headphones">
+        <!--
         <path name="verb-default" />
+        -->
 
         <path name="device-headphones" />
         <path name="scenario-headphones-normal" />
@@ -1377,7 +1380,9 @@
     </path>
 
     <path name="speaker-and-headphones">
+        <!--
         <path name="verb-default" />
+        -->
 
         <path name="device-speaker" />
         <path name="device-headphones" />
