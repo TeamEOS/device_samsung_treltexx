@@ -336,11 +336,11 @@ public class SlteRIL extends RIL {
                     " evdoEcio: " + evdoEcio + " evdoSnr:" + evdoSnr +
                     " lteSignalStrength:" + lteSignalStrength + " lteRsrp:" + lteRsrp +
                     " lteRsrq:" + lteRsrq + " lteRssnr:" + lteRssnr + " lteCqi:" + lteCqi +
-                    " tdScdmaRscp:" + tdScdmaRscp + " isGsm:" + (isGsm ? "true" : "false"));
+                    " isGsm:" + (isGsm ? "true" : "false"));
 
         return new SignalStrength(gsmSignalStrength, gsmBitErrorRate, cdmaDbm, cdmaEcio, evdoDbm,
                 evdoEcio, evdoSnr, lteSignalStrength, lteRsrp, lteRsrq, lteRssnr, lteCqi,
-                tdScdmaRscp, isGsm);
+                isGsm);
     }
 
     private void constructGsmSendSmsRilRequest(RILRequest rr, String smscPDU, String pdu) {
