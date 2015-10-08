@@ -51,6 +51,11 @@
 #define CPU0_MAX_FREQ_PATH "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
 #define CPU4_MAX_FREQ_PATH "/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq"
 
+#define LOW_POWER_MAX_FREQ_BIG "700000"
+#define NORMAL_MAX_FREQ_BIG "1900000"
+#define LOW_POWER_MAX_FREQ_LITTLE "400000"
+#define NORMAL_MAX_FREQ_LITTLE "1300000"
+
 #define TOUCHSCREEN_PATH "/sys/class/input/input2/enabled"
 #define TOUCHKEY_PATH "/sys/class/input/input1/enabled"
 
@@ -67,6 +72,9 @@ struct exynos5433_power_module {
 static unsigned int vsync_count;
 static struct timespec last_touch_boost;
 static bool touch_boost;
+
+/* POWER_HINT_LOW_POWER */
+static bool low_power_mode = false;
 
 static void sysfs_write(const char *path, char *s)
 {
@@ -192,13 +200,13 @@ static void exynos5433_power_set_interactive(struct power_module *module, int on
      * Lower maximum frequency when screen is off.  CPU 0 and 1 share a
      * cpufreq policy.
      */
-    sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
-                on ? "1300000" : "400000");
+    sysfs_write(CPU0_MAX_FREQ_PATH,
+                (!on || low_power_mode) ? LOW_POWER_MAX_FREQ_LITTLE : NORMAL_MAX_FREQ_LITTLE);
 
-    rc = stat("/sys/devices/system/cpu/cpu4/cpufreq", &sb);
+    rc = stat(CPU0_MAX_FREQ_PATH, &sb);
     if (rc == 0) {
-        sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq",
-                    on ? "1900000" : "700000");
+        sysfs_write(CPU4_MAX_FREQ_PATH,
+                    (!on || low_power_mode) ? LOW_POWER_MAX_FREQ_BIG : NORMAL_MAX_FREQ_BIG);
     }
 
     sysfs_write(exynos5433_pwr->touchscreen_power_path, on ? "1" : "0");
@@ -254,8 +262,9 @@ static int boostpulse_open(struct exynos5433_power_module *exynos5433_pwr)
  * result in adjustment of power/performance parameters of the cpufreq governor
  * and other controls.
  */
-static void exynos5433_power_hint(struct power_module *module, power_hint_t hint,
-                             void *data)
+static void exynos5433_power_hint(struct power_module *module,
+                                  power_hint_t hint,
+                                  void *data)
 {
     struct exynos5433_power_module *exynos5433_pwr = (struct exynos5433_power_module *) module;
     char errno_str[64];
@@ -313,6 +322,32 @@ static void exynos5433_power_hint(struct power_module *module, power_hint_t hint
                     }
                 }
             }
+            pthread_mutex_unlock(&exynos5433_pwr->lock);
+            break;
+        }
+        case POWER_HINT_LOW_POWER: {
+            int rc;
+            struct stat sb;
+
+            ALOGV("%s: POWER_HINT_LOW_POWER", __func__);
+
+            pthread_mutex_lock(&exynos5433_pwr->lock);
+
+            if (data) {
+                sysfs_write(CPU0_MAX_FREQ_PATH, LOW_POWER_MAX_FREQ_LITTLE);
+                rc = stat(CPU4_MAX_FREQ_PATH, &sb);
+                if (rc == 0) {
+                    sysfs_write(CPU4_MAX_FREQ_PATH, LOW_POWER_MAX_FREQ_BIG);
+                }
+            } else {
+                sysfs_write(CPU0_MAX_FREQ_PATH, NORMAL_MAX_FREQ_LITTLE);
+                rc = stat(CPU4_MAX_FREQ_PATH, &sb);
+                if (rc == 0) {
+                    sysfs_write(CPU4_MAX_FREQ_PATH, NORMAL_MAX_FREQ_BIG);
+                }
+            }
+            low_power_mode = data;
+
             pthread_mutex_unlock(&exynos5433_pwr->lock);
             break;
         }
