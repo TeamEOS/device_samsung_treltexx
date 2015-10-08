@@ -22,6 +22,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <linux/time.h>
+#include <stdbool.h>
 
 #define LOG_TAG "Exynos5433PowerHAL"
 /* #define LOG_NDEBUG 0 */
@@ -30,7 +32,25 @@
 #include <hardware/hardware.h>
 #include <hardware/power.h>
 
+#define NSEC_PER_SEC 1000000000
+#define USEC_PER_SEC 1000000
+#define NSEC_PER_USEC 100
+
+
+#define POWERHAL_STRINGIFY(s) POWERHAL_TOSTRING(s)
+#define POWERHAL_TOSTRING(s) #s
+
 #define BOOSTPULSE_PATH "/sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse"
+
+#define BOOST_PULSE_DURATION 400000
+#define BOOST_PULSE_DURATION_STR POWERHAL_STRINGIFY(BOOST_PULSE_DURATION)
+
+#define BOOST_CPU0_PATH "/sys/devices/system/cpu/cpu0/cpufreq/interactive/boost"
+#define BOOST_CPU4_PATH "/sys/devices/system/cpu/cpu4/cpufreq/interactive/boost"
+
+#define CPU0_MAX_FREQ_PATH "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
+#define CPU4_MAX_FREQ_PATH "/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq"
+
 #define TOUCHSCREEN_PATH "/sys/class/input/input2/enabled"
 #define TOUCHKEY_PATH "/sys/class/input/input1/enabled"
 
@@ -42,6 +62,11 @@ struct exynos5433_power_module {
     const char *touchscreen_power_path;
     const char *touchkey_power_path;
 };
+
+/* POWER_HINT_INTERACTION and POWER_HINT_VSYNC */
+static unsigned int vsync_count;
+static struct timespec last_touch_boost;
+static bool touch_boost;
 
 static void sysfs_write(const char *path, char *s)
 {
@@ -102,8 +127,8 @@ static void exynos5433_power_init(struct power_module *module)
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads", "75");
     sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay", "19000");
 
-    /* was emtpy in hex so a value already defined. */
-    sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration", "40000");
+    sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration",
+                BOOST_PULSE_DURATION_STR);
 
     /* The CPU might not be turned on, then it doesn't make sense to configure it. */
     rc = stat("/sys/devices/system/cpu/cpu4/cpufreq/interactive", &sb);
@@ -139,7 +164,8 @@ static void exynos5433_power_init(struct power_module *module)
 
     sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay", "59000 1200000:119000 1700000:19000");
 
-    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration", "40000");
+    sysfs_write("/sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration",
+                BOOST_PULSE_DURATION_STR);
 
 out:
     init_touchscreen_power_path(exynos5433_pwr);
@@ -181,11 +207,33 @@ static void exynos5433_power_set_interactive(struct power_module *module, int on
     ALOGV("power_set_interactive: %d done\n", on);
 }
 
+static struct timespec timespec_diff(struct timespec lhs, struct timespec rhs)
+{
+    struct timespec result;
+    if (rhs.tv_nsec > lhs.tv_nsec) {
+        result.tv_sec = lhs.tv_sec - rhs.tv_sec - 1;
+        result.tv_nsec = NSEC_PER_SEC + lhs.tv_nsec - rhs.tv_nsec;
+    } else {
+        result.tv_sec = lhs.tv_sec - rhs.tv_sec;
+        result.tv_nsec = lhs.tv_nsec - rhs.tv_nsec;
+    }
+    return result;
+}
+
+static int check_boostpulse_on(struct timespec diff)
+{
+    long boost_ns = (BOOST_PULSE_DURATION * NSEC_PER_USEC) % NSEC_PER_SEC;
+    long boost_s = BOOST_PULSE_DURATION / USEC_PER_SEC;
+
+    if (diff.tv_sec == boost_s)
+        return (diff.tv_nsec < boost_ns);
+    return (diff.tv_sec < boost_s);
+}
+
+/* You need to request the powerhal lock before calling this function */
 static int boostpulse_open(struct exynos5433_power_module *exynos5433_pwr)
 {
     char errno_str[64];
-
-    pthread_mutex_lock(&exynos5433_pwr->lock);
 
     if (exynos5433_pwr->boostpulse_fd < 0) {
         exynos5433_pwr->boostpulse_fd = open(BOOSTPULSE_PATH, O_WRONLY);
@@ -198,7 +246,6 @@ static int boostpulse_open(struct exynos5433_power_module *exynos5433_pwr)
         }
     }
 
-    pthread_mutex_unlock(&exynos5433_pwr->lock);
     return exynos5433_pwr->boostpulse_fd;
 }
 
@@ -216,20 +263,59 @@ static void exynos5433_power_hint(struct power_module *module, power_hint_t hint
 
     switch (hint) {
         case POWER_HINT_INTERACTION:
-            if (boostpulse_open(exynos5433_pwr) >= 0) {
-                len = write(exynos5433_pwr->boostpulse_fd, "1", 1);
 
+            ALOGV("%s: POWER_HINT_INTERACTION", __func__);
+
+            pthread_mutex_lock(&exynos5433_pwr->lock);
+            if (boostpulse_open(exynos5433_pwr) >= 0) {
+
+                len = write(exynos5433_pwr->boostpulse_fd, "1", 1);
                 if (len < 0) {
                     strerror_r(errno, errno_str, sizeof(errno_str));
                     ALOGE("Error writing to %s: %s\n", BOOSTPULSE_PATH, errno_str);
+                } else {
+                    clock_gettime(CLOCK_MONOTONIC, &last_touch_boost);
+                    touch_boost = true;
+                }
+
+            }
+            pthread_mutex_unlock(&exynos5433_pwr->lock);
+
+            break;
+
+        case POWER_HINT_VSYNC: {
+            struct timespec now, diff;
+
+            ALOGV("%s: POWER_HINT_VSYNC", __func__);
+
+            pthread_mutex_lock(&exynos5433_pwr->lock);
+            if (data) {
+                if (vsync_count < UINT_MAX)
+                    vsync_count++;
+            } else {
+                if (vsync_count)
+                    vsync_count--;
+                if (vsync_count == 0 && touch_boost) {
+                    touch_boost = false;
+
+                    clock_gettime(CLOCK_MONOTONIC, &now);
+                    diff = timespec_diff(now, last_touch_boost);
+
+                    if (check_boostpulse_on(diff)) {
+                        struct stat sb;
+                        int rc;
+
+                        sysfs_write(BOOST_CPU0_PATH, "0");
+                        rc = stat(CPU4_MAX_FREQ_PATH, &sb);
+                        if (rc == 0) {
+                            sysfs_write(BOOST_CPU4_PATH, "0");
+                        }
+                    }
                 }
             }
-
+            pthread_mutex_unlock(&exynos5433_pwr->lock);
             break;
-
-        case POWER_HINT_VSYNC:
-            break;
-
+        }
         default:
             break;
     }
