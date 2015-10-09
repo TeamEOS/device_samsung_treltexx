@@ -60,63 +60,94 @@
 
 #define CAPTURE_START_RAMP_MS 100
 
-#define MAX_SUPPORTED_CHANNEL_MASKS 1
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a[0])))
+/*
+ * Set the deep-buffer and low-latency output buffer sizes to
+ * integral multiple of msec. This reduces the variations in the writes.
+ */
+#define DEEP_BUFFER_OUTPUT_PERIOD_SIZE 960
+#define DEEP_BUFFER_OUTPUT_PERIOD_COUNT 5
+
+#define LOW_LATENCY_OUTPUT_PERIOD_SIZE 240
+#define LOW_LATENCY_OUTPUT_PERIOD_COUNT 2
+
+#define AUDIO_CAPTURE_PERIOD_SIZE 320
+#define AUDIO_CAPTURE_PERIOD_COUNT 2
+
+#define AUDIO_CAPTURE_LOW_LATENCY_PERIOD_SIZE 240
+#define AUDIO_CAPTURE_LOW_LATENCY_PERIOD_COUNT 2
+
+#define SCO_CAPTURE_PERIOD_SIZE 240
+#define SCO_CAPTURE_PERIOD_COUNT 2
+
+#define HDMI_MULTI_PERIOD_SIZE  336
+#define HDMI_MULTI_PERIOD_COUNT 8
+#define HDMI_MULTI_DEFAULT_CHANNEL_COUNT 6 /* 5.1 */
+#define HDMI_MULTI_DEFAULT_SAMPLING_RATE 48000
+/*
+ * Default sampling for HDMI multichannel output
+ *
+ * Maximum number of channel mask configurations supported. Currently the
+ * primary output only supports 1 (stereo) and the
+ * multi channel HDMI output 2 (5.1 and 7.1)
+ */
+#define HDMI_MAX_SUPPORTED_CHANNEL_MASKS 2
+
 
 struct pcm_config pcm_config = {
     .channels = 2,
     .rate = 48000,
-    .period_size = 256,
-    .period_count = 2,
+    .period_size = LOW_LATENCY_OUTPUT_PERIOD_SIZE,
+    .period_count = LOW_LATENCY_OUTPUT_PERIOD_COUNT,
     .format = PCM_FORMAT_S16_LE,
 };
 
 struct pcm_config pcm_config_deep = {
     .channels = 2,
     .rate = 48000,
-    .period_size = 1024,
-    .period_count = 2,
+    .period_size = DEEP_BUFFER_OUTPUT_PERIOD_SIZE,
+    .period_count = DEEP_BUFFER_OUTPUT_PERIOD_COUNT,
     .format = PCM_FORMAT_S16_LE,
 };
 
 struct pcm_config pcm_config_in = {
     .channels = 2,
     .rate = 48000,
-    .period_size = 1024,
-    .period_count = 2,
+    .period_size = AUDIO_CAPTURE_PERIOD_SIZE,
+    .period_count = AUDIO_CAPTURE_PERIOD_COUNT,
     .format = PCM_FORMAT_S16_LE,
 };
 
 struct pcm_config pcm_config_in_low_latency = {
     .channels = 2,
     .rate = 48000,
-    .period_size = 256,
-    .period_count = 2,
+    .period_size = AUDIO_CAPTURE_LOW_LATENCY_PERIOD_SIZE,
+    .period_count = AUDIO_CAPTURE_LOW_LATENCY_PERIOD_COUNT,
     .format = PCM_FORMAT_S16_LE,
 };
 
 struct pcm_config pcm_config_sco = {
     .channels = 1,
     .rate = 8000,
-    .period_size = 128,
-    .period_count = 2,
+    .period_size = SCO_CAPTURE_PERIOD_SIZE,
+    .period_count = SCO_CAPTURE_PERIOD_COUNT,
     .format = PCM_FORMAT_S16_LE,
 };
 
 struct pcm_config pcm_config_voice = {
     .channels = 2,
     .rate = 8000,
-    .period_size = 1024,
-    .period_count = 2,
+    .period_size = AUDIO_CAPTURE_PERIOD_SIZE,
+    .period_count = AUDIO_CAPTURE_PERIOD_COUNT,
     .format = PCM_FORMAT_S16_LE,
 };
 
 struct pcm_config pcm_config_voice_wide = {
     .channels = 2,
     .rate = 16000,
-    .period_size = 1024,
-    .period_count = 2,
+    .period_size = AUDIO_CAPTURE_PERIOD_SIZE,
+    .period_count = AUDIO_CAPTURE_PERIOD_COUNT,
     .format = PCM_FORMAT_S16_LE,
 };
 
@@ -175,7 +206,8 @@ struct stream_out {
 
     audio_channel_mask_t channel_mask;
     /* Array of supported channel mask configurations. +1 so that the last entry is always 0 */
-    audio_channel_mask_t supported_channel_masks[MAX_SUPPORTED_CHANNEL_MASKS + 1];
+    audio_channel_mask_t supported_channel_masks[HDMI_MAX_SUPPORTED_CHANNEL_MASKS + 1];
+    bool muted;
     uint64_t written; /* total frames written, not cleared when entering standby */
 
     struct audio_device *dev;
