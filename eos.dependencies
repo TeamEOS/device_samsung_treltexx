@@ -2,26 +2,24 @@
     {
         "remote": "github",
         "repository": "raymanfx/kernel_samsung_trelte",
-        "revision": "lp5.1",
+        "revision": "mm6.0",
         "target_path": "kernel/samsung/trelte"
     },
     {
-        "repository": "hardware_samsung_slsi_exynos5433",
-        "target_path": "hardware/samsung_slsi/exynos5433"
+        "repository": "hardware_samsung",
+        "target_path": "hardware/samsung"
     },
     {
         "repository": "hardware_samsung_slsi_exynos",
         "target_path": "hardware/samsung_slsi/exynos"
     },
     {
-        "repository": "hardware_samsung_slsi_exynos5-insignal",
-        "target_path": "hardware/samsung_slsi/exynos5-insignal"
+        "repository": "hardware_samsung_slsi_exynos5433",
+        "target_path": "hardware/samsung_slsi/exynos5433"
     },
     {
-        "remote": "github",
-        "repository": "cyanogenmod/android_hardware_samsung",
-        "revision": "cm-12.1",
-        "target_path": "hardware/samsung"
+        "repository": "hardware_samsung_slsi_exynos5-insignal",
+        "target_path": "hardware/samsung_slsi/exynos5-insignal"
     },
     {
         "repository": "hardware_samsung_slsi_openmax",
@@ -30,8 +28,7 @@
     {
         "remote": "github",
         "repository": "raymanfx/vendor_samsung_treltexx",
-        "revision": "cm-12.1",
+        "revision": "mm6.0",
         "target_path": "vendor/samsung/treltexx"
     }
 ]
-
