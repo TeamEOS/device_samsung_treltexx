@@ -199,7 +199,8 @@ static void exynos5433_power_set_interactive(struct power_module *module, int on
     /*
      * Lower maximum frequency when screen is off.  CPU 0 and 1 share a
      * cpufreq policy.
-     */
+     * FIXME: This is causing problems with Android auto.
+     *
     sysfs_write(CPU0_MAX_FREQ_PATH,
                 (!on || low_power_mode) ? LOW_POWER_MAX_FREQ_LITTLE : NORMAL_MAX_FREQ_LITTLE);
 
@@ -211,6 +212,7 @@ static void exynos5433_power_set_interactive(struct power_module *module, int on
 
     sysfs_write(exynos5433_pwr->touchscreen_power_path, on ? "1" : "0");
     sysfs_write(exynos5433_pwr->touchkey_power_path, on ? "1" : "0");
+    */
 
     ALOGV("power_set_interactive: %d done\n", on);
 }
