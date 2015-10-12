@@ -1067,7 +1067,10 @@
 
     <!-- ### Device ### -->
     <path name="device-sco-headset-in">
-        <!-- None -->
+        <ctl name="ASRC RATE 1" value="SYNCCLK rate 2" />
+        <ctl name="AIF2TX1 Input 1" value="None" />
+        <ctl name="AIF2TX2 Input 1" value="None" />
+        <ctl name="DSP3 Virtual Input" value="None" />
     </path>
 
     <!-- ### Scenario ### -->
