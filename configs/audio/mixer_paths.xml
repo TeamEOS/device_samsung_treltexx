@@ -1123,6 +1123,11 @@
     #######################################################
     -->
 
+    <!--
+    # Verbs are always applied first. A scenario might overwrite
+    # the verb setting.
+    -->
+
     <path name="verb-default">
         <ctl name="AIF2 Mode" value="Master" />
 
@@ -1186,170 +1191,170 @@
     <!-- ### Playback ### -->
 
     <path name="voice-earpiece">
-        <path name="device-earpiece" />
         <path name="verb-incall" />
 
+        <path name="device-earpiece" />
         <path name="scenario-earpiece-incall-nb" />
         <path name="volume-earpiece-incall" />
     </path>
 
     <path name="voice-earpiece-wb">
-        <path name="device-earpiece" />
         <path name="verb-incall" />
 
+        <path name="device-earpiece" />
         <path name="scenario-earpiece-incall-wb" />
         <path name="volume-earpiece-incall" />
     </path>
 
     <path name="voice-speaker">
-        <path name="device-speaker" />
         <path name="verb-incall" />
 
+        <path name="device-speaker" />
         <path name="scenario-speaker-incall-nb" />
         <path name="volume-speaker-incall" />
     </path>
 
     <path name="voice-speaker-wb">
-        <path name="device-speaker" />
         <path name="verb-incall" />
 
+        <path name="device-speaker" />
         <path name="scenario-speaker-incall-wb" />
         <path name="volume-speaker-incall" />
     </path>
 
     <path name="voice-headphones">
-        <path name="device-headphones" />
         <path name="verb-incall" />
 
+        <path name="device-headphones" />
         <path name="scenario-headphones-incall-nb" />
         <path name="volume-headphones-incall" />
     </path>
 
     <path name="voice-headphones-wb">
-        <path name="device-headphones" />
         <path name="verb-incall" />
 
+        <path name="device-headphones" />
         <path name="scenario-headphones-incall-wb" />
         <path name="volume-headphones-incall" />
     </path>
 
     <path name="voice-bt-sco">
-        <path name="device-sco" />
         <path name="verb-incall" />
 
+        <path name="device-sco" />
         <path name="scenario-sco-incall-nb" />
         <path name="volume-sco-incall" />
     </path>
 
     <path name="voice-bt-sco-wb">
-        <path name="device-sco" />
         <path name="verb-incall" />
 
+        <path name="device-sco" />
         <path name="scenario-sco-incall-wb" />
         <path name="volume-sco-incall" />
     </path>
 
     <path name="voice-bt-sco-headset-out">
-        <path name="device-sco-headset-out" />
         <path name="verb-incall" />
 
+        <path name="device-sco-headset-out" />
         <path name="scenario-sco-headset-out-incall-nb" />
         <path name="volume-sco-headset-out-default" />
     </path>
 
     <path name="voice-bt-sco-headset-out-wb">
-        <path name="device-sco-headset-out" />
         <path name="verb-incall" />
 
+        <path name="device-sco-headset-out" />
         <path name="scenario-sco-headset-out-incall-wb" />
         <path name="volume-sco-headset-out-default" />
     </path>
 
     <path name="media-earpiece">
-        <path name="device-earpiece" />
         <path name="verb-default" />
 
+        <path name="device-earpiece" />
         <path name="scenario-earpiece-default" />
         <path name="volume-earpiece-default" />
     </path>
 
     <path name="media-speaker">
-        <path name="device-speaker" />
         <path name="verb-default" />
 
+        <path name="device-speaker" />
         <path name="scenario-speaker-default" />
         <path name="volume-speaker-default" />
     </path>
 
     <path name="media-headphones">
-        <path name="device-headphones" />
         <path name="verb-default" />
 
+        <path name="device-headphones" />
         <path name="scenario-headphones-default" />
         <path name="volume-headphones-default" />
     </path>
 
     <path name="media-bt-sco">
-        <path name="device-sco" />
         <path name="verb-default" />
 
+        <path name="device-sco" />
         <path name="scenario-sco-default" />
         <path name="volume-sco-default" />
     </path>
 
     <path name="media-bt-sco-headset-out">
-        <path name="device-sco-headset-out" />
         <path name="verb-default" />
 
+        <path name="device-sco-headset-out" />
         <path name="scenario-sco-headset-out-default" />
         <path name="volume-sco-headset-out-default" />
     </path>
 
     <path name="voice-rec-speaker">
-        <path name="device-speaker" />
         <path name="verb-default" />
 
+        <path name="device-speaker" />
         <path name="scenario-speaker-default" />
         <path name="volume-speaker-default" />
     </path>
 
     <path name="voice-rec-headphones">
-        <path name="device-headphones" />
         <path name="verb-default" />
 
+        <path name="device-headphones" />
         <path name="scenario-headphones-default" />
         <path name="volume-headphones-default" />
     </path>
 
     <path name="communication-speaker">
-        <path name="device-speaker" />
         <path name="verb-default" />
 
+        <path name="device-speaker" />
         <path name="scenario-speaker-default" />
         <path name="volume-speaker-default" />
     </path>
 
     <path name="communication-earpiece">
-        <path name="device-earpiece" />
         <path name="verb-default" />
 
+        <path name="device-earpiece" />
         <path name="scenario-earpiece-default" />
         <path name="volume-earpiece-default" />
     </path>
 
     <path name="communication-headphones">
-        <path name="device-headphones" />
         <path name="verb-default" />
 
+        <path name="device-headphones" />
         <path name="scenario-headphones-default" />
         <path name="volume-headphones-default" />
     </path>
 
     <path name="speaker-and-headphones">
-        <path name="device-speaker" />
-        <path name="device-headphones" />
         <path name="verb-default" />
 
+        <path name="device-speaker" />
+        <path name="device-headphones" />
         <path name="scenario-speaker-default" />
         <path name="scenario-headphones-default" />
         <path name="volume-speaker-default" />
@@ -1357,9 +1362,9 @@
     </path>
 
     <path name="bt-sco-carkit">
-        <path name="device-sco-carkit" />
         <path name="verb-default" />
 
+        <path name="device-sco-carkit" />
         <path name="scenario-sco-carkit-default" />
         <path name="volume-sco-carkit-default" />
     </path>
