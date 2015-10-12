@@ -316,17 +316,25 @@
 
     <!-- ### Scenario ### -->
 
-    <path name="scenario-speaker-default">
+    <path name="scenario-speaker-normal">
         <ctl name="ASRC RATE 1" value="SYNCCLK rate 1" />
         <ctl name="DSP4 Rate" value="SYNCCLK rate 1" />
+        <ctl name="DSP4 Aux 1" value="None" />
+        <ctl name="DSP4 Aux 2" value="None" />
+        <ctl name="DSP4 Aux 3" value="None" />
+        <ctl name="DSP4L Input 1" value="None" />
+        <ctl name="DSP4L Input 2" value="None" />
+        <ctl name="DSP4 Firmware" value="DSM" />
+        <ctl name="DSP4L Input 1" value="AIF1RX1" />
+        <ctl name="DSP4L Input 2" value="AIF1RX2" />
         <ctl name="DSP4 Aux 2" value="IN4L" />
         <ctl name="DSP4 Aux 3" value="IN4R" />
         <ctl name="ISRC2INT1 Input" value="ASRC2L" />
         <ctl name="LHPF3 Input 1" value="None" />
         <ctl name="LHPF3 Input 2" value="None" />
-        <ctl name="HPOUT2L Input 1" value="AIF1RX1" />
-        <ctl name="HPOUT2L Input 2" value="AIF1RX2" />
-        <ctl name="HPOUT2L Input 3" value="ISRC2INT1" />
+        <ctl name="HPOUT2L Input 1" value="DSP4.1" />
+        <ctl name="HPOUT2L Input 2" value="None" />
+        <ctl name="HPOUT2L Input 3" value="None" />
     </path>
 
     <path name="scenario-speaker-incall-nb">
@@ -373,7 +381,7 @@
 
     <!-- ### Volume ### -->
 
-    <path name="volume-speaker-default">
+    <path name="volume-speaker-normal">
         <ctl name="HPOUT2 Digital Volume" value="128" />
         <ctl name="HPOUT2L Input 1 Volume" value="26" />
         <ctl name="HPOUT2R Input 1 Volume" value="26" />
@@ -406,16 +414,19 @@
 
     <!-- ### Scenario ### -->
 
-    <path name="scenario-headphones-default">
-        <ctl name="ASRC RATE 1" value="SYNCCLK rate 3" />
-        <ctl name="ISRC2INT1 Input" value="ASRC2L" />
+    <path name="scenario-headphones-normal">
+        <ctl name="ASRC RATE 1" value="SYNCCLK rate 1" />
+        <ctl name="HPOUT1 DRE Switch" value="1" />
+        <ctl name="DSP1 Firmware" value="EDAC" />
+        <ctl name="DSP1 Rate" value="SYNCCLK rate 1" />
+        <ctl name="DSP1 Aux 1" value="AIF1RX1" />
+        <ctl name="DSP1 Aux 2" value="AIF1RX2" />
         <ctl name="LHPF3 Input 1" value="None" />
         <ctl name="LHPF3 Input 2" value="None" />
-        <ctl name="HPOUT1 DRE Switch" value="0" />
-        <ctl name="HPOUT1L Input 1" value="AIF1RX1" />
-        <ctl name="HPOUT1R Input 1" value="AIF1RX2" />
-        <ctl name="HPOUT1L Input 2" value="ISRC2INT1" />
-        <ctl name="HPOUT1R Input 2" value="ISRC2INT1" />
+        <ctl name="HPOUT1L Input 1" value="DSP1.3" />
+        <ctl name="HPOUT1R Input 1" value="DSP1.4" />
+        <ctl name="HPOUT1L Input 2" value="ASRC2L" />
+        <ctl name="HPOUT1R Input 2" value="ASRC2R" />
     </path>
 
     <path name="scenario-headphones-incall-nb">
@@ -450,7 +461,7 @@
 
     <!-- ### Volume ### -->
 
-    <path name="volume-headphones-default">
+    <path name="volume-headphones-normal">
         <ctl name="Noise Gate Switch" value="0" />
         <ctl name="HPOUT1L Impedance Volume" value="114" />
         <ctl name="HPOUT1R Impedance Volume" value="114" />
@@ -1131,7 +1142,7 @@
 
         <!-- CP->HP -->
         <!--
-             Duplicate definition with scenario-headphones-default
+             Duplicate definition with scenario-headphones-normal
         <ctl name="HPOUT1L Input 2" value="None" />
         <ctl name="HPOUT1R Input 2" value="None" />
         -->
@@ -1297,16 +1308,16 @@
         <path name="verb-default" />
 
         <path name="device-speaker" />
-        <path name="scenario-speaker-default" />
-        <path name="volume-speaker-default" />
+        <path name="scenario-speaker-normal" />
+        <path name="volume-speaker-normal" />
     </path>
 
     <path name="media-headphones">
         <path name="verb-default" />
 
         <path name="device-headphones" />
-        <path name="scenario-headphones-default" />
-        <path name="volume-headphones-default" />
+        <path name="scenario-headphones-normal" />
+        <path name="volume-headphones-normal" />
     </path>
 
     <path name="media-bt-sco">
@@ -1329,24 +1340,24 @@
         <path name="verb-default" />
 
         <path name="device-speaker" />
-        <path name="scenario-speaker-default" />
-        <path name="volume-speaker-default" />
+        <path name="scenario-speaker-normal" />
+        <path name="volume-speaker-normal" />
     </path>
 
     <path name="voice-rec-headphones">
         <path name="verb-default" />
 
         <path name="device-headphones" />
-        <path name="scenario-headphones-default" />
-        <path name="volume-headphones-default" />
+        <path name="scenario-headphones-normal" />
+        <path name="volume-headphones-normal" />
     </path>
 
     <path name="communication-speaker">
         <path name="verb-default" />
 
         <path name="device-speaker" />
-        <path name="scenario-speaker-default" />
-        <path name="volume-speaker-default" />
+        <path name="scenario-speaker-normal" />
+        <path name="volume-speaker-normal" />
     </path>
 
     <path name="communication-earpiece">
@@ -1361,8 +1372,8 @@
         <path name="verb-default" />
 
         <path name="device-headphones" />
-        <path name="scenario-headphones-default" />
-        <path name="volume-headphones-default" />
+        <path name="scenario-headphones-normal" />
+        <path name="volume-headphones-normal" />
     </path>
 
     <path name="speaker-and-headphones">
@@ -1370,10 +1381,10 @@
 
         <path name="device-speaker" />
         <path name="device-headphones" />
-        <path name="scenario-speaker-default" />
-        <path name="scenario-headphones-default" />
-        <path name="volume-speaker-default" />
-        <path name="volume-headphones-default" />
+        <path name="scenario-speaker-normal" />
+        <path name="scenario-headphones-normal" />
+        <path name="volume-speaker-normal" />
+        <path name="volume-headphones-normal" />
     </path>
 
     <path name="bt-sco-carkit">
