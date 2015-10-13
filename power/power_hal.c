@@ -66,6 +66,7 @@ struct exynos5433_power_module {
     int boostpulse_warned;
     const char *touchscreen_power_path;
     const char *touchkey_power_path;
+    bool touchkey_blocked;
 };
 
 /* POWER_HINT_INTERACTION and POWER_HINT_VSYNC */
@@ -75,6 +76,36 @@ static bool touch_boost;
 
 /* POWER_HINT_LOW_POWER */
 static bool low_power_mode = false;
+
+static int sysfs_read(char *path, char *s, int num_bytes)
+{
+    char errno_str[64];
+    int len;
+    int ret = 0;
+    int fd;
+
+    fd = open(path, O_RDONLY);
+    if (fd < 0) {
+        strerror_r(errno, errno_str, sizeof(errno_str));
+        ALOGE("Error opening %s: %s\n", path, errno_str);
+
+        return -1;
+    }
+
+    len = read(fd, s, num_bytes - 1);
+    if (len < 0) {
+        strerror_r(errno, errno_str, sizeof(errno_str));
+        ALOGE("Error reading from %s: %s\n", path, errno_str);
+
+        ret = -1;
+    } else {
+        s[len] = '\0';
+    }
+
+    close(fd);
+
+    return ret;
+}
 
 static void sysfs_write(const char *path, char *s)
 {
@@ -192,6 +223,8 @@ static void exynos5433_power_set_interactive(struct power_module *module, int on
     struct exynos5433_power_module *exynos5433_pwr = (struct exynos5433_power_module *) module;
     struct stat sb;
     char buf[80];
+    char touchkey_node[2];
+    int touchkey_enabled;
     int rc;
 
     ALOGV("power_set_interactive: %d\n", on);
@@ -210,7 +243,24 @@ static void exynos5433_power_set_interactive(struct power_module *module, int on
     }
 
     sysfs_write(exynos5433_pwr->touchscreen_power_path, on ? "1" : "0");
-    sysfs_write(exynos5433_pwr->touchkey_power_path, on ? "1" : "0");
+    if (!on) {
+        if (sysfs_read(TOUCHKEY_PATH, touchkey_node, sizeof(touchkey_node)) == 0) {
+            touchkey_enabled = touchkey_node[0] - '0';
+            /*
+             * If touchkey_enabled is 0, they keys have been disabled by another component
+             * (for example cmhw), which means we don't want them to be enabled when resuming
+             * from suspend.
+             */
+            if (touchkey_enabled == 0) {
+                exynos5433_pwr->touchkey_blocked = true;
+            } else {
+                exynos5433_pwr->touchkey_blocked = false;
+                sysfs_write(exynos5433_pwr->touchkey_power_path, "0");
+            }
+        }
+    } else if (!exynos5433_pwr->touchkey_blocked) {
+        sysfs_write(exynos5433_pwr->touchkey_power_path, "1");
+    }
 
     ALOGV("power_set_interactive: %d done\n", on);
 }
