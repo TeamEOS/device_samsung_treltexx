@@ -1,0 +1,2 @@
+on fs
+    mkdir /data/property 0700 root root

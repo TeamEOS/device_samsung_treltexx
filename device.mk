@@ -21,6 +21,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     fstab.universal5433 \
     init.carrier.rc \
+    init.recovery.universal5433.rc \
     init.samsung.rc \
     init.universal5433.rc \
     init.universal5433.usb.rc \
