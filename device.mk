@@ -72,12 +72,8 @@ PRODUCT_COPY_FILES += \
 ### GRAPHICS
 ###########################################################
 
-# This device is xhdpi.  However the platform doesn't
-# currently contain all of the bitmaps at xhdpi density so
-# we do this little trick to fall back to the hdpi version
-# if the xhdpi doesn't exist.
-PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
-PRODUCT_AAPT_PREF_CONFIG := xhdpi
+PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi 560dpi xxxhdpi
+PRODUCT_AAPT_PREF_CONFIG := 560dpi
 
 # OpenGLES:
 # 196608 is decimal for 0x30000 to report major/minor versions as 3/0
