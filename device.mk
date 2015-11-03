@@ -78,8 +78,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
+# OpenGLES:
+# 196608 is decimal for 0x30000 to report major/minor versions as 3/0
+# 196609 is decimal for 0x30001 to report major/minor versions as 3/1
+# Set to 3.0 (even though the blobs support 3.1) to maintain compatibility
+# with third party applications that do not support 3.1
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=196609 \
+    ro.opengles.version=196608 \
     ro.sf.lcd_density=560 \
     ro.bq.gpu_to_cpu_unsupported=1
 
